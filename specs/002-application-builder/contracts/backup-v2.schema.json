@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pathfolio backup (version 2)",
+  "type": "object",
+  "required": ["app", "version", "plan"],
+  "properties": {
+    "app": { "const": "pathfolio" },
+    "version": { "type": "integer", "minimum": 1 },
+    "exportedAt": { "type": "string" },
+    "profile": { "type": "object" },
+    "quiz": { "type": ["object", "null"] },
+    "plan": { "type": "array", "items": { "type": "object", "required": ["id", "text", "cat"],
+      "properties": {
+        "id": { "type": "string" }, "text": { "type": "string" }, "cat": { "type": "string" },
+        "path": { "type": ["string", "null"] }, "done": { "type": "boolean" },
+        "isActivity": { "type": "boolean" }, "isHonor": { "type": "boolean" },
+        "details": { "type": "object" } } } },
+    "application": { "type": "object", "properties": {
+      "activityOrder": { "type": "array", "items": { "type": "string" } },
+      "honorOrder": { "type": "array", "items": { "type": "string" } } } }
+  }
+}
