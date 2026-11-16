@@ -55,7 +55,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Free",
   "deadline": null,
-  "deadlineNote": "Usually late October / early November",
+  "deadlineNote": "2026 challenge deadline was Oct 26; next year's dates not yet announced",
   "areas": [
    "cs",
    "design"
@@ -63,8 +63,11 @@ const OPPORTUNITIES = [
   "url": "https://www.congressionalappchallenge.us",
   "description": "Build an app. District winners are recognized by their member of Congress and showcased in Washington, D.C.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "closed",
+  "evidenceUrl": "https://www.congressionalappchallenge.us/students/rules/"
  },
  {
   "id": "cyberpatriot",
@@ -276,7 +279,7 @@ const OPPORTUNITIES = [
   "cost": "varies",
   "costNote": "Check current tuition and aid",
   "deadline": null,
-  "deadlineNote": "Online prerequisite course in winter/spring",
+  "deadlineNote": "2027 dates not published on the program page; check bwsi.mit.edu",
   "areas": [
    "eng",
    "cs",
@@ -285,8 +288,11 @@ const OPPORTUNITIES = [
   "url": "https://beaverworks.ll.mit.edu/CMS/bw/bwsi",
   "description": "Project-based STEM program for rising seniors: autonomous vehicles, drones, AI, remote sensing and more.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "Summer 2027",
+  "status": "unknown",
+  "evidenceUrl": "https://beaverworks.ll.mit.edu/CMS/bw/bwsi"
  },
  {
   "id": "nasa-ostem-internships",
@@ -305,7 +311,7 @@ const OPPORTUNITIES = [
   "minAge": 16,
   "cost": "stipend",
   "costNote": "Paid internships",
-  "deadline": null,
+  "deadline": "2027-03-01",
   "deadlineNote": "Summer session usually closes in late winter/early spring",
   "areas": [
    "eng",
@@ -316,8 +322,11 @@ const OPPORTUNITIES = [
   "url": "https://intern.nasa.gov",
   "description": "Paid internships working with NASA mentors on engineering, science, IT and more. U.S. citizens, 16+.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "Summer 2027",
+  "status": "upcoming",
+  "evidenceUrl": "https://www.nasa.gov/learning-resources/internship-programs/"
  },
  {
   "id": "picoctf",
@@ -341,15 +350,18 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Free",
   "deadline": null,
-  "deadlineNote": "Main competition usually in spring; practice year-round",
+  "deadlineNote": "picoCTF is now the CyLab Security Academy (CMU); no competition dates published",
   "areas": [
    "cs"
   ],
   "url": "https://picoctf.org",
   "description": "Free capture-the-flag cybersecurity competition and year-round practice platform.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "unknown",
+  "evidenceUrl": "https://picoctf.org"
  },
  {
   "id": "regeneron-sts",
@@ -367,7 +379,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Large scholarship awards",
   "deadline": null,
-  "deadlineNote": "Usually November of senior year",
+  "deadlineNote": "2027 applications closed Nov 5, 2026; next cycle typically opens in June",
   "areas": [
    "sci",
    "eng",
@@ -378,8 +390,11 @@ const OPPORTUNITIES = [
   "url": "https://www.societyforscience.org/regeneron-sts/",
   "description": "The nation's most prestigious science research competition for high-school seniors.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "closed",
+  "evidenceUrl": "https://www.societyforscience.org/regeneron-sts/"
  },
  {
   "id": "rsi",
@@ -396,7 +411,7 @@ const OPPORTUNITIES = [
   "minAge": null,
   "cost": "free",
   "costNote": "Tuition-free",
-  "deadline": null,
+  "deadline": "2026-12-11",
   "deadlineNote": "Usually mid-December",
   "areas": [
    "sci",
@@ -406,8 +421,11 @@ const OPPORTUNITIES = [
   "url": "https://www.cee.org/programs/research-science-institute",
   "description": "One of the most selective free summer research programs for high-school juniors.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "Summer 2027",
+  "status": "open",
+  "evidenceUrl": "https://www.cee.org/programs/research-science-institute"
  },
  {
   "id": "scholastic-art-writing",
@@ -430,7 +448,7 @@ const OPPORTUNITIES = [
   "cost": "fee",
   "costNote": "Small entry fee (fee waivers available)",
   "deadline": null,
-  "deadlineNote": "Usually December–January (varies by region)",
+  "deadlineNote": "2027 deadlines not on the home page; see the 2027 participation terms",
   "areas": [
    "arts",
    "design",
@@ -439,8 +457,11 @@ const OPPORTUNITIES = [
   "url": "https://www.artandwriting.org",
   "description": "The longest-running recognition program for creative teens in art and writing.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "unknown",
+  "evidenceUrl": "https://www.artandwriting.org"
  },
  {
   "id": "txsef",
@@ -463,7 +484,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Through school/regional fairs",
   "deadline": null,
-  "deadlineNote": "Regional fairs Jan–Feb; state fair in spring",
+  "deadlineNote": "2027 fair is April 2-3, 2027; registration deadline not confirmed on the home page",
   "areas": [
    "sci",
    "eng",
@@ -472,11 +493,14 @@ const OPPORTUNITIES = [
    "env",
    "psych"
   ],
-  "url": "https://txsef.org",
+  "url": "https://txsef.tamu.edu/",
   "description": "Texas' statewide science fair. Top high-school projects advance to Regeneron ISEF.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "unknown",
+  "evidenceUrl": "https://txsef.tamu.edu/"
  },
  {
   "id": "usaco",
@@ -509,6 +533,36 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": null,
   "source": "curated"
+ },
+ {
+  "id": "utsw-stars-summer-research",
+  "title": "UT Southwestern STARS Summer Research Program",
+  "org": "UT Southwestern Medical Center",
+  "type": "research",
+  "states": [
+   "TX"
+  ],
+  "location": "Dallas, TX",
+  "grades": [
+   11
+  ],
+  "minAge": 16,
+  "cost": "stipend",
+  "costNote": "Participants are paid a stipend; amount not published",
+  "deadline": "2027-01-22",
+  "opens": "2026-11-16",
+  "cycle": "Summer 2027",
+  "areas": [
+   "health",
+   "sci"
+  ],
+  "url": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
+  "description": "Eight-week, non-residential biomedical research program in a UT Southwestern lab with a faculty host. For North Texas juniors, 16+ by June 1, with no prior research experience. Students present results at the end.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
+  "status": "open",
+  "source": "web-research"
  },
  {
   "id": "wharton-investment",
