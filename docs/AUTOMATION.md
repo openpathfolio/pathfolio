@@ -67,4 +67,4 @@ Updates may only change time-sensitive fields, and never overwrite a newer verif
 When a state module becomes `available: true` (see [ADDING_A_STATE.md](ADDING_A_STATE.md)), create `data/opportunities/targets/<CODE>.json` with a target for every university in the state. CI enforces this. The state then joins the weekly matrix automatically.
 
 ## Weekly link check
-**Check links** (`.github/workflows/link-check.yml`) runs every Wednesday. It checks every URL in the site data and keeps **one** issue labelled `broken-links` up to date, closing it when everything passes. Sites that block automated checks (401/403/429) are listed separately for a quick manual look.
+**Check links** (`.github/workflows/link-check.yml`) runs every Wednesday. It checks every URL in the site data and keeps **one** issue labelled `broken-links` up to date, closing it when everything passes. Sites that refuse or time out on automated checks (401/403/429, timeouts; often bot protection) are listed separately for a quick manual look. Only definite failures (404/410, server errors, unknown domains, bad certificates) count as broken.

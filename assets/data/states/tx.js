@@ -72,7 +72,7 @@ registerState("TX", {
     areas: ["eng", "cs", "business", "ag", "health", "nursing", "education", "arch", "sci", "env", "law", "psych", "media"],
     notable: "One of the largest engineering colleges in the US. Nationally top agriculture, veterinary medicine, Mays Business, Bush School of Government, Architecture.",
     aid: "Aggie Assurance for lower-income families; large National Merit awards.",
-    links: { home: "https://www.tamu.edu", admissions: "https://admissions.tamu.edu", aid: "https://aggie.tamu.edu/financial-aid" } },
+    links: { home: "https://www.tamu.edu", admissions: "https://www.tamu.edu/admissions/how-to-apply/apply-as-freshman.html", aid: "https://financialaid.tamu.edu" } },
 
   { id: "smu", name: "Southern Methodist University", city: "Dallas", region: "Dallas–Fort Worth", type: "Private",
     rankSort: 91, rankLabel: "≈ top 100 National", acceptance: "~50%", tuition: 68000, coa: 90000, sel: "selective", autoPct: null,
@@ -93,7 +93,7 @@ registerState("TX", {
     areas: ["eng", "cs", "sci", "business", "health", "psych", "media", "education", "arts"],
     notable: "Small classes, ABET-accredited engineering science, CS, neuroscience, strong pre-med outcomes.",
     aid: "Generous merit and need-based aid.",
-    links: { home: "https://www.trinity.edu", admissions: "https://www.trinity.edu/admissions", aid: "https://www.trinity.edu/admissions-aid/financial-aid" } },
+    links: { home: "https://www.trinity.edu", admissions: "https://www.trinity.edu/admissions", aid: "https://www.trinity.edu/tuition-and-financial-aid-admissions-and-aid" } },
 
   { id: "utd", name: "University of Texas at Dallas", city: "Richardson", region: "Dallas–Fort Worth", type: "Public",
     rankSort: 105, rankLabel: "≈ top 110 National", acceptance: "~65–85%", tuition: 15000, coa: 33000, sel: "moderate", autoPct: 10,
@@ -107,21 +107,21 @@ registerState("TX", {
     areas: ["health", "nursing", "business", "eng", "cs", "education", "media", "law", "sci", "arts", "psych", "aviation"],
     notable: "Strong pre-med/health sciences, Louise Herrington Nursing, Hankamer Business, Aviation Sciences.",
     aid: "Automatic academic merit scholarships based on scores and GPA.",
-    links: { home: "https://www.baylor.edu", admissions: "https://www.baylor.edu/admissions", aid: "https://www.baylor.edu/sfs" } },
+    links: { home: "https://www.baylor.edu", admissions: "https://admissions.web.baylor.edu", aid: "https://www.baylor.edu/sfs" } },
 
   { id: "uh", name: "University of Houston", city: "Houston", region: "Houston & Gulf Coast", type: "Public",
     rankSort: 130, rankLabel: "≈ #125–135 National", acceptance: "~70%", tuition: 12000, coa: 30000, sel: "moderate", autoPct: 10,
     areas: ["eng", "cs", "business", "health", "nursing", "arch", "arts", "law", "education", "sci", "media", "psych", "env", "design"],
     notable: "Bauer Business, Hines Architecture, Moores School of Music, Pharmacy, energy engineering, Honors College.",
     aid: "Cougar Promise for lower-income families; merit aid.",
-    links: { home: "https://www.uh.edu", admissions: "https://www.uh.edu/admissions", aid: "https://www.uh.edu/financial" } },
+    links: { home: "https://www.uh.edu", admissions: "https://www.uh.edu/undergraduate-admissions", aid: "https://www.uh.edu/financial" } },
 
   { id: "southwestern", name: "Southwestern University", city: "Georgetown", region: "Central Texas", type: "Private",
     rankSort: 140, rankLabel: "≈ top 100 National Liberal Arts", acceptance: "~50–60%", tuition: 54000, coa: 70000, sel: "moderate", autoPct: null,
     areas: ["sci", "cs", "business", "psych", "arts", "education", "law", "media"],
     notable: "Oldest university in Texas, 30 min from Austin. Small liberal-arts college with close faculty research.",
     aid: "Most students receive merit or need aid.",
-    links: { home: "https://www.southwestern.edu", admissions: "https://www.southwestern.edu/admission", aid: "https://www.southwestern.edu/financial-aid" } },
+    links: { home: "https://www.southwestern.edu", admissions: "https://www.southwestern.edu/admission", aid: "https://www.southwestern.edu/scholarships-financial-aid/" } },
 
   { id: "stedwards", name: "St. Edward's University", city: "Austin", region: "Central Texas", type: "Private",
     rankSort: 150, rankLabel: "≈ top 20 Regional (West)", acceptance: "~80–90%", tuition: 53000, coa: 70000, sel: "moderate", autoPct: null,
@@ -219,7 +219,7 @@ registerState("TX", {
     areas: ["env", "ag", "education", "nursing", "business", "arts", "sci", "psych"],
     notable: "Arthur Temple College of Forestry & Agriculture, Nursing, Education. Pine-forest campus.",
     aid: "Merit scholarships.",
-    links: { home: "https://www.sfasu.edu", admissions: "https://www.sfasu.edu/admissions", aid: "https://www.sfasu.edu/financialaid" } },
+    links: { home: "https://www.sfasu.edu", admissions: "https://www.sfasu.edu/admissions", aid: "https://www.sfasu.edu/finaid" } },
 
   { id: "lamar", name: "Lamar University", city: "Beaumont", region: "Houston & Gulf Coast", type: "Public",
     rankSort: 410, rankLabel: "≈ National (unranked tier)", acceptance: "~85%", tuition: 11000, coa: 25000, sel: "accessible", autoPct: 10,
@@ -233,7 +233,7 @@ registerState("TX", {
   pathways: [
   { name: "Dual credit (high school + college)", desc: "Earn college credit tuition-free or at low cost in many Texas districts through local community colleges. Check transferability for the target major.", url: "https://www.texasgateway.org" },
   { name: "Community college → university transfer", desc: "Austin CC, Dallas College, Houston CC, Lone Star, Alamo Colleges, San Jacinto and others. Save $15–30k with guaranteed transfer agreements.", url: "https://www.mytexasfuture.org" },
-  { name: "UT Austin PACE program", desc: "Path to Admission through Co-Enrollment: take classes at UT and Austin Community College in year 1, then transfer to UT.", url: "https://pace.utexas.edu" },
+  { name: "UT Austin PACE program", desc: "Path to Admission through Co-Enrollment: take classes at UT and Austin Community College in year 1, then transfer to UT.", url: "https://liberalarts.utexas.edu/undergraduate-students/office-of-student-engagement/pace.html" },
   { name: "Texas A&M Engineering Academies", desc: "Start at a partner community college (e.g., Blinn, Austin CC, Houston CC) while taking A&M engineering courses, then transfer.", url: "https://engineering.tamu.edu/academies" },
   { name: "TSTC (Texas State Technical College)", desc: "Pay-for-performance technical degrees: aviation maintenance, welding, HVAC, electrical, IT, robotics/automation.", url: "https://www.tstc.edu" },
   { name: "JAMP (Joint Admission Medical Program)", desc: "Texas program for economically disadvantaged pre-med students: guaranteed medical-school admission if they meet the requirements. Apply in the 2nd year of college.", url: "https://www.texasjamp.org" },
