@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pathfolio opportunity",
+  "description": "One internship, summer program, research program, competition, scholarship, certification or volunteer opportunity for high-school students.",
+  "type": "object",
+  "required": ["id", "title", "org", "type", "states", "grades", "cost", "areas", "url", "description", "recurring"],
+  "additionalProperties": false,
+  "properties": {
+    "id":            { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Stable unique slug" },
+    "title":         { "type": "string", "minLength": 3 },
+    "org":           { "type": "string" },
+    "type":          { "enum": ["internship", "summer-program", "research", "competition", "scholarship", "certification", "volunteer", "publication"] },
+    "states":        { "type": "array", "items": { "type": "string", "pattern": "^(US|[A-Z]{2})$" }, "minItems": 1, "description": "US = open nationally; otherwise 2-letter state codes" },
+    "location":      { "type": "string", "description": "City, campus, or Online" },
+    "grades":        { "type": "array", "items": { "type": "integer", "minimum": 6, "maximum": 12 }, "minItems": 1 },
+    "minAge":        { "type": ["integer", "null"] },
+    "cost":          { "enum": ["free", "paid", "stipend", "fee", "varies"], "description": "paid/stipend = student is paid; fee = family pays" },
+    "costNote":      { "type": "string" },
+    "deadline":      { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "Exact next deadline if known (YYYY-MM-DD)" },
+    "deadlineNote":  { "type": "string", "description": "Typical timing, e.g. 'Usually mid-February'" },
+    "areas":         { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Keys from AREAS in assets/data/common/registry.js" },
+    "url":           { "type": "string", "pattern": "^https://" },
+    "description":   { "type": "string", "maxLength": 400 },
+    "recurring":     { "type": "boolean", "description": "Runs every year" },
+    "lastVerified":  { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "Date a human or fetcher confirmed details on the official page" },
+    "source":        { "type": "string", "description": "curated | name of automated source adapter" }
+  }
+}

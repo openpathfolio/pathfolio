@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pathfolio</title>
+  <meta name="description" content="Pathfolio: a free, open-source planner for high-school students and parents. Explore careers, compare universities, find internships, and track certificates, projects and research through college admission.">
+  <meta property="og:title" content="Pathfolio: plan your path from high school to college">
+  <meta property="og:description" content="Free career quiz, university guide, opportunities and application planner for students and parents.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#home" class="brand"><span aria-hidden="true">🧭</span> Pathfolio</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav" id="menuBtn">Menu</button>
+      <nav id="nav" aria-label="Main">
+        <a href="#home">Home</a>
+        <a href="#quiz">Career Quiz</a>
+        <a href="#explore">Career Paths</a>
+        <a href="#universities">Universities</a>
+        <a href="#opportunities">Opportunities</a>
+        <a href="#build">Build Profile</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#plan">My Plan <span id="planCount" class="pill"></span></a>
+        <a href="#parents">Parents</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+
+    <!-- ================= HOME ================= -->
+    <section id="home" class="view">
+      <div class="hero">
+        <p class="eyebrow">Free · Open source · No sign-up · Now covering <span class="state-name">Texas</span>, more states coming</p>
+        <h1>Still exploring careers? Let's find the path and build the plan.</h1>
+        <p class="lead">One place for students and parents to plan and track the journey from high school to college admission: discover career paths, compare universities, find internships and programs, and build a strong application with the right courses, certifications, projects and research.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#quiz">Take the Career Quiz →</a>
+          <a class="btn" href="#explore">Browse 26 Career Paths</a>
+        </div>
+      </div>
+
+      <div class="grid g4 steps">
+        <a class="card step" href="#home-profile"><b>1</b><span>Set up your profile</span><small>Grade, class rank, budget, region</small></a>
+        <a class="card step" href="#quiz"><b>2</b><span>Take the career quiz</span><small>Interests, subjects, values (~6 min)</small></a>
+        <a class="card step" href="#explore"><b>3</b><span>Open a career path</span><small>Courses, certificates, projects, internships, research</small></a>
+        <a class="card step" href="#plan"><b>4</b><span>Build your plan</span><small>Save ideas, track progress, print</small></a>
+      </div>
+
+      <div class="card" id="home-profile">
+        <h2>👤 Student profile <span class="muted small">(optional, saved only in this browser)</span></h2>
+        <form id="profileForm" class="grid g3 form">
+          <div><label for="pState">State</label><select id="pState"></select></div>
+          <div><label for="pGrade">Current grade</label>
+            <select id="pGrade"><option value="8">8th</option><option value="9">9th</option><option value="10">10th</option><option value="11" selected>11th</option><option value="12">12th</option></select></div>
+          <div><label for="pGrad">Graduation year</label><input id="pGrad" type="number" min="2026" max="2035"></div>
+          <div><label for="pRank">Class-rank percentile (top __%)</label><input id="pRank" type="number" min="0.1" max="100" step="0.1" placeholder="e.g. 8 (ask counselor)"></div>
+          <div><label for="pGpa">GPA (optional)</label><input id="pGpa" type="text" placeholder="e.g. 4.2 weighted"></div>
+          <div><label for="pRegion">Preferred region</label><select id="pRegion"></select></div>
+          <div><label for="pBudget">Yearly budget before aid</label>
+            <select id="pBudget"><option value="any">No limit / will seek aid</option><option value="16000">≤ $16k (public tuition)</option><option value="35000">≤ $35k</option><option value="60000">≤ $60k</option></select></div>
+          <div class="span-all"><label>Areas of interest (pick any, or none if undecided)</label><div id="pAreas" class="chips"></div></div>
+          <div class="span-all row"><button class="btn primary" type="submit">Save profile</button><span id="profileMsg" class="muted" aria-live="polite"></span></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>🧮 <span class="state-name">Texas</span> admission check</h2>
+        <div id="rankResult" aria-live="polite"><p class="muted">Enter a class-rank percentile in the profile above to see which automatic-admission rules apply in your state.</p></div>
+      </div>
+
+      <h2 class="section-title">⭐ <span class="state-name">Texas</span> essentials every family should know</h2>
+      <div id="essentials" class="grid g2"></div>
+    </section>
+
+    <!-- ================= QUIZ ================= -->
+    <section id="quiz" class="view" hidden>
+      <h1>Career Interest Quiz</h1>
+      <p class="lead">Three short parts: <strong>interests</strong> (18 statements), favorite <strong>subjects</strong>, and what you <strong>value</strong> in a career. It's based on the Holland RIASEC model used by the US Department of Labor's O*NET Interest Profiler. There are no right answers.</p>
+      <div id="quizBox" class="card">
+        <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+        <p class="muted small" id="qStep"></p>
+        <div id="qBody"></div>
+        <div class="row between">
+          <button class="btn" id="qBack" type="button">← Back</button>
+          <button class="btn primary" id="qNext" type="button">Next →</button>
+        </div>
+      </div>
+      <div id="quizResult" hidden></div>
+    </section>
+
+    <!-- ================= EXPLORE ================= -->
+    <section id="explore" class="view" hidden>
+      <h1>Career Paths</h1>
+      <p class="lead">26 paths across 7 clusters. Open any path for majors, employers in your state, and a full <strong>profile-building kit</strong>: courses, certifications, projects, internships, competitions, summer programs, research topics and where to publish.</p>
+      <div class="card filters">
+        <div><label for="eCluster">Cluster</label><select id="eCluster"></select></div>
+        <div><label for="eSearch">Search</label><input id="eSearch" type="search" placeholder="e.g. nursing, robots, law, music"></div>
+      </div>
+      <div id="pathList" class="grid g3"></div>
+    </section>
+
+    <!-- ================= PATH DETAIL ================= -->
+    <section id="path" class="view" hidden></section>
+
+    <!-- ================= UNIVERSITIES ================= -->
+    <section id="universities" class="view" hidden>
+      <h1><span class="state-name">Texas</span> Universities</h1>
+      <p class="lead">Public and private universities across every region, including HBCUs and liberal-arts colleges. Fit labels use your profile's class rank. All figures are approximate (researched <span class="updated"></span>). Always verify on official pages.</p>
+      <div class="filters card">
+        <div><label for="fArea">Study area</label><select id="fArea"></select></div>
+        <div><label for="fType">Type</label><select id="fType"><option value="all">All</option><option>Public</option><option>Private</option></select></div>
+        <div><label for="fRegion">Region</label><select id="fRegion"></select></div>
+        <div><label for="fCost">Max tuition / yr</label><select id="fCost"><option value="999999">Any</option><option value="12500">≤ $12.5k</option><option value="16000">≤ $16k</option><option value="61000">≤ $61k</option></select></div>
+        <div><label for="fSort">Sort by</label><select id="fSort"><option value="rankSort">Rank</option><option value="tuition">Tuition (low → high)</option><option value="name">Name</option></select></div>
+      </div>
+      <p class="muted" id="uniCount"></p>
+      <div id="uniList" class="grid g2"></div>
+      <h2 class="section-title">💡 Lower-cost & alternative pathways</h2>
+      <div id="pathwayList" class="grid g3"></div>
+      <p class="muted small">Total cost includes housing, food, books and personal costs before aid. Net cost after aid is often much lower, so use each school's Net Price Calculator. "≈" means approximate.</p>
+    </section>
+
+    <!-- ================= OPPORTUNITIES ================= -->
+    <section id="opportunities" class="view" hidden>
+      <h1>Opportunities</h1>
+      <p class="lead">Internships, summer programs, research, competitions and more, national and in your state. Listings are curated, and more are added through automated, human-reviewed updates. Programs change every year, so always confirm dates and eligibility on the official site.</p>
+      <div class="filters card">
+        <div><label for="oType">Type</label><select id="oType"></select></div>
+        <div><label for="oArea">Area</label><select id="oArea"></select></div>
+        <div><label for="oGrade">Grade</label><select id="oGrade"><option value="all">Any grade</option><option value="8">8th</option><option value="9">9th</option><option value="10">10th</option><option value="11">11th</option><option value="12">12th</option></select></div>
+        <div><label for="oCost">Cost</label><select id="oCost"><option value="all">Any</option><option value="free">Free or paid to student</option><option value="stipend">Paid / stipend only</option></select></div>
+        <div><label for="oSearch">Search</label><input id="oSearch" type="search" placeholder="e.g. NASA, cyber, essay"></div>
+      </div>
+      <p class="muted" id="oppCount"></p>
+      <div id="oppList" class="grid g3"></div>
+      <div class="card callout"><h3>➕ Know a great program?</h3><p>Pathfolio is community-maintained. <a href="https://github.com/openpathfolio/pathfolio/issues/new/choose" target="_blank" rel="noopener">Suggest an opportunity</a>. Free and paid-to-student programs are listed first, and we never list pay-to-play programs.</p></div>
+    </section>
+
+    <!-- ================= BUILD PROFILE ================= -->
+    <section id="build" class="view" hidden>
+      <h1>Build a Strong Application</h1>
+      <p class="lead">The seven pillars admissions officers look at, with state-specific tips where they matter. For ideas tailored to a career, open that <a href="#explore">career path</a> and add items to <a href="#plan">My Plan</a>.</p>
+      <div id="pillars" class="grid g2"></div>
+
+      <h2 class="section-title">🔬 How to get research experience as a high-schooler</h2>
+      <div class="grid g2">
+        <div class="card"><h3>Step by step</h3><ol>
+          <li><strong>Pick a question</strong> you genuinely care about. Start small and specific.</li>
+          <li><strong>Read</strong> 5–10 articles (Google Scholar, university news) to learn what's known.</li>
+          <li><strong>Find a mentor</strong>: a science teacher, a parent's colleague, or a university researcher (email template →).</li>
+          <li><strong>Follow the rules</strong>: research on people, animals or hazardous materials needs approval under science-fair (ISEF/TXSEF) rules.</li>
+          <li><strong>Present</strong> at your school or regional fair → TXSEF → Regeneron ISEF.</li>
+          <li><strong>Publish</strong> in a reputable student journal (free or low-fee, peer-reviewed).</li>
+        </ol></div>
+        <div class="card"><h3>✉️ Cold-email template for professors</h3>
+          <pre id="coldEmail" class="email"></pre>
+          <button class="btn" id="copyEmail" type="button">Copy template</button>
+          <p class="muted small">Tips: email 10–20 researchers, personalize each one, follow up once after 1–2 weeks, and be polite even if they say no.</p></div>
+      </div>
+      <h2 class="section-title">📰 Reputable places to publish or showcase work</h2>
+      <div id="publishList" class="link-list"></div>
+      <div class="card warn-card">
+        <h2>🚩 Red flags: save your money</h2>
+        <ul id="redFlags"></ul>
+      </div>
+    </section>
+
+    <!-- ================= ROADMAP ================= -->
+    <section id="roadmap" class="view" hidden>
+      <h1>Your Roadmap</h1>
+      <p class="lead" id="roadmapLead"></p>
+      <ol id="timeline" class="timeline"></ol>
+    </section>
+
+    <!-- ================= MY PLAN ================= -->
+    <section id="plan" class="view" hidden>
+      <h1>My Plan</h1>
+      <p class="lead">Your saved courses, certifications, projects, internships, research ideas and milestones. Saved in this browser only, so print or copy it to share.</p>
+      <div class="card">
+        <div class="progress"><div id="planBar"></div></div>
+        <p id="planStats" class="muted"></p>
+        <form id="addForm" class="row">
+          <input id="addText" type="text" placeholder="Add your own goal, e.g. 'Run for robotics captain'" aria-label="New plan item">
+          <select id="addCat" aria-label="Category"></select>
+          <button class="btn primary" type="submit">Add</button>
+        </form>
+        <div class="row no-print">
+          <button class="btn" id="importMilestones" type="button">＋ Add this year's roadmap milestones</button>
+          <button class="btn" id="copyPlan" type="button">📋 Copy as text</button>
+          <button class="btn" id="printPlan" type="button">🖨️ Print / PDF</button>
+          <button class="btn" id="clearPlan" type="button">Clear plan</button>
+        </div>
+      </div>
+      <div id="planList"></div>
+    </section>
+
+    <!-- ================= PARENTS ================= -->
+    <section id="parents" class="view" hidden>
+      <h1>Parent Corner</h1>
+      <p class="lead">Feeling confused is completely normal. Your role is to be a <strong>guide and sounding board</strong>, while your teen owns the journey.</p>
+      <div id="parentTips" class="grid g2"></div>
+    </section>
+
+    <!-- ================= RESOURCES ================= -->
+    <section id="resources" class="view" hidden>
+      <h1>Resources & Videos</h1>
+      <p class="lead">Curated channels, video searches (always fresh) and official national and state links. Each career path page has its own video links too.</p>
+      <h2 class="section-title">🎬 Career exploration (students)</h2>
+      <div id="resExplore" class="grid g3"></div>
+      <h2 class="section-title">👨‍👩‍👧 For parents</h2>
+      <div id="resParents" class="grid g3"></div>
+      <h2 class="section-title">🔗 Official links</h2>
+      <div id="resOfficial" class="link-list"></div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p><strong>Disclaimer:</strong> This is a free educational guide, not official admissions or financial advice. Rankings, tuition, admission rules, programs and deadlines change every year. Data researched <span class="updated"></span>. Always verify on official university websites.</p>
+    <p class="muted">Pathfolio by <a href="https://github.com/openpathfolio" target="_blank" rel="noopener">OpenPathfolio</a> · Open source (MIT) · No tracking · Your data never leaves your browser · <a href="https://github.com/openpathfolio/pathfolio/issues/new/choose" id="repoLink" target="_blank" rel="noopener">Suggest a correction</a></p>
+  </footer>
+
+  <script src="assets/data/common/registry.js"></script>
+  <script src="assets/data/common/paths.js"></script>
+  <script src="assets/data/common/content.js"></script>
+  <script src="assets/data/states/tx.js"></script>
+  <script src="assets/data/opportunities.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

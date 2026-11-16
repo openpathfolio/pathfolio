@@ -1,0 +1,44 @@
+name: Refresh opportunities
+
+# Runs source adapters weekly and opens a pull request for human review.
+# Requires: Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+on:
+  schedule:
+    - cron: "17 9 * * 1"   # Mondays 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-opportunities
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch from source adapters
+        run: node scripts/fetch-opportunities.mjs
+      - name: Build and validate
+        run: node scripts/build-opportunities.mjs
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/refresh-opportunities
+          commit-message: "Refresh opportunities from automated sources"
+          title: "Weekly opportunities refresh"
+          body: |
+            Automated refresh from `scripts/sources/*.mjs`.
+
+            **Reviewer checklist**
+            - [ ] Spot-check new listings on their official pages
+            - [ ] No pay-to-play programs or pay-to-publish journals
+            - [ ] Grades, ages, costs and deadlines look right
+          labels: data, automated
+          delete-branch: true
