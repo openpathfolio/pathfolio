@@ -74,11 +74,4 @@ scripts/                           build/validate + fetch adapters (no dependenc
 - `accessible` → Likely if top 50% or auto-admit, else Target.
 
 ## 6. Roadmap
-- [ ] Application export: Common App activities (150 chars), honors, brag sheet, resume (add dates/hours/role/impact to plan items)
-- [ ] Optional sync to the family's own cloud (e.g., Google Drive file) with no Pathfolio server
-- [ ] Official-feed source adapters where APIs exist
-- [ ] Second state (e.g., California: UC ELC, Cal Grant, CCC transfer)
-- [ ] Spanish translation (high value for Texas families)
-- [ ] Scholarship listings by state/region
-- [ ] Automated link checker workflow
-- [ ] Custom domain openpathfolio.org
+See **[ROADMAP.md](ROADMAP.md)** for the phased plan: research pipeline scaling, application builder, multi-state expansion, quality and community.
