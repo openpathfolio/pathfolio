@@ -27,8 +27,8 @@ const OPPORTUNITIES = [
    "arts",
    "business"
   ],
-  "url": "https://www.depts.ttu.edu/honors/academicsandenrichment/affiliatedandhighschool/clarks/",
-  "description": "Highly selective 7-week summer research program pairing students with Texas Tech faculty in any field.",
+  "url": "https://www.depts.ttu.edu/clarkscholars/",
+  "description": "Highly selective 7-week summer research program for rising high school seniors (and recent graduates), pairing students with Texas Tech faculty in many fields.",
   "recurring": true,
   "lastVerified": null,
   "source": "curated"
@@ -174,7 +174,7 @@ const OPPORTUNITIES = [
   "states": [
    "US"
   ],
-  "location": "Universities nationwide, several in Texas",
+  "location": "Host universities nationwide (hosts change each year)",
   "grades": [
    6,
    7,
@@ -192,8 +192,8 @@ const OPPORTUNITIES = [
   "areas": [
    "cs"
   ],
-  "url": "https://www.gen-cyber.com",
-  "description": "Free cybersecurity summer camps for students and teachers.",
+  "url": "https://public.cyber.mil/gencyber/",
+  "description": "Free cybersecurity summer camps for middle and high school students, funded by NSA and hosted by universities. Which campuses host camps changes every year, so check the official program page for current host camps.",
   "recurring": true,
   "lastVerified": null,
   "source": "curated"
