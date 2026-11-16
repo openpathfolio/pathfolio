@@ -14,10 +14,11 @@ Pathfolio is an open-source planner for **students and parents**, especially fam
 | 🧭 **Career quiz** | 18 interest statements (Holland RIASEC model, as used by O*NET) plus favorite subjects and values. You get an interest code and your top career matches. |
 | 🗂️ **26 career paths** | Engineering and tech, health, business, law and public service, arts and media, science and agriculture, and aviation and skilled trades |
 | 🧰 **Profile-building kit** | For each path: courses, industry certifications, projects, internships, competitions, summer programs, research topics, and reputable places to publish |
-| 📌 **Opportunities** | Internships, summer programs, research, competitions and publications. Filter by type, area, grade and cost. Refreshed weekly by a GitHub Action, with human review before anything goes live. |
+| 📌 **Opportunities** | Internships, summer programs, research, competitions and publications. **Published deadlines are highlighted** (closing soon, open, opening soon) and link to the official page as evidence. Refreshed weekly by **AI web research**, with human review before anything goes live. |
 | 🏫 **Universities** | Texas has 25 schools (public, private, HBCU, liberal arts), labeled Reach, Target or Likely with automatic-admission badges, plus lower-cost pathways |
 | 🗓️ **Roadmap** | Generated from the graduation year, with state-specific milestones |
 | ✅ **My Plan** | Save anything with one click, add your own goals, track progress, and print or copy the plan |
+| 💾 **Backup & restore** | Download a backup file or copy a private restore link, so data survives cleared browsers and moves between devices |
 | 👨‍👩‍👧 **Parents & resources** | Conversation guides, money tips, red flags, curated videos and official links |
 
 ## Project structure
@@ -53,9 +54,16 @@ It is served by GitHub Pages from the `main` branch. Every merge to `main` redep
 | Automation | What it does |
 |---|---|
 | **CI** (`.github/workflows/ci.yml`) | Runs on every pull request and push to `main`. Checks JavaScript syntax and validates opportunity data. |
-| **Refresh opportunities** (`.github/workflows/refresh-opportunities.yml`) | Runs every Monday, or manually from the Actions tab. Fetches from source adapters and opens a pull request for human review. |
+| **Refresh opportunities** (`.github/workflows/refresh-opportunities.yml`) | Runs every Monday, or manually from the Actions tab. Runs source adapters plus **AI web research** (Claude automatically, or a weekly issue for GitHub Copilot), then opens a pull request for human review. **Setup:** [docs/AUTOMATION.md](docs/AUTOMATION.md). |
 
 **Running your own copy (fork):** enable **Settings → Pages → Deploy from a branch → `main` / `(root)`** and **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"**.
+
+## Your data & privacy
+Pathfolio has **no accounts and no server database**. A student's profile and plan are stored in the browser's local storage on their own device. To make sure nothing is lost if browser data is cleared:
+- **💾 Download backup file**, then save it to Google Drive, iCloud or OneDrive, or email it to yourself. **Restore from file** works on any device.
+- **🔗 Copy restore link** creates a private link with the data compressed inside the part after `#`, which browsers never send to the web server. Opening the link restores everything. Treat it like a password.
+- The app asks the browser to keep its storage **persistent**, so the browser won't evict it automatically.
+- A reminder appears if there's unsaved progress and no backup in the last 14 days.
 
 ## Contributing
 Data corrections, new opportunities and new states are all welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/ADDING_A_STATE.md](docs/ADDING_A_STATE.md).

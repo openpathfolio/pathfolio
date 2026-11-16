@@ -33,7 +33,9 @@ A **free, public, open-source** web app for high-school students and parents (st
 | FR11 | **Parent corner** and **Resources** (videos, official national + state links) | ✅ |
 | FR12 | **Multi-state**: state registry + per-state data files + state picker | ✅ (TX live) |
 | FR13 | **Opportunities**: schema-validated listings, filters, "add to plan", related opportunities on path pages | ✅ |
-| FR14 | **Automation**: weekly GitHub Action runs source adapters → validates → opens PR for human review | ✅ (framework; adapters to be added) |
+| FR14 | **Automation**: weekly GitHub Action runs source adapters + AI web research (Claude action, or Copilot via weekly issue) → validates → opens PR with change summary for human review | ✅ |
+| FR16 | **Deadline highlighting**: published current-cycle deadlines are badged (closing soon / open / opening soon), sorted soonest first, filterable, with evidence links; upcoming deadlines on home page | ✅ |
+| FR17 | **Data safety**: backup file download/restore (merge or replace), compressed restore link in URL fragment, persistent-storage request, backup reminder | ✅ |
 | FR15 | **Application export**: Common App-style activities list (150 chars), honors, resume | ⏳ next |
 
 ## 4. Non-functional requirements
@@ -58,7 +60,7 @@ scripts/                           build/validate + fetch adapters (no dependenc
 ```
 
 ### Opportunity data flow
-`scripts/sources/*.mjs` (official APIs/feeds only) → `data/opportunities/sources/*.json` → `build-opportunities.mjs` (schema validation, dedupe with curated taking precedence, expired one-time listings dropped) → `assets/data/opportunities.js` → pull request → human review → merge → GitHub Pages.
+`scripts/sources/*.mjs` (official APIs/feeds) + weekly AI web research (`.github/prompts/opportunity-research.md`) → `data/opportunities/sources/*.json` (full entries, or `{updates, additions}`) → `build-opportunities.mjs` (schema validation; additions can't override existing ids; updates may only change time-sensitive fields; `--prune` removes one-time listings expired >30 days; output is deterministic so CI `--check` is stable) → `assets/data/opportunities.js` → pull request → human review → merge → GitHub Pages.
 
 ### Quiz scoring
 - Each RIASEC letter is scored 0–100% from three statements rated 0/1/2.
@@ -73,8 +75,8 @@ scripts/                           build/validate + fetch adapters (no dependenc
 
 ## 6. Roadmap
 - [ ] Application export: Common App activities (150 chars), honors, brag sheet, resume (add dates/hours/role/impact to plan items)
-- [ ] Export/import plan as a file the family owns (backup, move devices, share with a counselor)
-- [ ] First real opportunity source adapters (official feeds/APIs only)
+- [ ] Optional sync to the family's own cloud (e.g., Google Drive file) with no Pathfolio server
+- [ ] Official-feed source adapters where APIs exist
 - [ ] Second state (e.g., California: UC ELC, Cal Grant, CCC transfer)
 - [ ] Spanish translation (high value for Texas families)
 - [ ] Scholarship listings by state/region

@@ -133,7 +133,7 @@
   const CATS = { course: "📚 Courses", cert: "🏅 Certifications", project: "🛠️ Projects", intern: "💼 Internships & experience", compete: "🏆 Competitions & clubs", summer: "☀️ Summer programs", research: "🔬 Research", publish: "📰 Publish / showcase", milestone: "🗓️ Milestones", custom: "⭐ My goals" };
   let plan = store.get("plan", []);
   const inPlan = id => plan.some(p => p.id === id);
-  function savePlan() { store.set("plan", plan); updatePlanCount(); }
+  function savePlan() { store.set("plan", plan); updatePlanCount(); if (plan.length) requestPersistence(); if ($("#backupStatus")) renderBackupStatus(); }
   function updatePlanCount() { $("#planCount").textContent = plan.length ? plan.length : ""; }
   function addToPlan(text, cat, pathId) {
     const id = hash(cat + "|" + text);
@@ -192,6 +192,85 @@
     [phases[idx], phases[idx + 1]].filter(Boolean).forEach(p => p.items.forEach(t => addToPlan(t, "milestone")));
     renderPlan();
   });
+  /* ---------------- Backup & restore (data never leaves the device unless the user moves it) ---------------- */
+  const BACKUP_VERSION = 1;
+  function snapshot() {
+    return { app: "pathfolio", version: BACKUP_VERSION, exportedAt: new Date().toISOString(), profile, plan, quiz: store.get("quiz", null) };
+  }
+  function markBackedUp() { store.set("lastBackup", new Date().toISOString()); renderBackupStatus(); }
+  async function requestPersistence() {
+    try { if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch (e) { /* not supported */ }
+  }
+  async function renderBackupStatus() {
+    const last = store.get("lastBackup", null);
+    let persisted = false;
+    try { persisted = !!(navigator.storage && navigator.storage.persisted && await navigator.storage.persisted()); } catch (e) { /* ignore */ }
+    const days = last ? Math.floor((Date.now() - Date.parse(last)) / 864e5) : null;
+    $("#backupStatus").textContent = (last ? `Last backup: ${new Date(last).toLocaleDateString()}${days ? ` (${days} day${days === 1 ? "" : "s"} ago)` : " (today)"}` : "No backup yet.") +
+      (persisted ? " · Browser storage is marked persistent, so the browser won't auto-clear it (but clearing site data still erases it)." : "");
+    const needs = (plan.length || profile.rank || profile.areas.length) && (!last || days >= 14);
+    $("#backupNag").innerHTML = needs
+      ? `<div class="card nag"><span>💾 <strong>Your ${plan.length ? `${plan.length} plan item${plan.length === 1 ? "" : "s"} and profile are` : "profile is"} saved only in this browser.</strong> ${last ? `Last backup was ${days} days ago.` : "You haven't made a backup yet."}</span><a class="btn" href="#plan">Back up now</a></div>`
+      : "";
+  }
+  function download(name, text) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+    a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+  function applyBackup(data) {
+    if (!data || data.app !== "pathfolio" || !Array.isArray(data.plan)) throw new Error("This file is not a Pathfolio backup.");
+    const incoming = data.plan.filter(p => p && p.id && p.text && p.cat);
+    const merge = !plan.length || confirm(`Restore ${incoming.length} plan item(s) from ${data.exportedAt ? new Date(data.exportedAt).toLocaleDateString() : "backup"}?\n\nOK = merge with what's here now\nCancel = replace everything here with the backup`);
+    if (merge) {
+      const byId = new Map(plan.map(p => [p.id, p]));
+      incoming.forEach(p => { const cur = byId.get(p.id); if (cur) cur.done = cur.done || !!p.done; else plan.push({ ...p, done: !!p.done }); });
+    } else plan = incoming.map(p => ({ ...p, done: !!p.done }));
+    if (data.profile && typeof data.profile === "object") { profile = { ...profile, ...data.profile }; if (!STATES[profile.state]) profile.state = "TX"; store.set("profile", profile); }
+    if (data.quiz) store.set("quiz", data.quiz);
+    savePlan(); markBackedUp(); requestPersistence();
+    fillRegions(); fillProfileForm(); renderStateStatic(); renderRank(); renderUnis(); renderRoadmap(); renderOpps(); renderPlan();
+    return incoming.length;
+  }
+  /* Restore link: data is compressed into the URL fragment (#restore=…), which browsers never send to the server */
+  const b64u = bytes => btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const unb64u = s => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0));
+  async function pipe(bytes, stream) { return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(stream)).arrayBuffer()); }
+  async function encodeRestore(obj) {
+    const bytes = new TextEncoder().encode(JSON.stringify(obj));
+    if (typeof CompressionStream !== "undefined") return "z." + b64u(await pipe(bytes, new CompressionStream("deflate-raw")));
+    return "j." + b64u(bytes);
+  }
+  async function decodeRestore(s) {
+    const [kind, body] = [s.slice(0, 2), s.slice(2)];
+    let bytes = unb64u(body);
+    if (kind === "z.") bytes = await pipe(bytes, new DecompressionStream("deflate-raw"));
+    return JSON.parse(new TextDecoder().decode(bytes));
+  }
+  $("#downloadBackup").addEventListener("click", () => {
+    download(`pathfolio-backup-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(snapshot(), null, 2));
+    markBackedUp(); requestPersistence();
+  });
+  $("#restoreFile").addEventListener("change", async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try { const n = applyBackup(JSON.parse(await f.text())); alert(`✓ Restored ${n} plan item(s) and your profile.`); }
+    catch (err) { alert("Could not restore: " + err.message); }
+    e.target.value = "";
+  });
+  $("#copyRestoreLink").addEventListener("click", async () => {
+    const link = location.origin + location.pathname + "#restore=" + await encodeRestore(snapshot());
+    copy(link, $("#copyRestoreLink")); markBackedUp(); requestPersistence();
+  });
+  async function handleRestoreLink(payload) {
+    try {
+      const data = await decodeRestore(payload);
+      history.replaceState(null, "", location.pathname + "#plan");
+      if (confirm("Restore the Pathfolio plan and profile saved in this link?")) { const n = applyBackup(data); alert(`✓ Restored ${n} plan item(s).`); }
+    } catch (e) { alert("This restore link is incomplete or damaged."); history.replaceState(null, "", location.pathname + "#plan"); }
+    route();
+  }
+
   function copy(text, btn) {
     const done = () => { const o = btn.textContent; btn.textContent = "✓ Copied"; setTimeout(() => (btn.textContent = o), 1500); };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => prompt("Copy:", text));
@@ -263,7 +342,7 @@
       </div>
       <p class="small">New to research? Read the <a href="#build">research guide & professor email template</a>.</p>
 
-      ${(() => { const rel = oppsForState().filter(o => o.areas.some(a => p.areas.includes(a))).slice(0, 6);
+      ${(() => { const rel = oppsForState().filter(o => o.areas.some(a => p.areas.includes(a))).sort((a, b) => dateInfo(a).rank - dateInfo(b).rank).slice(0, 6);
         return rel.length ? `<h2 class="section-title">📌 Related opportunities</h2><div class="grid g3">${rel.map(oppCard).join("")}</div><p class="small"><a href="#opportunities">See all opportunities →</a></p>` : ""; })()}
 
       <h2 class="section-title">🏫 ${esc(ST().name)} universities for this path</h2>
@@ -286,30 +365,64 @@
   const OPP_CAT = { internship: "intern", "summer-program": "summer", research: "research", competition: "compete", scholarship: "custom", certification: "cert", volunteer: "intern", publication: "publish" };
   const COST = { free: "Free", paid: "Paid", stipend: "Paid / stipend", fee: "Fee", varies: "Cost varies" };
   const oppsForState = () => (typeof OPPORTUNITIES === "undefined" ? [] : OPPORTUNITIES).filter(o => o.states.includes("US") || o.states.includes(profile.state));
+  /* Deadline status: computed in the browser from today's date */
+  const parseDay = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const fmtDay = s => parseDay(s).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  function dateInfo(o) {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    if (o.status === "not-offered") return { kind: "closed", rank: 3e6, label: "Not offered this cycle" };
+    if (!o.deadline) return { kind: "none", rank: 1e6, label: o.deadlineNote || "Dates not yet published" };
+    const days = Math.round((parseDay(o.deadline) - today) / 864e5);
+    if (days < 0) return { kind: "closed", rank: 2e6 - days, label: `Closed ${fmtDay(o.deadline)}. Next cycle not announced yet` };
+    if (o.opens && parseDay(o.opens) > today) return { kind: "upcoming", rank: 5e5 + days, days, label: `Opens ${fmtDay(o.opens)} · Deadline ${fmtDay(o.deadline)}` };
+    if (days <= 14) return { kind: "soon", rank: days, days, label: days === 0 ? `Due TODAY (${fmtDay(o.deadline)})` : `Closes in ${days} day${days === 1 ? "" : "s"} (${fmtDay(o.deadline)})` };
+    return { kind: "open", rank: days, days, label: `Deadline ${fmtDay(o.deadline)} · ${days} days left` };
+  }
+  const DATE_ICON = { soon: "⏰", open: "📅", upcoming: "🔜", closed: "⛔", none: "🗓️" };
   function oppCard(o) {
-    const text = `${o.title} (${o.org})`;
-    return `<article class="card opp">
+    const di = dateInfo(o);
+    const text = `${o.title} (${o.org})${o.deadline && di.kind !== "closed" ? `: apply by ${fmtDay(o.deadline)}` : ""}`;
+    const verified = o.evidenceUrl
+      ? `<a class="small verified" href="${o.evidenceUrl}" target="_blank" rel="noopener">✓ Dates confirmed on official site${o.lastVerified ? ` (checked ${esc(o.lastVerified)})` : ""}</a>`
+      : `<span class="muted small">${o.lastVerified ? `Checked ${esc(o.lastVerified)}: dates not yet published` : "Check official site for current dates"}</span>`;
+    return `<article class="card opp dl-${di.kind}">
+      ${["open", "soon", "upcoming"].includes(di.kind) ? `<div class="dl-banner dl-${di.kind}">${DATE_ICON[di.kind]} ${esc(di.label)}${o.cycle ? ` <span class="cycle">${esc(o.cycle)}</span>` : ""}</div>` : ""}
       <p class="muted small cluster">${OPP_TYPES[o.type] || o.type}${o.states.includes("US") ? " · National" : " · " + esc(o.states.join(", "))}</p>
       <h3><a href="${o.url}" target="_blank" rel="noopener">${esc(o.title)} ↗</a></h3>
       <p class="small muted">${esc(o.org)}${o.location ? " · " + esc(o.location) : ""}</p>
       <p class="small">${esc(o.description)}</p>
       <div class="badges"><span class="badge ${o.cost === "fee" ? "warnb" : "likely"}">${COST[o.cost]}</span>
-        <span class="badge neutral">Grades ${Math.min(...o.grades)}–${Math.max(...o.grades)}${o.minAge ? ` · ${o.minAge}+` : ""}</span>
-        <span class="badge neutral">🗓️ ${o.deadline ? "Deadline " + esc(o.deadline) : esc(o.deadlineNote || "See website")}</span></div>
-      <div class="row between"><span class="muted small">${o.lastVerified ? "Verified " + esc(o.lastVerified) : "Check official site for current dates"}</span>${addBtn(text, OPP_CAT[o.type] || "custom")}</div>
+        <span class="badge neutral">${Math.min(...o.grades) === Math.max(...o.grades) ? `Grade ${o.grades[0]}` : `Grades ${Math.min(...o.grades)}–${Math.max(...o.grades)}`}${o.minAge ? ` · ${o.minAge}+` : ""}</span>
+        ${["none", "closed"].includes(di.kind) ? `<span class="badge neutral">${DATE_ICON[di.kind]} ${esc(di.label)}</span>` : ""}</div>
+      <div class="row between">${verified}${addBtn(text, OPP_CAT[o.type] || "custom")}</div>
     </article>`;
   }
   $("#oType").innerHTML = `<option value="all">All types</option>` + Object.entries(OPP_TYPES).map(([k, v]) => `<option value="${k}">${v}</option>`).join("");
   $("#oArea").innerHTML = `<option value="all">All areas</option>` + Object.entries(AREAS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join("");
   function renderOpps() {
-    const type = $("#oType").value, area = $("#oArea").value, grade = $("#oGrade").value, cost = $("#oCost").value, q = $("#oSearch").value.trim().toLowerCase();
-    const list = oppsForState().filter(o => (type === "all" || o.type === type) && (area === "all" || o.areas.includes(area)) &&
+    const type = $("#oType").value, area = $("#oArea").value, grade = $("#oGrade").value, cost = $("#oCost").value, dl = $("#oStatus").value, q = $("#oSearch").value.trim().toLowerCase();
+    const all = oppsForState().map(o => ({ o, di: dateInfo(o) }));
+    const list = all.filter(({ o, di }) => (type === "all" || o.type === type) && (area === "all" || o.areas.includes(area)) &&
       (grade === "all" || o.grades.includes(+grade)) && (cost === "all" || (cost === "free" ? ["free", "paid", "stipend"].includes(o.cost) : o.cost === cost)) &&
-      (!q || [o.title, o.org, o.description, o.location].join(" ").toLowerCase().includes(q)));
-    $("#oppList").innerHTML = list.map(oppCard).join("") || "<p>No opportunities match. Try widening the filters.</p>";
-    $("#oppCount").textContent = `Showing ${list.length} of ${oppsForState().length} opportunities (national + ${ST().name})`;
+      (dl === "all" || (dl === "published" && ["open", "soon", "upcoming"].includes(di.kind)) || (dl === "soon30" && di.days != null && di.days <= 30 && di.kind !== "upcoming") || (dl === "nodate" && di.kind === "none")) &&
+      (!q || [o.title, o.org, o.description, o.location].join(" ").toLowerCase().includes(q)))
+      .sort((a, b) => a.di.rank - b.di.rank || a.o.title.localeCompare(b.o.title));
+    const published = all.filter(x => ["open", "soon", "upcoming"].includes(x.di.kind)).length;
+    const soon = all.filter(x => x.di.days != null && x.di.days <= 30 && x.di.kind !== "upcoming").length;
+    $("#oppHighlights").innerHTML = published
+      ? `<strong>📅 ${published} opportunit${published === 1 ? "y has" : "ies have"} published deadlines</strong>${soon ? ` · <strong class="soon-text">⏰ ${soon} close${soon === 1 ? "s" : ""} within 30 days</strong>` : ""} · <button type="button" class="link-btn accent" id="showPublished">Show only these</button>`
+      : `🗓️ No deadlines for the upcoming cycle have been published yet. The weekly research update adds them as soon as programs announce dates.`;
+    const sp = $("#showPublished"); if (sp) sp.onclick = () => { $("#oStatus").value = "published"; renderOpps(); };
+    $("#oppList").innerHTML = list.map(x => oppCard(x.o)).join("") || "<p>No opportunities match. Try widening the filters.</p>";
+    $("#oppCount").textContent = `Showing ${list.length} of ${all.length} opportunities (national + ${ST().name}), soonest deadlines first`;
+    renderHomeDeadlines();
   }
-  ["#oType", "#oArea", "#oGrade", "#oCost"].forEach(s => $(s).addEventListener("change", renderOpps));
+  function renderHomeDeadlines() {
+    const up = oppsForState().map(o => ({ o, di: dateInfo(o) })).filter(x => ["open", "soon"].includes(x.di.kind)).sort((a, b) => a.di.rank - b.di.rank).slice(0, 3);
+    $("#homeDeadlines").innerHTML = up.length ? `<div class="card"><h2>📅 Upcoming deadlines</h2><ul class="kit-list">${up.map(x =>
+      `<li><span><a href="${x.o.url}" target="_blank" rel="noopener"><strong>${esc(x.o.title)}</strong></a><br><span class="small dl-text dl-${x.di.kind}">${DATE_ICON[x.di.kind]} ${esc(x.di.label)}</span></span></li>`).join("")}</ul><p class="small"><a href="#opportunities">See all opportunities →</a></p></div>` : "";
+  }
+  ["#oType", "#oArea", "#oGrade", "#oCost", "#oStatus"].forEach(s => $(s).addEventListener("change", renderOpps));
   $("#oSearch").addEventListener("input", renderOpps);
 
   /* ---------------- Build profile page ---------------- */
@@ -465,15 +578,18 @@
   }
   renderQuizStep();
   renderStateStatic();
+  renderHomeDeadlines();
+  renderBackupStatus();
 
   /* ---------------- Routing ---------------- */
   const views = $$(".view");
   function route() {
     let id = (location.hash || "#home").slice(1);
+    if (id.startsWith("restore=")) { handleRestoreLink(id.slice(8)); return; }
     if (id === "home-profile") { show("home"); $("#home-profile").scrollIntoView(); return; }
     if (id.startsWith("path/")) { renderPath(id.slice(5)); show("path"); window.scrollTo(0, 0); return; }
     if (!document.getElementById(id) || !document.getElementById(id).classList.contains("view")) id = "home";
-    if (id === "plan") renderPlan();
+    if (id === "plan") { renderPlan(); renderBackupStatus(); }
     if (id === "universities") renderUnis();
     if (id === "roadmap") renderRoadmap();
     if (id === "opportunities") renderOpps();

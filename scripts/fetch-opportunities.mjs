@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Run every source adapter in scripts/sources/*.mjs and save results to
- * data/opportunities/sources/<adapter>.json. The scheduled GitHub Action then
+ * data/opportunities/sources/<adapter>.json. (web-research.json is written by the
+ * weekly AI research step instead; see .github/prompts/opportunity-research.md.) The scheduled GitHub Action then
  * runs build-opportunities.mjs and opens a pull request for HUMAN REVIEW.
  *
  * Adapter contract (see scripts/sources/README.md):
@@ -35,6 +36,7 @@ let failures = 0;
 for (const file of readdirSync(ADAPTERS).filter(f => f.endsWith(".mjs"))) {
   const mod = await import(pathToFileURL(join(ADAPTERS, file)));
   if (!mod.enabled) { console.log(`- skip ${file} (disabled)`); continue; }
+  if (mod.name === "web-research") { console.error(`✖ ${file}: the name "web-research" is reserved for the weekly AI research file`); failures++; continue; }
   try {
     const items = (await mod.fetchOpportunities(ctx)).map(o => ({ ...o, source: mod.name, lastVerified: ctx.today }));
     writeFileSync(join(OUT, `${mod.name}.json`), JSON.stringify(items, null, 2) + "\n");

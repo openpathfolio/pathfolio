@@ -224,3 +224,25 @@ input, select { font: inherit; padding: 9px 10px; border: 1px solid var(--border
 .opp h3 a:hover { text-decoration: underline; }
 .opp .cluster { margin: 0 0 4px; text-transform: uppercase; letter-spacing: .05em; font-size: .72rem; }
 .opp .row { margin-top: 8px; }
+
+/* Deadline highlighting */
+.opp { position: relative; overflow: hidden; }
+.opp.dl-open, .opp.dl-upcoming { border: 2px solid var(--accent); }
+.opp.dl-soon { border: 2px solid var(--reach); }
+.opp.dl-closed { opacity: .75; }
+.dl-banner { margin: -18px -18px 12px; padding: 8px 18px; font-weight: 700; font-size: .9rem; color: #fff; background: var(--accent); }
+.dl-banner.dl-soon { background: var(--reach); }
+.dl-banner.dl-upcoming { background: color-mix(in srgb, var(--accent) 75%, #000); }
+.dl-banner .cycle { white-space: nowrap; display: inline-block; font-weight: 600; font-size: .75rem; background: rgba(255,255,255,.22); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
+.dl-text.dl-soon, .soon-text { color: var(--reach); font-weight: 700; }
+.dl-text.dl-open { color: var(--accent); font-weight: 600; }
+.verified { color: var(--likely); font-weight: 600; text-decoration: none; }
+.verified:hover { text-decoration: underline; }
+.highlight-bar { background: var(--callout); margin-top: 0; }
+.link-btn.accent { color: var(--accent); font-weight: 700; text-decoration: underline; padding: 0; }
+
+/* Backup */
+.backup { border-left: 4px solid var(--accent); }
+.backup label.btn { margin: 0; font-size: 1rem; }
+.nag { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-left: 4px solid var(--warn); }
+@media print { .backup, #backupNag { display: none !important; } }
