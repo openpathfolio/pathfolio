@@ -159,7 +159,7 @@
     $("#planStats").textContent = plan.length ? `${done} of ${plan.length} done (${pct}%)` : "Your plan is empty. Open a career path and click ＋ Plan on ideas you like, or add your own below.";
     $("#planList").innerHTML = Object.entries(CATS).map(([cat, label]) => {
       const items = plan.filter(p => p.cat === cat); if (!items.length) return "";
-      return `<div class="card"><h3>${label}</h3><ul class="checklist">${items.map(p => `<li><label><input type="checkbox" data-done="${p.id}" ${p.done ? "checked" : ""}> <span>${esc(p.text)}${p.path && PATH_BY_ID[p.path] ? ` <a class="muted small" href="#path/${p.path}">· ${esc(PATH_BY_ID[p.path].name)}</a>` : ""}</span></label><button type="button" class="link-btn no-print" data-del="${p.id}" aria-label="Remove">✕</button></li>`).join("")}</ul></div>`;
+      return `<div class="card"><h3>${label}</h3><ul class="checklist">${items.map(p => `<li><div class="item-main"><label><input type="checkbox" data-done="${p.id}" ${p.done ? "checked" : ""}> <span>${esc(p.text)}${p.path && PATH_BY_ID[p.path] ? ` <a class="muted small" href="#path/${p.path}">· ${esc(PATH_BY_ID[p.path].name)}</a>` : ""}</span></label>${planRowExtras(p)}</div><button type="button" class="link-btn no-print" data-del="${p.id}" aria-label="Remove ${esc(p.text)}">✕</button></li>`).join("")}</ul></div>`;
     }).join("");
   }
   $("#addCat").innerHTML = Object.entries(CATS).map(([k, v]) => `<option value="${k}" ${k === "custom" ? "selected" : ""}>${v}</option>`).join("");
@@ -172,8 +172,17 @@
     const it = plan.find(p => p.id === id); if (it) { it.done = e.target.checked; savePlan(); renderPlan(); }
   });
   $("#planList").addEventListener("click", e => {
+    const ed = e.target.closest("[data-edit]"); if (ed) { openEditor(ed.dataset.edit, ed); return; }
+    const fl = e.target.closest("[data-flag]");
+    if (fl) {
+      const it = plan.find(p => p.id === fl.dataset.id); if (!it) return;
+      it[fl.dataset.flag] = !it[fl.dataset.flag]; if (!it[fl.dataset.flag]) delete it[fl.dataset.flag];
+      savePlan(); saveApp(); renderPlan();
+      const again = $(`#planList [data-flag="${fl.dataset.flag}"][data-id="${fl.dataset.id}"]`); if (again) again.focus();
+      return;
+    }
     const id = e.target.dataset.del; if (!id) return;
-    plan = plan.filter(p => p.id !== id); savePlan(); renderPlan();
+    plan = plan.filter(p => p.id !== id); savePlan(); saveApp(); renderPlan();
   });
   $("#clearPlan").addEventListener("click", () => { if (confirm("Remove all items from your plan?")) { plan = []; savePlan(); renderPlan(); } });
   $("#printPlan").addEventListener("click", () => window.print());
@@ -192,10 +201,250 @@
     [phases[idx], phases[idx + 1]].filter(Boolean).forEach(p => p.items.forEach(t => addToPlan(t, "milestone")));
     renderPlan();
   });
+  /* ---------------- Application builder (spec 002) ---------------- */
+  let appState = Object.assign({ activityOrder: [], honorOrder: [], note: "", resume: {} }, store.get("application", {}));
+  function saveApp() { Object.assign(appState, PF_APP.normalizeOrders(plan, appState)); store.set("application", appState); }
+  function planRowExtras(p) {
+    const sum = PF_APP.summaryLine(p);
+    return `<div class="item-tools no-print">
+        <button type="button" class="chip-btn" data-edit="${p.id}" aria-label="Edit application details for ${esc(p.text)}">✎ Details</button>
+        <button type="button" class="chip-btn ${p.isActivity ? "on" : ""}" aria-pressed="${!!p.isActivity}" data-flag="isActivity" data-id="${p.id}">Activity</button>
+        <button type="button" class="chip-btn ${p.isHonor ? "on" : ""}" aria-pressed="${!!p.isHonor}" data-flag="isHonor" data-id="${p.id}">Honor</button>
+      </div>${sum ? `<p class="small muted item-sum">${esc(sum)}</p>` : ""}`;
+  }
+
+  /* --- Details editor (US1) --- */
+  const dlg = $("#detailDialog");
+  let editingId = null, editorReturn = null;
+  const gradeChecks = name => [9, 10, 11, 12].map(g => `<label class="inline"><input type="checkbox" name="${name}" value="${g}"> ${g}th</label>`).join("");
+  $("#dType").innerHTML = `<option value="">Choose…</option>` + ACTIVITY_TYPES.map(t => `<option>${esc(t)}</option>`).join("");
+  $("#dRecognition").innerHTML = `<option value="">Choose…</option>` + RECOGNITION_LEVELS.map(t => `<option>${esc(t)}</option>`).join("");
+  $("#dGrades").innerHTML = gradeChecks("dg");
+  $("#dHonorGrades").innerHTML = gradeChecks("dhg");
+  $("#dTiming").innerHTML = Object.entries(TIMING).map(([k, v]) => `<label class="inline"><input type="checkbox" name="dt" value="${k}"> ${esc(v)}</label>`).join("");
+  const checkedVals = name => $$(`#detailForm input[name="${name}"]:checked`).map(i => i.value);
+  const setChecked = (name, vals) => $$(`#detailForm input[name="${name}"]`).forEach(i => (i.checked = (vals || []).map(String).includes(i.value)));
+
+  function updateEditor() {
+    $$("#detailForm .counter").forEach(c => {
+      const st = PF_APP.limitStatus($("#" + c.dataset.for).value, APP_LIMITS[c.dataset.limit]);
+      c.textContent = `${st.count} / ${st.limit}${st.over ? " · over limit" : ""}`;
+      c.classList.toggle("over", st.over);
+    });
+    const w = PF_APP.weakOpener($("#dDescription").value);
+    $("#dTip").textContent = w ? `Tip: instead of “${w}…”, start with a strong verb such as ${STRONG_VERBS.slice(0, 6).join(", ")}. Add numbers where you can.` : "";
+    const h = parseFloat($("#dHours").value), wk = parseFloat($("#dWeeks").value), warns = [];
+    if (h > APP_LIMITS.hoursWarn) warns.push(`more than ${APP_LIMITS.hoursWarn} hours per week`);
+    if (wk > APP_LIMITS.weeksMax) warns.push(`more than ${APP_LIMITS.weeksMax} weeks per year`);
+    $("#dTimeWarn").textContent = warns.length ? `Please double-check: ${warns.join(" and ")}. Honest estimates are best.` : "";
+    $("#dHonorFields").hidden = !$("#dIsHonor").checked;
+  }
+  $("#detailForm").addEventListener("input", updateEditor);
+  $("#detailForm").addEventListener("change", updateEditor);
+
+  function openEditor(id, returnFocus) {
+    const it = plan.find(p => p.id === id); if (!it) return;
+    editingId = id; editorReturn = returnFocus || null;
+    const d = it.details || {};
+    $("#dlgItem").textContent = it.text;
+    $("#dIsActivity").checked = !!it.isActivity; $("#dIsHonor").checked = !!it.isHonor;
+    $("#dType").value = d.type || CAT_TO_TYPE[it.cat] || "";
+    $("#dPosition").value = d.position || ""; $("#dOrg").value = d.org || ""; $("#dDescription").value = d.description || "";
+    setChecked("dg", d.grades); setChecked("dt", d.timing); setChecked("dhg", d.honorGrades);
+    $("#dHours").value = d.hoursPerWeek ?? ""; $("#dWeeks").value = d.weeksPerYear ?? "";
+    $("#dContinue").checked = d.continueInCollege === true;
+    $("#dImpact").value = d.impact || ""; $("#dLink").value = d.link || "";
+    $("#dHonorTitle").value = d.honorTitle || ""; $("#dHonorTitle").placeholder = it.text;
+    $("#dRecognition").value = d.recognition || "";
+    updateEditor();
+    if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+    $("#dPosition").focus();
+  }
+  function closeEditor() {
+    if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open");
+    editingId = null;
+    if (editorReturn && document.contains(editorReturn)) editorReturn.focus();
+  }
+  $("#dCancel").addEventListener("click", closeEditor);
+  dlg.addEventListener("cancel", e => { e.preventDefault(); closeEditor(); });
+  $("#detailForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const it = plan.find(p => p.id === editingId); if (!it) { closeEditor(); return; }
+    const num = v => (v === "" || v === null ? null : Number(v));
+    const honorTitle = $("#dHonorTitle").value.trim();
+    const details = PF_APP.cleanDetails({
+      type: $("#dType").value, position: $("#dPosition").value, org: $("#dOrg").value, description: $("#dDescription").value,
+      grades: checkedVals("dg").map(Number), timing: checkedVals("dt"),
+      hoursPerWeek: num($("#dHours").value), weeksPerYear: num($("#dWeeks").value),
+      continueInCollege: $("#dContinue").checked ? true : null,
+      impact: $("#dImpact").value, link: $("#dLink").value,
+      honorTitle: honorTitle && honorTitle !== it.text ? honorTitle : "", recognition: $("#dRecognition").value,
+      honorGrades: checkedVals("dhg").map(Number)
+    });
+    if (details) it.details = details; else delete it.details;
+    if ($("#dIsActivity").checked) it.isActivity = true; else delete it.isActivity;
+    if ($("#dIsHonor").checked) it.isHonor = true; else delete it.isHonor;
+    const ret = editorReturn && editorReturn.dataset ? { edit: editorReturn.dataset.edit, edit2: editorReturn.dataset.edit2 } : null;
+    savePlan(); saveApp(); renderPlan();
+    if (location.hash === "#application") renderApplication();
+    if (ret) editorReturn = $(ret.edit ? `[data-edit="${ret.edit}"]` : `[data-edit2="${ret.edit2}"]`);
+    closeEditor();
+  });
+
+  /* --- Application view (US2, US3, US4) --- */
+  let appTab = "activities";
+  const byIdMap = () => new Map(plan.map(p => [p.id, p]));
+  const isHttps = u => /^https:\/\/\S+$/.test(u || "");
+  function interestsList() {
+    const fromProfile = (profile.areas || []).map(a => AREAS[a]).filter(Boolean);
+    const counts = {};
+    plan.forEach(p => { if (p.path && PATH_BY_ID[p.path]) counts[p.path] = (counts[p.path] || 0) + 1; });
+    const fromPaths = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([id]) => PATH_BY_ID[id].name);
+    return [...new Set([...fromPaths, ...fromProfile])];
+  }
+  function appModel() {
+    return PF_APP.resumeModel(profile, plan, appState, { ...appState.resume, note: appState.note, interests: interestsList() });
+  }
+  function toolbar(doc, info) {
+    return `<div class="doc-toolbar no-print"><p class="muted small">${info}</p><div class="row">
+      <button type="button" class="btn" data-copydoc="${doc}">📋 Copy as text</button>
+      <button type="button" class="btn" data-printdoc="${doc}">🖨️ Print / PDF</button></div></div>`;
+  }
+  const field = (label, val, limitKey) => {
+    const st = limitKey ? PF_APP.limitStatus(val, APP_LIMITS[limitKey]) : null;
+    return `<div class="af"><span class="af-label">${label}${st ? ` <span class="counter ${st.over ? "over" : ""}">${st.count}/${st.limit}</span>` : ""}</span><span class="af-val">${val ? esc(val) : `<span class="muted">—</span>`}</span></div>`;
+  };
+  const emptyState = what => `<div class="card empty"><p>No ${what} yet. In <a href="#plan">My Plan</a>, press <strong>${what === "activities" ? "Activity" : "Honor"}</strong> on an item (or open <strong>✎ Details</strong>). Need ideas? Open a <a href="#explore">career path</a> and add items to your plan.</p></div>`;
+
+  function listCards(kind) {
+    const order = kind === "activities" ? appState.activityOrder : appState.honorOrder;
+    const limit = kind === "activities" ? APP_LIMITS.activities : APP_LIMITS.honors;
+    const map = byIdMap();
+    return `<ol class="app-list">${order.map((id, i) => {
+      const it = map.get(id); if (!it) return "";
+      const d = it.details || {};
+      const inc = i < limit;
+      const issues = kind === "activities" ? PF_APP.activityIssues(it) : PF_APP.honorIssues(it);
+      const body = kind === "activities"
+        ? field("Activity type", d.type) + field("Position / leadership", d.position, "position") + field("Organization", d.org, "org") +
+          field("Description", d.description, "description") +
+          field("Grades · timing", [PF_APP.gradesLabel(d.grades) && `Gr ${PF_APP.gradesLabel(d.grades)}`, PF_APP.timingLabel(d.timing)].filter(Boolean).join(" · ")) +
+          field("Hours/week · weeks/year", [d.hoursPerWeek != null ? `${d.hoursPerWeek} h/wk` : "", d.weeksPerYear != null ? `${d.weeksPerYear} wk/yr` : ""].filter(Boolean).join(" · "))
+        : field("Honor title", d.honorTitle || it.text, "honorTitle") + field("Grade levels", PF_APP.gradesLabel(d.honorGrades)) + field("Recognition", d.recognition);
+      return `<li class="card app-item ${inc ? "" : "overflow"}" data-idx="${i}">
+        <div class="app-item-head"><span class="app-num">${i + 1}</span><h3>${esc(it.text)}</h3>
+          <span class="badge ${inc ? "likely" : "warnb"}">${inc ? "Included" : `Not included (limit ${limit})`}</span></div>
+        <div class="af-grid">${body}</div>
+        ${issues.length ? `<ul class="issues">${issues.map(x => `<li>⚠ ${esc(x)}</li>`).join("")}</ul>` : `<p class="ok-line small">✓ Complete</p>`}
+        <div class="row no-print">
+          <button type="button" class="btn small-btn" data-move="${kind}" data-dir="-1" data-id="${id}" ${i === 0 ? "disabled" : ""} aria-label="Move ${esc(it.text)} up">↑</button>
+          <button type="button" class="btn small-btn" data-move="${kind}" data-dir="1" data-id="${id}" ${i === order.length - 1 ? "disabled" : ""} aria-label="Move ${esc(it.text)} down">↓</button>
+          <button type="button" class="btn small-btn" data-edit2="${id}">✎ Edit</button>
+        </div></li>`;
+    }).join("")}</ol>`;
+  }
+
+  function renderResumeDoc(m) {
+    const ed = [m.education.school, m.education.gradYear ? `Class of ${m.education.gradYear}` : "", m.education.gpa ? `GPA ${m.education.gpa}` : ""].filter(Boolean).join(" · ");
+    const sec = (title, inner) => inner ? `<section><h3>${title}</h3>${inner}</section>` : "";
+    return `<article class="resume doc">
+      <header><h2>${m.name ? esc(m.name) : `<span class="muted no-print">Your name (add it above)</span>`}</h2>${m.contact ? `<p>${esc(m.contact)}</p>` : ""}</header>
+      ${sec("Education", ed ? `<p>${esc(ed)}</p>` : "")}
+      ${sec("Activities & Leadership", m.activities.length ? `<ul>${m.activities.map(a => `<li><strong>${esc(a.label)}</strong>${[a.position, a.title !== a.label ? a.title : ""].filter(Boolean).length ? `: ${esc([a.position, a.title !== a.label ? a.title : ""].filter(Boolean).join(", "))}` : ""}<span class="muted">${[a.grades ? ` · Gr ${a.grades}` : "", a.hoursPerWeek != null ? ` · ${a.hoursPerWeek} hrs/wk` : ""].join("")}</span>${a.description || a.impact ? `<br><span class="r-desc">${esc(a.description)}${a.description && a.impact ? " " : ""}${a.impact ? `<em>${esc(a.impact)}</em>` : ""}</span>` : ""}${isHttps(a.link) ? `<br><a href="${esc(a.link)}">${esc(a.link)}</a>` : ""}</li>`).join("")}</ul>` : "")}
+      ${sec("Honors & Awards", m.honors.length ? `<ul>${m.honors.map(h => `<li>${esc(h.title)}<span class="muted">${h.grades ? ` · Gr ${esc(h.grades)}` : ""}${h.recognition ? ` · ${esc(h.recognition)}` : ""}</span></li>`).join("")}</ul>` : "")}
+      ${sec("Certifications", m.certifications.length ? `<p>${esc(m.certifications.join(" · "))}</p>` : "")}
+      ${sec("Skills", m.skills.length ? `<p>${esc(m.skills.join(" · "))}</p>` : "")}
+    </article>`;
+  }
+
+  function renderApplication() {
+    saveApp();
+    const nA = appState.activityOrder.length, nH = appState.honorOrder.length;
+    $("#actCount").textContent = nA || ""; $("#honCount").textContent = nH || "";
+    const m = appModel();
+    $("#panel-activities").innerHTML = toolbar("activities", `${Math.min(nA, APP_LIMITS.activities)} of ${APP_LIMITS.activities} included. Order by importance. Limits: position ${APP_LIMITS.position}, organization ${APP_LIMITS.org}, description ${APP_LIMITS.description} characters.`) +
+      (nA ? listCards("activities") : emptyState("activities"));
+    $("#panel-honors").innerHTML = toolbar("honors", `${Math.min(nH, APP_LIMITS.honors)} of ${APP_LIMITS.honors} included. Title limit ${APP_LIMITS.honorTitle} characters. Add grade levels and recognition level.`) +
+      (nH ? listCards("honors") : emptyState("honors"));
+    $("#panel-brag").innerHTML = toolbar("brag", "Give this to the teachers and counselor writing your recommendations, about 4–6 weeks before deadlines.") +
+      `<div class="card no-print"><label for="bragNote">What I'd like my recommenders to know (challenges, goals, a story behind an activity)</label>
+        <textarea id="bragNote" rows="4">${esc(appState.note || "")}</textarea></div>
+       <article class="card doc brag"><pre class="doc-text">${esc(PF_APP.bragText(m))}</pre></article>`;
+    const r = appState.resume || {};
+    $("#panel-resume").innerHTML = toolbar("resume", "One page, built only from what you entered. Your name and contact details stay on this device.") +
+      `<div class="card no-print resume-form"><div class="grid g2">
+        <div><label for="rName">Name</label><input id="rName" type="text" value="${esc(r.name || "")}" autocomplete="name"></div>
+        <div><label for="rSchool">High school</label><input id="rSchool" type="text" value="${esc(r.school || "")}"></div>
+        <div><label for="rContact">Contact line (optional)</label><input id="rContact" type="text" value="${esc(r.contact || "")}" placeholder="City, State · email"></div>
+        <div><label for="rSkills">Skills (comma-separated)</label><input id="rSkills" type="text" value="${esc(r.skills || "")}" placeholder="Python, CAD, Spanish (fluent)"></div>
+      </div></div>` + renderResumeDoc(m);
+    const hints = (ST().appHints || []);
+    $("#panel-tips").innerHTML = `<div class="grid g2">${APP_TIPS.map(t => `<div class="card"><h3>${esc(t.t)}</h3><p>${esc(t.d)}</p></div>`).join("")}</div>` +
+      (hints.length ? `<h2 class="section-title">${esc(ST().name)} application notes</h2><div class="grid g2">${hints.map(h => `<div class="card"><h3>${esc(h.t)}</h3><p>${esc(h.d)}</p><a href="${h.url}" target="_blank" rel="noopener">Official source ↗</a></div>`).join("")}</div>` : "") +
+      `<p class="muted small">Field limits follow the Common Application's activities and honors sections. Always check each application's current instructions.</p>`;
+    showTab(appTab, false);
+  }
+  function showTab(tab, focus) {
+    appTab = tab;
+    $$("#application [role=tab]").forEach(b => { const on = b.dataset.tab === tab; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
+    $$("#application [role=tabpanel]").forEach(p => (p.hidden = p.dataset.doc !== tab));
+  }
+  $("#application .tabs").addEventListener("click", e => { const b = e.target.closest("[role=tab]"); if (b) showTab(b.dataset.tab, true); });
+  $("#application .tabs").addEventListener("keydown", e => {
+    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(e.key)) return;
+    const tabs = $$("#application [role=tab]"), i = tabs.findIndex(t => t.dataset.tab === appTab);
+    const n = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : (i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+    e.preventDefault(); showTab(tabs[n].dataset.tab, true);
+  });
+  function docText(doc) {
+    const map = byIdMap(), m = appModel();
+    if (doc === "activities") return PF_APP.activityText(appState.activityOrder.slice(0, APP_LIMITS.activities).map(id => map.get(id)).filter(Boolean));
+    if (doc === "honors") return PF_APP.honorText(appState.honorOrder.slice(0, APP_LIMITS.honors).map(id => map.get(id)).filter(Boolean));
+    if (doc === "brag") return PF_APP.bragText(m);
+    return PF_APP.resumeText(m);
+  }
+  $("#application").addEventListener("click", e => {
+    const cp = e.target.closest("[data-copydoc]"); if (cp) { copy(docText(cp.dataset.copydoc), cp); return; }
+    const pr = e.target.closest("[data-printdoc]"); if (pr) { document.body.dataset.print = pr.dataset.printdoc; window.print(); return; }
+    const ed = e.target.closest("[data-edit2]"); if (ed) { openEditor(ed.dataset.edit2, ed); return; }
+    const mv = e.target.closest("[data-move]");
+    if (mv) {
+      const key = mv.dataset.move === "activities" ? "activityOrder" : "honorOrder";
+      const arr = appState[key], i = arr.indexOf(mv.dataset.id), j = i + Number(mv.dataset.dir);
+      if (i < 0 || j < 0 || j >= arr.length) return;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      saveApp(); renderApplication();
+      const again = $(`[data-move="${mv.dataset.move}"][data-dir="${mv.dataset.dir}"][data-id="${mv.dataset.id}"]`);
+      (again && !again.disabled ? again : $(`[data-edit2="${mv.dataset.id}"]`)).focus();
+    }
+  });
+  $("#application").addEventListener("input", e => {
+    const t = e.target;
+    if (t.id === "bragNote") { appState.note = t.value; saveApp(); $("#panel-brag .doc-text").textContent = PF_APP.bragText(appModel()); return; }
+    const key = { rName: "name", rSchool: "school", rContact: "contact", rSkills: "skills" }[t.id];
+    if (key) {
+      appState.resume = { ...(appState.resume || {}), [key]: t.value }; saveApp();
+      const doc = $("#panel-resume .resume"); if (doc) doc.outerHTML = renderResumeDoc(appModel());
+    }
+  });
+  window.addEventListener("afterprint", () => { delete document.body.dataset.print; });
+
+  /* Keep multiple open tabs in sync: another tab saved → reload our in-memory copy instead of overwriting it later */
+  window.addEventListener("storage", e => {
+    if (!e.key || !e.key.startsWith("pathfolio:")) return;
+    if (e.key === "pathfolio:plan") { plan = store.get("plan", []); updatePlanCount(); }
+    else if (e.key === "pathfolio:application") appState = Object.assign({ activityOrder: [], honorOrder: [], note: "", resume: {} }, store.get("application", {}));
+    else if (e.key === "pathfolio:profile") { profile = store.get("profile", profile); fillProfileForm(); }
+    else return;
+    const view = (location.hash || "#home").slice(1);
+    if (view === "plan") renderPlan(); else if (view === "application") renderApplication();
+  });
+
   /* ---------------- Backup & restore (data never leaves the device unless the user moves it) ---------------- */
-  const BACKUP_VERSION = 1;
+  const BACKUP_VERSION = 2;
   function snapshot() {
-    return { app: "pathfolio", version: BACKUP_VERSION, exportedAt: new Date().toISOString(), profile, plan, quiz: store.get("quiz", null) };
+    saveApp();
+    return { app: "pathfolio", version: BACKUP_VERSION, exportedAt: new Date().toISOString(), profile, plan, quiz: store.get("quiz", null), application: appState };
   }
   function markBackedUp() { store.set("lastBackup", new Date().toISOString()); renderBackupStatus(); }
   async function requestPersistence() {
@@ -219,20 +468,31 @@
     a.download = name; document.body.appendChild(a); a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
   }
-  function applyBackup(data) {
-    if (!data || data.app !== "pathfolio" || !Array.isArray(data.plan)) throw new Error("This file is not a Pathfolio backup.");
-    const incoming = data.plan.filter(p => p && p.id && p.text && p.cat);
+  function applyBackup(raw) {
+    const { data, warning } = PF_APP.migrateBackup(raw, BACKUP_VERSION);   /* throws for non-Pathfolio files; upgrades v1 */
+    const incoming = data.plan;
     const merge = !plan.length || confirm(`Restore ${incoming.length} plan item(s) from ${data.exportedAt ? new Date(data.exportedAt).toLocaleDateString() : "backup"}?\n\nOK = merge with what's here now\nCancel = replace everything here with the backup`);
     if (merge) {
-      const byId = new Map(plan.map(p => [p.id, p]));
-      incoming.forEach(p => { const cur = byId.get(p.id); if (cur) cur.done = cur.done || !!p.done; else plan.push({ ...p, done: !!p.done }); });
-    } else plan = incoming.map(p => ({ ...p, done: !!p.done }));
+      plan = PF_APP.mergePlans(plan, incoming);
+      appState.activityOrder = PF_APP.mergeOrders(appState.activityOrder, data.application.activityOrder);
+      appState.honorOrder = PF_APP.mergeOrders(appState.honorOrder, data.application.honorOrder);
+      if (!appState.note) appState.note = data.application.note || "";
+      const cur = appState.resume || {}, inc = data.application.resume || {};
+      appState.resume = Object.fromEntries([...new Set([...Object.keys(inc), ...Object.keys(cur)])].map(k => [k, cur[k] || inc[k] || ""]));
+    } else {
+      plan = incoming;
+      appState = { activityOrder: data.application.activityOrder, honorOrder: data.application.honorOrder, note: data.application.note || "", resume: data.application.resume || {} };
+    }
+    lastRestoreWarning = warning;
     if (data.profile && typeof data.profile === "object") { profile = { ...profile, ...data.profile }; if (!STATES[profile.state]) profile.state = "TX"; store.set("profile", profile); }
     if (data.quiz) store.set("quiz", data.quiz);
-    savePlan(); markBackedUp(); requestPersistence();
+    savePlan(); saveApp(); markBackedUp(); requestPersistence();
     fillRegions(); fillProfileForm(); renderStateStatic(); renderRank(); renderUnis(); renderRoadmap(); renderOpps(); renderPlan();
+    if (location.hash === "#application") renderApplication();
     return incoming.length;
   }
+  let lastRestoreWarning = null;
+  const newerNote = () => lastRestoreWarning === "newer" ? "\n\nNote: this backup was made by a newer version of Pathfolio. Everything this version understands was restored; reload later to pick up the rest." : "";
   /* Restore link: data is compressed into the URL fragment (#restore=…), which browsers never send to the server */
   const b64u = bytes => btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
   const unb64u = s => Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0));
@@ -254,19 +514,22 @@
   });
   $("#restoreFile").addEventListener("change", async e => {
     const f = e.target.files[0]; if (!f) return;
-    try { const n = applyBackup(JSON.parse(await f.text())); alert(`✓ Restored ${n} plan item(s) and your profile.`); }
+    try { const n = applyBackup(JSON.parse(await f.text())); alert(`✓ Restored ${n} plan item(s) and your profile.` + newerNote()); }
     catch (err) { alert("Could not restore: " + err.message); }
     e.target.value = "";
   });
   $("#copyRestoreLink").addEventListener("click", async () => {
     const link = location.origin + location.pathname + "#restore=" + await encodeRestore(snapshot());
     copy(link, $("#copyRestoreLink")); markBackedUp(); requestPersistence();
+    $("#linkNote").textContent = link.length > 2000
+      ? `This link is long (${link.length.toLocaleString()} characters), and some email and chat apps break long links. The backup file is more reliable.`
+      : "";
   });
   async function handleRestoreLink(payload) {
     try {
       const data = await decodeRestore(payload);
       history.replaceState(null, "", location.pathname + "#plan");
-      if (confirm("Restore the Pathfolio plan and profile saved in this link?")) { const n = applyBackup(data); alert(`✓ Restored ${n} plan item(s).`); }
+      if (confirm("Restore the Pathfolio plan and profile saved in this link?")) { const n = applyBackup(data); alert(`✓ Restored ${n} plan item(s).` + newerNote()); }
     } catch (e) { alert("This restore link is incomplete or damaged."); history.replaceState(null, "", location.pathname + "#plan"); }
     route();
   }
@@ -599,6 +862,7 @@
     if (id === "universities") renderUnis();
     if (id === "roadmap") renderRoadmap();
     if (id === "opportunities") renderOpps();
+    if (id === "application") renderApplication();
     show(id); window.scrollTo(0, 0);
   }
   function show(id) {

@@ -93,6 +93,11 @@ for (const [code, st] of Object.entries(STATES)) {
     if (!PHASE_LABELS.has(label)) err(`${w} roadmapExtras`, `"${label}" is not a roadmap phase (${[...PHASE_LABELS].join(" | ")})`);
     if (!Array.isArray(items) || !items.every(isStr)) err(`${w} roadmapExtras["${label}"]`, "must be an array of text");
   });
+  if (st.appHints !== undefined && !Array.isArray(st.appHints)) err(w, "appHints must be an array");
+  (st.appHints || []).forEach((h, i) => {
+    if (!isStr(h.t) || !isStr(h.d)) err(`${w} appHints[${i}]`, "t and d are required");
+    if (!isHttps(h.url)) err(`${w} appHints[${i}]`, "url must be https (official source)");
+  });
   [["officialLinks", "title"], ["pathways", "name"]].forEach(([key, nameKey]) =>
     (st[key] || []).forEach((l, i) => {
       if (!isStr(l[nameKey])) err(`${w} ${key}[${i}]`, `${nameKey} is required`);

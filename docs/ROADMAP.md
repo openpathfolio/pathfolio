@@ -28,7 +28,7 @@ The first weekly run (Nov 16) **verified 8 of 17 listings and discovered 1 new p
 
 ---
 
-## Phase 1: Application builder (finishes the core promise) · M · #11
+## Phase 1: Application builder (finishes the core promise) · M · #11 · spec `specs/002-application-builder/`
 
 The goal is "track everything → easily create the application".
 

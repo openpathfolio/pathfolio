@@ -39,6 +39,12 @@ registerState("TX", {
     "12th grade: fall": ["Texas: ApplyTexas opens ~Aug 1. Typical deadlines: UT Austin Early Action ~Oct 15 / Regular ~Dec 1; Texas A&M ~Dec 1; Rice Early Decision ~Nov 1 (verify each).", "Texas: FAFSA, TASFA or an opt-out form is required to graduate."],
     "12th grade: spring": ["Texas: state-aid priority deadline is ~Jan 15 (check THECB)."]
   },
+  /* Shown in the Application view's Tips tab (spec 002). Link to official sources; don't restate rules that change. */
+  appHints: [
+    { t: "ApplyTexas or Common App", d: "Texas public universities accept ApplyTexas, and many (including UT Austin and Texas A&M) also accept the Common App. Activities and honors sections differ by platform, so paste from your Pathfolio lists and adjust them to each form.", url: "https://www.applytexas.org" },
+    { t: "UT Austin: share the details", d: "UT Austin lets applicants submit a resume, and competitive majors are reviewed holistically. Your Pathfolio resume and activity details are a strong starting point. Check UT's current application requirements first.", url: "https://admissions.utexas.edu" },
+    { t: "Texas A&M: check its own requirements", d: "Texas A&M has its own freshman application steps and essays. Review the official page before you start, then reuse your activity descriptions.", url: "https://www.tamu.edu/admissions/how-to-apply/apply-as-freshman.html" }
+  ],
   officialLinks: [
     { title: "ApplyTexas", url: "https://www.applytexas.org" },
     { title: "My Texas Future (THECB)", url: "https://www.mytexasfuture.org" },
@@ -72,7 +78,7 @@ registerState("TX", {
     areas: ["eng", "cs", "business", "ag", "health", "nursing", "education", "arch", "sci", "env", "law", "psych", "media"],
     notable: "One of the largest engineering colleges in the US. Nationally top agriculture, veterinary medicine, Mays Business, Bush School of Government, Architecture.",
     aid: "Aggie Assurance for lower-income families; large National Merit awards.",
-    links: { home: "https://www.tamu.edu", admissions: "https://www.tamu.edu/admissions/how-to-apply/apply-as-freshman.html", aid: "https://financialaid.tamu.edu" } },
+    links: { home: "https://www.tamu.edu", admissions: "https://www.tamu.edu/admissions/how-to-apply/apply-as-freshman.html", aid: "https://www.tamu.edu/admissions/costs-tuitions.html" } },
 
   { id: "smu", name: "Southern Methodist University", city: "Dallas", region: "Dallas–Fort Worth", type: "Private",
     rankSort: 91, rankLabel: "≈ top 100 National", acceptance: "~50%", tuition: 68000, coa: 90000, sel: "selective", autoPct: null,

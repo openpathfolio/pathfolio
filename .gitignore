@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+# Node (scripts have no dependencies, but keep stray installs out)
+node_modules/
+*.log
+.env*
+# Local link-check / test output
+links.md

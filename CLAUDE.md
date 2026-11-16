@@ -22,6 +22,7 @@ This is the shared memory for AI agents (Claude Code, Copilot) and human contrib
 ```
 index.html                        Single page; sections are views (hash routing: #quiz, #path/<id>, #opportunities, #plan…)
 assets/app.js                     All UI logic (vanilla JS, one IIFE)
+assets/application.js             Application-builder pure logic (global PF_APP; limits, exports, backup migration), unit-tested in CI
 assets/styles.css                 Theme tokens (light/dark), responsive, print
 assets/data/common/registry.js    registerState(), STATE_LIST, AREAS (study-area keys)
 assets/data/common/paths.js       26 career paths + kits; employers keyed by state
@@ -42,7 +43,8 @@ docs/                             PLAN, ROADMAP, AUTOMATION, ADDING_A_STATE
 
 ## Commands
 ```bash
-node scripts/validate-data.mjs                  # validate states, career paths, research targets (CI)
+node scripts/test-application.mjs               # PF_APP unit tests: limits, exports, backup v1→v2 (CI)
+node scripts/validate-data.mjs                  # validate states, career paths, research targets, appHints (CI)
 node scripts/build-opportunities.mjs            # rebuild opportunities after editing data
 node scripts/build-opportunities.mjs --check    # CI: opportunity data valid + generated file current
 node scripts/research-matrix.mjs                # which weekly research jobs run (scopes × verify/discover, topic)
@@ -53,7 +55,8 @@ Manual UI check: open `index.html` in a browser at desktop width and at 390px ph
 
 ## Conventions
 - **No dependencies, no build.** Plain JS with `$`/`$$` helpers and `esc()` for every interpolated string (XSS safety).
-- localStorage keys use the prefix `pathfolio:`. The backup JSON is `{app:"pathfolio", version, profile, plan, quiz}`; keep restore backward-compatible.
+- localStorage keys use the prefix `pathfolio:` (`plan`, `profile`, `quiz`, `application`). The backup JSON is **version 2**: `{app:"pathfolio", version: 2, profile, plan, quiz, application}`. Plan items may carry `details`, `isActivity` and `isHonor`. Restores go through `PF_APP.migrateBackup`; keep v1 restorable (fixture: `scripts/fixtures/backup-v1.json`).
+- Application field limits live only in `APP_LIMITS` (`common/content.js`). Optional per-state `appHints` (with https sources) feed the Application Tips tab.
 - Data facts carry a source. Use `≈` for approximate figures. Never invent dates.
 - Opportunity ids are stable lowercase-hyphen slugs. Updates from automation may only touch time-sensitive fields (see `UPDATABLE` in the build script).
 - State-specific text belongs in the state module, never in `common/` or `app.js`.

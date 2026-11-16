@@ -25,6 +25,7 @@
         <a href="#build">Build Profile</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#plan">My Plan <span id="planCount" class="pill"></span></a>
+        <a href="#application">Application</a>
         <a href="#parents">Parents</a>
         <a href="#resources">Resources</a>
       </nav>
@@ -186,7 +187,7 @@
     <!-- ================= MY PLAN ================= -->
     <section id="plan" class="view" hidden>
       <h1>My Plan</h1>
-      <p class="lead">Your saved courses, certifications, projects, internships, research ideas and milestones.</p>
+      <p class="lead">Your saved courses, certifications, projects, internships, research ideas and milestones. Use <strong>✎ Details</strong> to record your role, hours and impact, and mark items as <strong>Activity</strong> or <strong>Honor</strong> to build your <a href="#application">application</a>.</p>
       <div class="card backup" id="backupCard">
         <h2>💾 Keep your data safe</h2>
         <p class="small">Pathfolio has no accounts, so nothing is stored on a server. Your profile and plan live <strong>in this browser only</strong>, and clearing browser data or switching devices erases them. Keep a backup:</p>
@@ -197,6 +198,7 @@
           <button class="btn" id="copyRestoreLink" type="button">🔗 Copy restore link</button>
         </div>
         <p class="small muted" id="backupStatus" aria-live="polite"></p>
+        <p class="small tip" id="linkNote" aria-live="polite"></p>
         <details class="small"><summary>Which option should I use?</summary>
           <ul>
             <li><strong>Backup file (recommended):</strong> save it to Google Drive, iCloud, OneDrive or email it to yourself. Restore it on any device, any time.</li>
@@ -221,6 +223,24 @@
         </div>
       </div>
       <div id="planList"></div>
+    </section>
+
+    <!-- ================= APPLICATION BUILDER (spec 002) ================= -->
+    <section id="application" class="view" hidden>
+      <h1>Application Builder</h1>
+      <p class="lead">Turn your plan into application-ready content: a Common App-style <strong>activities list</strong>, <strong>honors</strong>, a <strong>brag sheet</strong> for recommenders, and a one-page <strong>resume</strong>. Copy or print each one. Everything stays on this device.</p>
+      <div class="tabs no-print" role="tablist" aria-label="Application sections">
+        <button type="button" role="tab" id="tab-activities" aria-controls="panel-activities" aria-selected="true" data-tab="activities">Activities <span class="pill" id="actCount"></span></button>
+        <button type="button" role="tab" id="tab-honors" aria-controls="panel-honors" aria-selected="false" data-tab="honors" tabindex="-1">Honors <span class="pill" id="honCount"></span></button>
+        <button type="button" role="tab" id="tab-brag" aria-controls="panel-brag" aria-selected="false" data-tab="brag" tabindex="-1">Brag sheet</button>
+        <button type="button" role="tab" id="tab-resume" aria-controls="panel-resume" aria-selected="false" data-tab="resume" tabindex="-1">Resume</button>
+        <button type="button" role="tab" id="tab-tips" aria-controls="panel-tips" aria-selected="false" data-tab="tips" tabindex="-1">Tips</button>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="panel-activities" aria-labelledby="tab-activities" data-doc="activities"></div>
+      <div class="tabpanel" role="tabpanel" id="panel-honors" aria-labelledby="tab-honors" data-doc="honors" hidden></div>
+      <div class="tabpanel" role="tabpanel" id="panel-brag" aria-labelledby="tab-brag" data-doc="brag" hidden></div>
+      <div class="tabpanel" role="tabpanel" id="panel-resume" aria-labelledby="tab-resume" data-doc="resume" hidden></div>
+      <div class="tabpanel" role="tabpanel" id="panel-tips" aria-labelledby="tab-tips" data-doc="tips" hidden></div>
     </section>
 
     <!-- ================= PARENTS ================= -->
@@ -248,11 +268,53 @@
     <p class="muted">Pathfolio by <a href="https://github.com/openpathfolio" target="_blank" rel="noopener">OpenPathfolio</a> · Open source (MIT) · No tracking · Your data never leaves your browser · <a href="https://github.com/openpathfolio/pathfolio/issues/new/choose" id="repoLink" target="_blank" rel="noopener">Suggest a correction</a></p>
   </footer>
 
+  <!-- Application details editor (spec 002, US1) -->
+  <dialog id="detailDialog" aria-labelledby="dlgTitle">
+    <form id="detailForm" method="dialog">
+      <h2 id="dlgTitle">Application details</h2>
+      <p class="muted small" id="dlgItem"></p>
+      <fieldset class="use-as"><legend>Use this item in my application as</legend>
+        <label class="inline"><input type="checkbox" id="dIsActivity"> Activity</label>
+        <label class="inline"><input type="checkbox" id="dIsHonor"> Honor / award</label>
+      </fieldset>
+      <div class="dlg-grid">
+        <div><label for="dType">Activity type</label><select id="dType"></select></div>
+        <div><label for="dPosition">Position / leadership</label><input id="dPosition" type="text" placeholder="e.g. Build lead, Captain, Founder"><span class="counter" data-for="dPosition" data-limit="position" aria-live="polite"></span></div>
+        <div class="span-all"><label for="dOrg">Organization</label><input id="dOrg" type="text" placeholder="e.g. Westbrook High Robotics (FRC Team 1234)"><span class="counter" data-for="dOrg" data-limit="org" aria-live="polite"></span></div>
+        <div class="span-all"><label for="dDescription">Description: what you did and accomplished</label>
+          <textarea id="dDescription" rows="3" placeholder="Start with a strong verb: Led…, Built…, Tutored…; add numbers"></textarea>
+          <span class="counter" data-for="dDescription" data-limit="description" aria-live="polite"></span>
+          <p class="tip small" id="dTip" aria-live="polite"></p></div>
+        <fieldset class="span-all"><legend>Grade levels</legend><div class="chips-inline" id="dGrades"></div></fieldset>
+        <fieldset class="span-all"><legend>Timing</legend><div class="chips-inline" id="dTiming"></div></fieldset>
+        <div><label for="dHours">Hours per week</label><input id="dHours" type="number" min="0" step="0.5" inputmode="decimal"></div>
+        <div><label for="dWeeks">Weeks per year</label><input id="dWeeks" type="number" min="0" max="52" step="1" inputmode="numeric"></div>
+        <p class="tip small span-all" id="dTimeWarn" aria-live="polite"></p>
+        <div class="span-all"><label class="inline"><input type="checkbox" id="dContinue"> I intend to participate in a similar activity in college</label></div>
+        <div class="span-all"><label for="dImpact">Impact / results (for your brag sheet and resume)</label><textarea id="dImpact" rows="2" placeholder="e.g. Team reached state for the first time; raised $2,400"></textarea></div>
+        <div class="span-all"><label for="dLink">Link (portfolio, GitHub, video)</label><input id="dLink" type="url" placeholder="https://"></div>
+      </div>
+      <div class="honor-fields" id="dHonorFields">
+        <h3>Honor details</h3>
+        <div class="dlg-grid">
+          <div class="span-all"><label for="dHonorTitle">Honor title</label><input id="dHonorTitle" type="text"><span class="counter" data-for="dHonorTitle" data-limit="honorTitle" aria-live="polite"></span></div>
+          <div><label for="dRecognition">Level of recognition</label><select id="dRecognition"></select></div>
+          <fieldset><legend>Grade levels received</legend><div class="chips-inline" id="dHonorGrades"></div></fieldset>
+        </div>
+      </div>
+      <div class="row between dlg-actions">
+        <button type="button" class="btn" id="dCancel">Cancel</button>
+        <button type="submit" class="btn primary" id="dSave">Save details</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="assets/data/common/registry.js"></script>
   <script src="assets/data/common/paths.js"></script>
   <script src="assets/data/common/content.js"></script>
   <script src="assets/data/states/tx.js"></script>
   <script src="assets/data/opportunities.js"></script>
+  <script src="assets/application.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>
