@@ -246,3 +246,7 @@ input, select { font: inherit; padding: 9px 10px; border: 1px solid var(--border
 .backup label.btn { margin: 0; font-size: 1rem; }
 .nag { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-left: 4px solid var(--warn); }
 @media print { .backup, #backupNag { display: none !important; } }
+
+/* Freshness notes (spec 001, US5) */
+.stale-note { margin: 4px 0 8px; color: var(--muted); }
+.stale-note.stale { color: var(--warn); font-weight: 600; }

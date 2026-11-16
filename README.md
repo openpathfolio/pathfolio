@@ -53,8 +53,9 @@ It is served by GitHub Pages from the `main` branch. Every merge to `main` redep
 
 | Automation | What it does |
 |---|---|
-| **CI** (`.github/workflows/ci.yml`) | Runs on every pull request and push to `main`. Checks JavaScript syntax and validates opportunity data. |
-| **Refresh opportunities** (`.github/workflows/refresh-opportunities.yml`) | Runs every Monday, or manually from the Actions tab. Runs source adapters plus **AI web research** (Claude automatically, or a weekly issue for GitHub Copilot), then opens a pull request for human review. **Setup:** [docs/AUTOMATION.md](docs/AUTOMATION.md). |
+| **CI** (`.github/workflows/ci.yml`) | Runs on every pull request and push to `main`. Checks JavaScript syntax and validates state data, career paths, research targets and opportunities. |
+| **Refresh opportunities** (`.github/workflows/refresh-opportunities.yml`) | Runs every Monday, or manually. For each scope (national + each live state), a **verify** job re-checks every listing and a **discover** job finds new programs (weekly topic rotation). Results arrive as one pull request with a **coverage report**, for human review. Setup: [docs/AUTOMATION.md](docs/AUTOMATION.md). |
+| **Check links** (`.github/workflows/link-check.yml`) | Runs every Wednesday. Checks every external link and keeps one `broken-links` issue current. |
 
 **Running your own copy (fork):** enable **Settings → Pages → Deploy from a branch → `main` / `(root)`** and **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"**.
 
@@ -64,6 +65,9 @@ Pathfolio has **no accounts and no server database**. A student's profile and pl
 - **🔗 Copy restore link** creates a private link with the data compressed inside the part after `#`, which browsers never send to the web server. Opening the link restores everything. Treat it like a password.
 - The app asks the browser to keep its storage **persistent**, so the browser won't evict it automatically.
 - A reminder appears if there's unsaved progress and no backup in the last 14 days.
+
+## Roadmap & how work is tracked
+See [docs/ROADMAP.md](docs/ROADMAP.md). Every roadmap item is a [GitHub issue labelled `roadmap`](https://github.com/openpathfolio/pathfolio/issues?q=label%3Aroadmap). Work follows [spec-kit](https://github.com/github/spec-kit) spec-driven development: `specs/NNN-name/` holds the spec, plan and task list, so anyone (human or AI agent) can pick up where the last person stopped. Project memory for contributors and agents: [CLAUDE.md](CLAUDE.md). Principles: [constitution](.specify/memory/constitution.md).
 
 ## Contributing
 Data corrections, new opportunities and new states are all welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/ADDING_A_STATE.md](docs/ADDING_A_STATE.md).

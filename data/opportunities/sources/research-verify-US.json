@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-11-16",
+  "scope": "US",
+  "job": "verify",
+  "updates": [
+    {
+      "id": "nasa-ostem-internships",
+      "deadline": "2027-03-01",
+      "cycle": "Summer 2027",
+      "status": "upcoming",
+      "lastVerified": "2026-11-16",
+      "evidenceUrl": "https://www.nasa.gov/learning-resources/internship-programs/"
+    },
+    {
+      "id": "rsi",
+      "deadline": "2026-12-11",
+      "cycle": "Summer 2027",
+      "status": "open",
+      "lastVerified": "2026-11-16",
+      "evidenceUrl": "https://www.cee.org/programs/research-science-institute"
+    },
+    {
+      "id": "regeneron-sts",
+      "cycle": "2026-27",
+      "status": "closed",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2027 applications closed Nov 5, 2026; next cycle typically opens in June",
+      "evidenceUrl": "https://www.societyforscience.org/regeneron-sts/"
+    },
+    {
+      "id": "congressional-app-challenge",
+      "cycle": "2026-27",
+      "status": "closed",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2026 challenge deadline was Oct 26; next year's dates not yet announced",
+      "evidenceUrl": "https://www.congressionalappchallenge.us/students/rules/"
+    },
+    {
+      "id": "picoctf",
+      "cycle": "2026-27",
+      "status": "unknown",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "picoCTF is now the CyLab Security Academy (CMU); no competition dates published",
+      "evidenceUrl": "https://picoctf.org"
+    },
+    {
+      "id": "mit-bwsi",
+      "cycle": "Summer 2027",
+      "status": "unknown",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2027 dates not published on the program page; check bwsi.mit.edu",
+      "evidenceUrl": "https://beaverworks.ll.mit.edu/CMS/bw/bwsi"
+    },
+    {
+      "id": "scholastic-art-writing",
+      "cycle": "2026-27",
+      "status": "unknown",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2027 deadlines not on the home page; see the 2027 participation terms",
+      "evidenceUrl": "https://www.artandwriting.org"
+    }
+  ],
+  "additions": [],
+  "skipped": []
+}

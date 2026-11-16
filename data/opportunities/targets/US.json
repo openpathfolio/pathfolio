@@ -1,0 +1,235 @@
+{
+  "scope": "US",
+  "note": "National sources checked first by the weekly discover job.",
+  "targets": [
+    {
+      "id": "nasa-stem",
+      "org": "NASA STEM Engagement",
+      "kind": "agency",
+      "homepage": "https://www.nasa.gov/stem/",
+      "pages": [
+        {
+          "url": "https://intern.nasa.gov",
+          "kind": "internship"
+        }
+      ],
+      "searchHints": [
+        "NASA internships high school students"
+      ]
+    },
+    {
+      "id": "nih",
+      "org": "National Institutes of Health",
+      "kind": "agency",
+      "homepage": "https://www.training.nih.gov",
+      "pages": [],
+      "searchHints": [
+        "NIH summer internship program high school students"
+      ]
+    },
+    {
+      "id": "dod-stem",
+      "org": "Department of Defense STEM",
+      "kind": "agency",
+      "homepage": "https://dodstem.us",
+      "pages": [],
+      "searchHints": [
+        "DoD STEM high school internships SEAP"
+      ]
+    },
+    {
+      "id": "doe-labs",
+      "org": "U.S. Department of Energy national laboratories",
+      "kind": "agency",
+      "homepage": "https://www.energy.gov",
+      "pages": [],
+      "searchHints": [
+        "national laboratory high school summer internship"
+      ]
+    },
+    {
+      "id": "society-for-science",
+      "org": "Society for Science",
+      "kind": "nonprofit",
+      "homepage": "https://www.societyforscience.org",
+      "pages": [
+        {
+          "url": "https://www.societyforscience.org/regeneron-sts/",
+          "kind": "competition"
+        },
+        {
+          "url": "https://www.societyforscience.org/isef/",
+          "kind": "competition"
+        }
+      ],
+      "searchHints": [
+        "Regeneron STS deadline",
+        "Regeneron ISEF"
+      ]
+    },
+    {
+      "id": "cee-rsi",
+      "org": "Center for Excellence in Education",
+      "kind": "nonprofit",
+      "homepage": "https://www.cee.org",
+      "pages": [
+        {
+          "url": "https://www.cee.org/programs/research-science-institute",
+          "kind": "research"
+        }
+      ],
+      "searchHints": [
+        "Research Science Institute application deadline"
+      ]
+    },
+    {
+      "id": "mit-bwsi",
+      "org": "MIT Beaver Works Summer Institute",
+      "kind": "university",
+      "homepage": "https://beaverworks.ll.mit.edu",
+      "pages": [
+        {
+          "url": "https://beaverworks.ll.mit.edu/CMS/bw/bwsi",
+          "kind": "summer"
+        }
+      ],
+      "searchHints": [
+        "Beaver Works Summer Institute application"
+      ]
+    },
+    {
+      "id": "gencyber",
+      "org": "GenCyber",
+      "kind": "agency",
+      "homepage": "https://www.gen-cyber.com",
+      "pages": [],
+      "searchHints": [
+        "GenCyber camps 2027"
+      ]
+    },
+    {
+      "id": "congressional-app-challenge",
+      "org": "Congressional App Challenge",
+      "kind": "nonprofit",
+      "homepage": "https://www.congressionalappchallenge.us",
+      "pages": [],
+      "searchHints": [
+        "Congressional App Challenge deadline"
+      ]
+    },
+    {
+      "id": "usaco",
+      "org": "USA Computing Olympiad",
+      "kind": "nonprofit",
+      "homepage": "https://usaco.org",
+      "pages": [],
+      "searchHints": [
+        "USACO contest schedule"
+      ]
+    },
+    {
+      "id": "cyberpatriot",
+      "org": "CyberPatriot",
+      "kind": "nonprofit",
+      "homepage": "https://www.uscyberpatriot.org",
+      "pages": [],
+      "searchHints": [
+        "CyberPatriot registration deadline"
+      ]
+    },
+    {
+      "id": "hosa",
+      "org": "HOSA",
+      "kind": "nonprofit",
+      "homepage": "https://hosa.org",
+      "pages": [],
+      "searchHints": [
+        "HOSA competitive events"
+      ]
+    },
+    {
+      "id": "ffa",
+      "org": "National FFA",
+      "kind": "nonprofit",
+      "homepage": "https://www.ffa.org",
+      "pages": [],
+      "searchHints": [
+        "FFA agriscience fair national"
+      ]
+    },
+    {
+      "id": "skillsusa",
+      "org": "SkillsUSA",
+      "kind": "nonprofit",
+      "homepage": "https://www.skillsusa.org",
+      "pages": [],
+      "searchHints": [
+        "SkillsUSA championships high school"
+      ]
+    },
+    {
+      "id": "scholastic",
+      "org": "Scholastic Art & Writing Awards",
+      "kind": "nonprofit",
+      "homepage": "https://www.artandwriting.org",
+      "pages": [],
+      "searchHints": [
+        "Scholastic Art and Writing Awards deadlines"
+      ]
+    },
+    {
+      "id": "jei",
+      "org": "Journal of Emerging Investigators",
+      "kind": "nonprofit",
+      "homepage": "https://emerginginvestigators.org",
+      "pages": [],
+      "searchHints": []
+    },
+    {
+      "id": "john-locke",
+      "org": "John Locke Institute",
+      "kind": "nonprofit",
+      "homepage": "https://www.johnlockeinstitute.com",
+      "pages": [
+        {
+          "url": "https://www.johnlockeinstitute.com/essay-competition",
+          "kind": "competition"
+        }
+      ],
+      "searchHints": [
+        "John Locke essay competition deadline"
+      ]
+    },
+    {
+      "id": "wharton-youth",
+      "org": "Wharton Global Youth Program",
+      "kind": "university",
+      "homepage": "https://globalyouth.wharton.upenn.edu",
+      "pages": [
+        {
+          "url": "https://globalyouth.wharton.upenn.edu/competitions/",
+          "kind": "competition"
+        }
+      ],
+      "searchHints": []
+    },
+    {
+      "id": "eaa",
+      "org": "EAA Young Eagles",
+      "kind": "nonprofit",
+      "homepage": "https://www.youngeagles.org",
+      "pages": [],
+      "searchHints": []
+    },
+    {
+      "id": "apprenticeship-gov",
+      "org": "Apprenticeship.gov (US Dept. of Labor)",
+      "kind": "agency",
+      "homepage": "https://www.apprenticeship.gov",
+      "pages": [],
+      "searchHints": [
+        "youth apprenticeship high school"
+      ]
+    }
+  ]
+}

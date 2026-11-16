@@ -60,7 +60,7 @@ scripts/                           build/validate + fetch adapters (no dependenc
 ```
 
 ### Opportunity data flow
-`scripts/sources/*.mjs` (official APIs/feeds) + weekly AI web research (`.github/prompts/opportunity-research.md`) → `data/opportunities/sources/*.json` (full entries, or `{updates, additions}`) → `build-opportunities.mjs` (schema validation; additions can't override existing ids; updates may only change time-sensitive fields; `--prune` removes one-time listings expired >30 days; output is deterministic so CI `--check` is stable) → `assets/data/opportunities.js` → pull request → human review → merge → GitHub Pages.
+`scripts/sources/*.mjs` (official APIs/feeds) + weekly AI research per scope: verify + discover jobs (`.github/prompts/opportunity-verify.md`, `opportunity-discover.md`) → `data/opportunities/sources/*.json` (full entries, or `{updates, additions}`) → `build-opportunities.mjs` (schema validation; additions can't override existing ids; updates may only change time-sensitive fields; `--prune` removes one-time listings expired >30 days; output is deterministic so CI `--check` is stable) → `assets/data/opportunities.js` → pull request → human review → merge → GitHub Pages.
 
 ### Quiz scoring
 - Each RIASEC letter is scored 0–100% from three statements rated 0/1/2.
@@ -74,11 +74,4 @@ scripts/                           build/validate + fetch adapters (no dependenc
 - `accessible` → Likely if top 50% or auto-admit, else Target.
 
 ## 6. Roadmap
-- [ ] Application export: Common App activities (150 chars), honors, brag sheet, resume (add dates/hours/role/impact to plan items)
-- [ ] Optional sync to the family's own cloud (e.g., Google Drive file) with no Pathfolio server
-- [ ] Official-feed source adapters where APIs exist
-- [ ] Second state (e.g., California: UC ELC, Cal Grant, CCC transfer)
-- [ ] Spanish translation (high value for Texas families)
-- [ ] Scholarship listings by state/region
-- [ ] Automated link checker workflow
-- [ ] Custom domain openpathfolio.org
+See **[ROADMAP.md](ROADMAP.md)** for the phased plan: research pipeline scaling, application builder, multi-state expansion, quality and community.

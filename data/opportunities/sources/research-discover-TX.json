@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-11-16",
+  "scope": "TX",
+  "job": "discover",
+  "topic": "migrated",
+  "updates": [],
+  "additions": [
+    {
+      "id": "utsw-stars-summer-research",
+      "title": "UT Southwestern STARS Summer Research Program",
+      "org": "UT Southwestern Medical Center",
+      "type": "research",
+      "states": [
+        "TX"
+      ],
+      "location": "Dallas, TX",
+      "grades": [
+        11
+      ],
+      "minAge": 16,
+      "cost": "stipend",
+      "costNote": "Participants are paid a stipend; amount not published",
+      "deadline": "2027-01-22",
+      "opens": "2026-11-16",
+      "cycle": "Summer 2027",
+      "areas": [
+        "health",
+        "sci"
+      ],
+      "url": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
+      "description": "Eight-week, non-residential biomedical research program in a UT Southwestern lab with a faculty host. For North Texas juniors, 16+ by June 1, with no prior research experience. Students present results at the end.",
+      "recurring": true,
+      "lastVerified": "2026-11-16",
+      "evidenceUrl": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
+      "status": "open",
+      "source": "web-research"
+    }
+  ],
+  "targetSuggestions": []
+}

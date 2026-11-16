@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-11-16",
+  "scope": "TX",
+  "job": "verify",
+  "updates": [
+    {
+      "id": "txsef",
+      "url": "https://txsef.tamu.edu/",
+      "cycle": "2026-27",
+      "status": "unknown",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2027 fair is April 2-3, 2027; registration deadline not confirmed on the home page",
+      "evidenceUrl": "https://txsef.tamu.edu/"
+    }
+  ],
+  "additions": [],
+  "skipped": []
+}

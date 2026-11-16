@@ -1,0 +1,50 @@
+name: Check links
+
+# Weekly: check every external link in the site data and keep ONE `broken-links` issue current.
+# Spec: specs/001-research-pipeline-scaling/ (User Story 6, issue #9)
+on:
+  schedule:
+    - cron: "41 14 * * 3"   # Wednesdays 14:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: link-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check links
+        run: node scripts/check-links.mjs --out "$RUNNER_TEMP/links.md"
+      - name: Update the broken-links issue
+        run: |
+          report="$RUNNER_TEMP/links.md"
+          broken=$(head -1 "$report" | sed -E 's/.*broken:([0-9]+).*/\1/')
+          cat "$report" >> "$GITHUB_STEP_SUMMARY"
+          gh label create broken-links --color d73a4a --description "Weekly link check found broken links" --force >/dev/null
+          existing=$(gh issue list --label broken-links --state open --json number --jq '.[0].number')
+          if [ "$broken" -gt 0 ]; then
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --body-file "$report"
+              gh issue comment "$existing" --body "Updated by the weekly link check: **$broken** broken link(s) remain."
+            else
+              gh issue create --title "Broken links found by weekly check" --label broken-links --body-file "$report"
+            fi
+          elif [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "✅ The weekly link check found no broken links. Closing."
+            gh issue close "$existing" --reason completed
+          else
+            echo "No broken links."
+          fi

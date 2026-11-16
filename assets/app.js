@@ -385,12 +385,18 @@
     const verified = o.evidenceUrl
       ? `<a class="small verified" href="${o.evidenceUrl}" target="_blank" rel="noopener">✓ Dates confirmed on official site${o.lastVerified ? ` (checked ${esc(o.lastVerified)})` : ""}</a>`
       : `<span class="muted small">${o.lastVerified ? `Checked ${esc(o.lastVerified)}: dates not yet published` : "Check official site for current dates"}</span>`;
+    /* Freshness (computed in the browser so generated data stays date-independent) */
+    const today0 = new Date(); today0.setHours(0, 0, 0, 0);
+    const ageDays = o.lastVerified ? Math.floor((today0 - parseDay(o.lastVerified)) / 864e5) : null;
+    const fresh = ageDays === null
+      ? `<p class="small stale-note">ⓘ Not yet verified for the current cycle</p>`
+      : ageDays > 60 ? `<p class="small stale-note stale">⚠️ Not re-checked in ${ageDays} days. Confirm dates on the official site.</p>` : "";
     return `<article class="card opp dl-${di.kind}">
       ${["open", "soon", "upcoming"].includes(di.kind) ? `<div class="dl-banner dl-${di.kind}">${DATE_ICON[di.kind]} ${esc(di.label)}${o.cycle ? ` <span class="cycle">${esc(o.cycle)}</span>` : ""}</div>` : ""}
       <p class="muted small cluster">${OPP_TYPES[o.type] || o.type}${o.states.includes("US") ? " · National" : " · " + esc(o.states.join(", "))}</p>
       <h3><a href="${o.url}" target="_blank" rel="noopener">${esc(o.title)} ↗</a></h3>
       <p class="small muted">${esc(o.org)}${o.location ? " · " + esc(o.location) : ""}</p>
-      <p class="small">${esc(o.description)}</p>
+      <p class="small">${esc(o.description)}</p>${fresh}
       <div class="badges"><span class="badge ${o.cost === "fee" ? "warnb" : "likely"}">${COST[o.cost]}</span>
         <span class="badge neutral">${Math.min(...o.grades) === Math.max(...o.grades) ? `Grade ${o.grades[0]}` : `Grades ${Math.min(...o.grades)}–${Math.max(...o.grades)}`}${o.minAge ? ` · ${o.minAge}+` : ""}</span>
         ${["none", "closed"].includes(di.kind) ? `<span class="badge neutral">${DATE_ICON[di.kind]} ${esc(di.label)}</span>` : ""}</div>

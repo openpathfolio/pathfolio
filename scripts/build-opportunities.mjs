@@ -18,6 +18,8 @@
  *   node scripts/build-opportunities.mjs --prune          remove one-time listings whose deadline passed >30 days ago
  *                                                         (edits the source JSON files, then builds)
  *   node scripts/build-opportunities.mjs --summary FILE   also write a Markdown change summary (for PR bodies)
+ *        [--since YYYY-MM-DD]                             …with per-scope coverage (verified on/after this date)
+ *        [--missing verify-TX,discover-US]                …noting research jobs that did not complete
  * No dependencies; Node 18+.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
@@ -32,6 +34,8 @@ const args = process.argv.slice(2);
 const CHECK = args.includes("--check");
 const PRUNE = args.includes("--prune");
 const SUMMARY = args.includes("--summary") ? args[args.indexOf("--summary") + 1] : null;
+const SINCE = args.includes("--since") ? args[args.indexOf("--since") + 1] : null;   /* coverage: listings verified on/after this date count as checked */
+const MISSING_JOBS = args.includes("--missing") ? args[args.indexOf("--missing") + 1] : "";  /* e.g. "verify-TX,discover-US" (jobs that failed) */
 
 const schema = JSON.parse(readFileSync(join(DATA, "schema.json"), "utf8"));
 const registry = readFileSync(join(ROOT, "assets/data/common/registry.js"), "utf8");
@@ -169,13 +173,39 @@ if (SUMMARY) {
     return diffs.length ? { o, diffs } : null;
   }).filter(Boolean);
   const link = o => `[${o.title}](${o.evidenceUrl || o.url})`;
+  /* Per-scope coverage */
+  let coverage = "";
+  if (SINCE) {
+    const staleCut = new Date(Date.parse(SINCE) - 60 * 864e5).toISOString().slice(0, 10);
+    const scopes = [...new Set(list.flatMap(o => o.states))].sort((a, b) => (a === "US" ? -1 : b === "US" ? 1 : a.localeCompare(b)));
+    const skippedBy = new Map(sources.flatMap(s => (s.raw && s.raw.skipped) || []).map(x => [x.id, x.reason]));
+    const rows = scopes.map(sc => {
+      const inScope = list.filter(o => o.states.includes(sc));
+      const checked = inScope.filter(o => o.lastVerified && o.lastVerified >= SINCE);
+      const unchecked = inScope.filter(o => !(o.lastVerified && o.lastVerified >= SINCE));
+      const stale = inScope.filter(o => !o.lastVerified || o.lastVerified < staleCut);
+      const pct = inScope.length ? Math.round(100 * checked.length / inScope.length) : 100;
+      return { sc, inScope, checked, unchecked, stale, pct, newN: added.filter(o => o.states.includes(sc)).length };
+    });
+    coverage = ["### 📊 Coverage (verified on or after " + SINCE + ")",
+      "| Scope | Listings | Verified this run | New | Not re-checked | Stale (60+ days or never) |",
+      "|---|---|---|---|---|---|",
+      ...rows.map(r => `| ${r.sc} | ${r.inScope.length} | ${r.checked.length} (${r.pct}%)${r.pct < 95 ? " ⚠️" : ""} | ${r.newN} | ${r.unchecked.length} | ${r.stale.length} |`),
+      ...rows.filter(r => r.unchecked.length).map(r => `\n<details><summary>${r.sc}: ${r.unchecked.length} not re-checked</summary>\n\n` +
+        r.unchecked.map(o => `- \`${o.id}\`${skippedBy.has(o.id) ? `: ${skippedBy.get(o.id)}` : ""}`).join("\n") + "\n</details>")
+    ].join("\n");
+  }
+  const suggestions = sources.flatMap(s => ((s.raw && s.raw.targetSuggestions) || []).map(t => ({ ...t, scope: s.raw.scope || s.name })));
   const md = [
     `## Opportunities refresh: ${list.length} total`,
     `**${added.length} new · ${changed.length} updated · ${removed.length} removed** · ${list.filter(o => o.deadline).length} with published deadlines`,
+    MISSING_JOBS ? `\n> ⚠️ **Research jobs that did not complete:** ${MISSING_JOBS.split(",").filter(Boolean).map(j => "`" + j + "`").join(", ")}. Their previous data was kept.` : "",
+    coverage ? "\n" + coverage : "",
     "",
     added.length ? "### 🆕 New\n" + added.map(o => `- ${link(o)} (${o.org}, ${o.type}, ${o.states.join("/")})${o.deadline ? ` · deadline **${o.deadline}**` : ""}`).join("\n") : "",
     changed.length ? "\n### ✏️ Updated\n" + changed.map(c => `- ${link(c.o)}: ${c.diffs.join("; ")}`).join("\n") : "",
     removed.length ? "\n### 🗑️ Removed\n" + removed.map(o => `- ${o.title}`).join("\n") : "",
+    suggestions.length ? "\n### 🎯 Suggested new research targets (add to `data/opportunities/targets/` if official)\n" + suggestions.map(t => `- **${t.scope}**: [${t.org}](${t.url})${t.kind ? ` (${t.kind})` : ""}${t.note ? `: ${t.note}` : ""}`).join("\n") : "",
     warnings.length ? "\n### ⚠️ Warnings\n" + warnings.map(w => `- ${w}`).join("\n") : "",
     "\n### Reviewer checklist\n- [ ] Open each new or updated **evidence link** and confirm the dates\n- [ ] No pay-to-play programs or pay-to-publish journals\n- [ ] Grades, ages and costs look right"
   ].filter(Boolean).join("\n");
