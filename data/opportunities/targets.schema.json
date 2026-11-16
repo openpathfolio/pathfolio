@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pathfolio research targets for one scope",
+  "description": "Official organizations and pages the weekly discover job checks first. Validated by scripts/validate-data.mjs.",
+  "type": "object",
+  "required": ["scope", "targets"],
+  "properties": {
+    "scope": { "type": "string", "pattern": "^(US|[A-Z]{2})$" },
+    "note": { "type": "string" },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "org", "kind", "homepage"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "org": { "type": "string" },
+          "kind": { "enum": ["university", "medical-center", "agency", "nonprofit", "fair", "company", "school-program"] },
+          "universityId": { "type": "string", "description": "id of the university in assets/data/states/<scope>.js (required for every university there)" },
+          "homepage": { "type": "string", "pattern": "^https://" },
+          "pages": { "type": "array", "items": { "type": "object", "required": ["url", "kind"], "properties": {
+            "url": { "type": "string", "pattern": "^https://" },
+            "kind": { "enum": ["precollege", "research", "summer", "internship", "outreach", "competition", "camp", "other"] } } } },
+          "searchHints": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

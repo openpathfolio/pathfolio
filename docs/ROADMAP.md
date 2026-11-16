@@ -5,11 +5,13 @@ _Last updated: November 2026_
 **Where we are:** Texas is live (25 universities, 26 career paths, 18 opportunities), with weekly AI research, deadline highlighting, backup/restore, and CI.
 **Where we're going:** one place for any US family to plan from high school to college admission, for every state.
 
+> **Status lives in GitHub issues**: [`label:roadmap`](https://github.com/openpathfolio/pathfolio/issues?q=label%3Aroadmap). Epics: Phase 0 #3 · Phase 1 #11 · Phase 2 #12 · Phase 3 #22 · Phase 4 #23. Specs live in `specs/`.
+
 This roadmap is ordered so each phase makes the next one cheaper. Effort estimates: **S** = a day or two, **M** = about a week, **L** = several weeks (volunteer pace).
 
 ---
 
-## Phase 0: Make the research pipeline scale (do first) · M
+## Phase 0: Make the research pipeline scale (do first) · M · #3 · spec `specs/001-research-pipeline-scaling/`
 
 The first weekly run (Nov 16) **verified 8 of 17 listings and discovered 1 new program** (cap 20). One run does both jobs and runs out of budget. Adding states multiplies the work, so fix this before expanding.
 
@@ -26,7 +28,7 @@ The first weekly run (Nov 16) **verified 8 of 17 listings and discovered 1 new p
 
 ---
 
-## Phase 1: Application builder (finishes the core promise) · M
+## Phase 1: Application builder (finishes the core promise) · M · #11
 
 The goal is "track everything → easily create the application".
 
@@ -40,7 +42,7 @@ The goal is "track everything → easily create the application".
 
 ---
 
-## Phase 2: Multi-state expansion · L (repeats per state)
+## Phase 2: Multi-state expansion · L (repeats per state) · #12
 
 ### 2.1 Data model changes (once) · M
 - **Home state vs. states to explore.** The home state decides residency, automatic-admission rules, state aid and in-state tuition. Families should also be able to browse other states' universities.
@@ -88,7 +90,7 @@ A **"Draft a state"** workflow (manual trigger, state code as input) uses the re
 
 ---
 
-## Phase 3: Quality, reach & community · ongoing
+## Phase 3: Quality, reach & community · ongoing · #22
 | # | Task | Effort |
 |---|---|---|
 | 3.1 | **Spanish translation** (UI text first, then data) | L |
@@ -99,7 +101,7 @@ A **"Draft a state"** workflow (manual trigger, state code as input) uses the re
 | 3.6 | GitHub Project board, milestones per phase, `good first issue` labels | S |
 | 3.7 | Annual August refresh checklist automated as an issue | S |
 
-## Phase 4: Optional extras (only if families ask) · L
+## Phase 4: Optional extras (only if families ask) · L · #23
 - **Optional sync to the family's own cloud** (e.g., a file in their own Google Drive). No Pathfolio server, no accounts.
 - **Counselor share view**: a read-only printable plan.
 - **Shareable career-path comparisons.**

@@ -1,0 +1,446 @@
+{
+  "scope": "TX",
+  "note": "Official organizations and pages the weekly discover job checks first. Add pages from research targetSuggestions after human review.",
+  "targets": [
+    {
+      "id": "rice",
+      "org": "Rice University",
+      "kind": "university",
+      "universityId": "rice",
+      "homepage": "https://www.rice.edu",
+      "pages": [],
+      "searchHints": [
+        "site:rice.edu high school summer research program",
+        "site:rice.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "utaustin",
+      "org": "University of Texas at Austin",
+      "kind": "university",
+      "universityId": "utaustin",
+      "homepage": "https://www.utexas.edu",
+      "pages": [],
+      "searchHints": [
+        "site:utexas.edu high school summer research program",
+        "site:utexas.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "tamu",
+      "org": "Texas A&M University",
+      "kind": "university",
+      "universityId": "tamu",
+      "homepage": "https://www.tamu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:tamu.edu high school summer research program",
+        "site:tamu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "smu",
+      "org": "Southern Methodist University",
+      "kind": "university",
+      "universityId": "smu",
+      "homepage": "https://www.smu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:smu.edu high school summer research program",
+        "site:smu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "tcu",
+      "org": "Texas Christian University",
+      "kind": "university",
+      "universityId": "tcu",
+      "homepage": "https://www.tcu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:tcu.edu high school summer research program",
+        "site:tcu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "trinity",
+      "org": "Trinity University",
+      "kind": "university",
+      "universityId": "trinity",
+      "homepage": "https://www.trinity.edu",
+      "pages": [],
+      "searchHints": [
+        "site:trinity.edu high school summer research program",
+        "site:trinity.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "utd",
+      "org": "University of Texas at Dallas",
+      "kind": "university",
+      "universityId": "utd",
+      "homepage": "https://www.utdallas.edu",
+      "pages": [],
+      "searchHints": [
+        "site:utdallas.edu high school summer research program",
+        "site:utdallas.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "baylor",
+      "org": "Baylor University",
+      "kind": "university",
+      "universityId": "baylor",
+      "homepage": "https://www.baylor.edu",
+      "pages": [],
+      "searchHints": [
+        "site:baylor.edu high school summer research program",
+        "site:baylor.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "uh",
+      "org": "University of Houston",
+      "kind": "university",
+      "universityId": "uh",
+      "homepage": "https://www.uh.edu",
+      "pages": [],
+      "searchHints": [
+        "site:uh.edu high school summer research program",
+        "site:uh.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "southwestern",
+      "org": "Southwestern University",
+      "kind": "university",
+      "universityId": "southwestern",
+      "homepage": "https://www.southwestern.edu",
+      "pages": [],
+      "searchHints": [
+        "site:southwestern.edu high school summer research program",
+        "site:southwestern.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "stedwards",
+      "org": "St. Edward's University",
+      "kind": "university",
+      "universityId": "stedwards",
+      "homepage": "https://www.stedwards.edu",
+      "pages": [],
+      "searchHints": [
+        "site:stedwards.edu high school summer research program",
+        "site:stedwards.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "ttu",
+      "org": "Texas Tech University",
+      "kind": "university",
+      "universityId": "ttu",
+      "homepage": "https://www.ttu.edu",
+      "pages": [
+        {
+          "url": "https://www.depts.ttu.edu/honors/academicsandenrichment/affiliatedandhighschool/clarks/",
+          "kind": "research"
+        }
+      ],
+      "searchHints": [
+        "site:ttu.edu high school summer research program",
+        "site:ttu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "unt",
+      "org": "University of North Texas",
+      "kind": "university",
+      "universityId": "unt",
+      "homepage": "https://www.unt.edu",
+      "pages": [
+        {
+          "url": "https://tams.unt.edu",
+          "kind": "precollege"
+        }
+      ],
+      "searchHints": [
+        "site:unt.edu high school summer research program",
+        "site:unt.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "uta",
+      "org": "University of Texas at Arlington",
+      "kind": "university",
+      "universityId": "uta",
+      "homepage": "https://www.uta.edu",
+      "pages": [],
+      "searchHints": [
+        "site:uta.edu high school summer research program",
+        "site:uta.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "utsa",
+      "org": "University of Texas at San Antonio",
+      "kind": "university",
+      "universityId": "utsa",
+      "homepage": "https://www.utsa.edu",
+      "pages": [],
+      "searchHints": [
+        "site:utsa.edu high school summer research program",
+        "site:utsa.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "txstate",
+      "org": "Texas State University",
+      "kind": "university",
+      "universityId": "txstate",
+      "homepage": "https://www.txst.edu",
+      "pages": [],
+      "searchHints": [
+        "site:txst.edu high school summer research program",
+        "site:txst.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "utep",
+      "org": "University of Texas at El Paso",
+      "kind": "university",
+      "universityId": "utep",
+      "homepage": "https://www.utep.edu",
+      "pages": [],
+      "searchHints": [
+        "site:utep.edu high school summer research program",
+        "site:utep.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "utrgv",
+      "org": "University of Texas Rio Grande Valley",
+      "kind": "university",
+      "universityId": "utrgv",
+      "homepage": "https://www.utrgv.edu",
+      "pages": [],
+      "searchHints": [
+        "site:utrgv.edu high school summer research program",
+        "site:utrgv.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "shsu",
+      "org": "Sam Houston State University",
+      "kind": "university",
+      "universityId": "shsu",
+      "homepage": "https://www.shsu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:shsu.edu high school summer research program",
+        "site:shsu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "twu",
+      "org": "Texas Woman's University",
+      "kind": "university",
+      "universityId": "twu",
+      "homepage": "https://twu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:twu.edu high school summer research program",
+        "site:twu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "pvamu",
+      "org": "Prairie View A&M University (HBCU)",
+      "kind": "university",
+      "universityId": "pvamu",
+      "homepage": "https://www.pvamu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:pvamu.edu high school summer research program",
+        "site:pvamu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "tsu",
+      "org": "Texas Southern University (HBCU)",
+      "kind": "university",
+      "universityId": "tsu",
+      "homepage": "https://www.tsu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:tsu.edu high school summer research program",
+        "site:tsu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "tarleton",
+      "org": "Tarleton State University",
+      "kind": "university",
+      "universityId": "tarleton",
+      "homepage": "https://www.tarleton.edu",
+      "pages": [],
+      "searchHints": [
+        "site:tarleton.edu high school summer research program",
+        "site:tarleton.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "sfa",
+      "org": "Stephen F. Austin State University",
+      "kind": "university",
+      "universityId": "sfa",
+      "homepage": "https://www.sfasu.edu",
+      "pages": [],
+      "searchHints": [
+        "site:sfasu.edu high school summer research program",
+        "site:sfasu.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "lamar",
+      "org": "Lamar University",
+      "kind": "university",
+      "universityId": "lamar",
+      "homepage": "https://www.lamar.edu",
+      "pages": [],
+      "searchHints": [
+        "site:lamar.edu high school summer research program",
+        "site:lamar.edu pre-college camp"
+      ]
+    },
+    {
+      "id": "utsw",
+      "org": "UT Southwestern Medical Center",
+      "kind": "medical-center",
+      "homepage": "https://www.utsouthwestern.edu",
+      "pages": [
+        {
+          "url": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
+          "kind": "research"
+        }
+      ],
+      "searchHints": [
+        "UT Southwestern high school summer research"
+      ]
+    },
+    {
+      "id": "md-anderson",
+      "org": "MD Anderson Cancer Center",
+      "kind": "medical-center",
+      "homepage": "https://www.mdanderson.org",
+      "pages": [],
+      "searchHints": [
+        "MD Anderson high school summer research program"
+      ]
+    },
+    {
+      "id": "bcm",
+      "org": "Baylor College of Medicine",
+      "kind": "medical-center",
+      "homepage": "https://www.bcm.edu",
+      "pages": [],
+      "searchHints": [
+        "Baylor College of Medicine high school summer program"
+      ]
+    },
+    {
+      "id": "uthealth-houston",
+      "org": "UTHealth Houston",
+      "kind": "medical-center",
+      "homepage": "https://www.uth.edu",
+      "pages": [],
+      "searchHints": [
+        "UTHealth Houston high school summer program"
+      ]
+    },
+    {
+      "id": "utmb",
+      "org": "UTMB Health (Galveston)",
+      "kind": "medical-center",
+      "homepage": "https://www.utmb.edu",
+      "pages": [],
+      "searchHints": [
+        "UTMB high school summer program"
+      ]
+    },
+    {
+      "id": "ut-health-san-antonio",
+      "org": "UT Health San Antonio",
+      "kind": "medical-center",
+      "homepage": "https://www.uthscsa.edu",
+      "pages": [],
+      "searchHints": [
+        "UT Health San Antonio high school summer research"
+      ]
+    },
+    {
+      "id": "nasa-jsc",
+      "org": "NASA Johnson Space Center",
+      "kind": "agency",
+      "homepage": "https://www.nasa.gov/johnson/",
+      "pages": [],
+      "searchHints": [
+        "NASA High School Aerospace Scholars Texas"
+      ]
+    },
+    {
+      "id": "txsef",
+      "org": "Texas Science & Engineering Fair",
+      "kind": "fair",
+      "homepage": "https://txsef.org",
+      "pages": [],
+      "searchHints": [
+        "TXSEF dates registration"
+      ]
+    },
+    {
+      "id": "uil",
+      "org": "UIL Academics",
+      "kind": "nonprofit",
+      "homepage": "https://www.uiltexas.org",
+      "pages": [
+        {
+          "url": "https://www.uiltexas.org/academics",
+          "kind": "competition"
+        }
+      ],
+      "searchHints": [
+        "UIL academic contests calendar"
+      ]
+    },
+    {
+      "id": "texas-ffa",
+      "org": "Texas FFA",
+      "kind": "nonprofit",
+      "homepage": "https://www.texasffa.org",
+      "pages": [],
+      "searchHints": [
+        "Texas FFA agriscience fair"
+      ]
+    },
+    {
+      "id": "tx-parks-wildlife",
+      "org": "Texas Parks & Wildlife",
+      "kind": "agency",
+      "homepage": "https://tpwd.texas.gov",
+      "pages": [],
+      "searchHints": [
+        "Texas Parks and Wildlife youth internship high school"
+      ]
+    },
+    {
+      "id": "tx-workforce",
+      "org": "Texas Workforce Commission",
+      "kind": "agency",
+      "homepage": "https://www.twc.texas.gov",
+      "pages": [],
+      "searchHints": [
+        "Texas Workforce Commission summer earn and learn high school"
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 Each `*.mjs` file here pulls opportunities from **one** official source and maps them to
 [`data/opportunities/schema.json`](../../data/opportunities/schema.json).
 
-Most discovery is done by the weekly **AI web research** step (see [docs/AUTOMATION.md](../../docs/AUTOMATION.md)), which writes `web-research.json`. Adapters are for sources with a stable official feed or API.
+Most discovery is done by the weekly **AI web research** step (see [docs/AUTOMATION.md](../../docs/AUTOMATION.md)), which writes `research-<verify|discover>-<SCOPE>.json`. Adapters are for sources with a stable official feed or API.
 
 The weekly **Refresh opportunities** workflow runs all enabled adapters, rebuilds
 `assets/data/opportunities.js`, and opens a **pull request for a human to review**.
@@ -11,7 +11,7 @@ Nothing is published automatically.
 
 ## Adding a source
 1. Copy `example-json-feed.mjs` and rename it, e.g. `nasa-ostem.mjs`.
-2. Set `name` (not `web-research`, which is reserved), set `enabled = true`, and map fields in `fetchOpportunities(ctx)`.
+2. Set `name` (must not start with `research-`, which is reserved), set `enabled = true`, and map fields in `fetchOpportunities(ctx)`.
 3. Run `node scripts/fetch-opportunities.mjs && node scripts/build-opportunities.mjs` locally.
 4. Open a PR.
 

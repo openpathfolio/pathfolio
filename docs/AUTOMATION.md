@@ -1,63 +1,70 @@
-# Weekly opportunity research: setup
+# Weekly opportunity research: how it works and how to set it up
 
-Every Monday the **Refresh opportunities** workflow (`.github/workflows/refresh-opportunities.yml`):
+Spec: [`specs/001-research-pipeline-scaling/`](../specs/001-research-pipeline-scaling/) · Tracking: epic #3
 
-1. Runs any **source adapters** (`scripts/sources/*.mjs`) that pull from official feeds or APIs.
-2. Runs **AI web research** with the instructions in [`.github/prompts/opportunity-research.md`](../.github/prompts/opportunity-research.md):
-   - **Verifies** every listing on its official page, and records published deadlines, opening dates, the cycle, and an **evidence link**.
-   - **Discovers** new university pre-college, research and training programs (Texas first), national internships and competitions.
-   - Writes only `data/opportunities/sources/web-research.json`.
-3. Builds and validates the data, removes one-time listings whose deadlines passed more than 30 days ago, and writes a change summary.
-4. Opens a **pull request** for a maintainer to review. **Nothing is published until a person merges it.**
+## What happens every Monday
+The **Refresh opportunities** workflow (`.github/workflows/refresh-opportunities.yml`) has three stages:
 
-The website then highlights published deadlines: closing soon, open, and opening soon. It sorts by the soonest deadline and links to the official evidence page.
+1. **Plan:** `scripts/research-matrix.mjs` lists the **scopes**: `US` (national listings) plus every state marked `available` in `STATE_LIST`. For each scope it schedules two jobs. It also picks this week's **discovery topic**, rotating by ISO week:
+   STEM → health → business/law/public service/education → arts/media/agriculture/environment/aviation/trades.
+2. **Research:** one job per scope × job type, at most 2 at a time, each with its own budget:
+   | Job | Instructions | Budget | Writes |
+   |---|---|---|---|
+   | `verify` | [`.github/prompts/opportunity-verify.md`](../.github/prompts/opportunity-verify.md): re-checks **every** listing in scope on its official page, stalest first; records deadlines, opening dates, status and evidence links; lists anything it skipped | 80 turns | `data/opportunities/sources/research-verify-<SCOPE>.json` |
+   | `discover` | [`.github/prompts/opportunity-discover.md`](../.github/prompts/opportunity-discover.md): checks the official **targets** in `data/opportunities/targets/<SCOPE>.json` first, then searches the web; adds up to 10 new programs for the topic; suggests new official pages | 60 turns | `data/opportunities/sources/research-discover-<SCOPE>.json` |
 
-## Option A (recommended): Claude, fully automatic
-Uses your **Claude Pro or Max subscription** (or an Anthropic API key) through [Anthropic's official GitHub Action](https://github.com/anthropics/claude-code-action).
+   Files are **merge-safe**: each job starts from its previous file, so a listing that wasn't re-checked keeps its last verification.
+3. **Publish:** collects all results, runs the source adapters, builds and validates (`--prune` removes one-time listings expired more than 30 days ago), and opens **one pull request** whose description includes:
+   - a **coverage table** per scope (verified this run / total, new, not re-checked by name, stale)
+   - new, updated and removed listings, with evidence links
+   - suggested new research targets
+   - any research job that failed (its previous data is kept)
 
-1. On your own computer, with [Claude Code](https://code.claude.com) installed, run:
-   ```bash
-   claude setup-token
-   ```
-   Copy the token it prints.
-2. In the repo, go to **Settings → Secrets and variables → Actions → New repository secret**:
-   - Name: `CLAUDE_CODE_OAUTH_TOKEN`
-   - Value: the token from step 1.
+**Nothing is published until a person reviews and merges the PR.**
 
-   Or, to bill an API account instead, add `ANTHROPIC_API_KEY`.
-3. Go to **Settings → Actions → General → Workflow permissions**, and turn on **"Allow GitHub Actions to create and approve pull requests"** (already done).
-4. To test it now, go to **Actions → Refresh opportunities → Run workflow** and choose engine = `claude`.
+### Running it manually
+**Actions → Refresh opportunities → Run workflow**, then choose:
+- `engine`: `auto` / `claude` / `issue`
+- `scope`: `all`, `US`, or a state code (e.g. `TX`)
+- `job`: `both` / `verify` / `discover`
 
-Notes:
-- Usage counts against your Claude plan's limits. One weekly run of a few dozen searches is modest.
-- The AI can only use web search, web fetch, file edits, and the build script (`--allowedTools` in the workflow).
+## Engine A (recommended): Claude, fully automatic
+Uses a **Claude Pro/Max subscription** (or an Anthropic API key) through [Anthropic's GitHub Action](https://github.com/anthropics/claude-code-action).
+1. On your computer, with [Claude Code](https://code.claude.com) installed, run `claude setup-token` and copy the token.
+2. Go to **Settings → Secrets and variables → Actions** and add `CLAUDE_CODE_OAUTH_TOKEN`, or `ANTHROPIC_API_KEY` to use API billing.
+3. Go to **Settings → Actions → General**, and turn on "Allow GitHub Actions to create and approve pull requests".
 
-## Option B: GitHub Copilot coding agent
-If no Claude secret is set, the workflow opens a weekly issue labelled `opportunity-research` that contains the full research instructions.
+Usage scales with the number of scopes: today 2 scopes × 2 jobs = 4 jobs per week. The AI may only use web search, web fetch, file edits and the build script.
 
-1. Open the issue and **assign it to Copilot**. Copilot works on it and opens a pull request.
-2. **Important:** Copilot's coding agent runs behind a firewall that blocks most websites by default. Go to **Settings → Copilot → Coding agent** and either add the official domains it needs (university `.edu` sites, `nasa.gov`, and so on) to the allowlist, or turn off the firewall for this repo. See GitHub's docs: *Customizing or disabling the firewall for Copilot coding agent*.
-3. Copilot can fetch pages it's allowed to reach but has no general web-search tool, so it is better at **verifying** existing listings than at **discovering** new ones. For discovery, Option A works better.
+## Engine B: GitHub Copilot coding agent
+Without a Claude secret, the workflow opens one weekly issue (label `opportunity-research`). It lists every job with its output file, followed by both instruction files.
+1. Assign the issue to **Copilot**. It opens a PR.
+2. Copilot's firewall blocks most sites by default. Go to **Settings → Copilot → Coding agent** and allow the official domains, or turn off the firewall for this repo.
+3. Copilot has no general web-search tool, so it's better at **verify** than **discover**.
 
-Copilot coding agent requires Copilot Pro, Pro+, Business or Enterprise.
+## Engine C: manual
+Follow the weekly issue's instructions with any AI assistant that has web search, write the listed files, run `node scripts/build-opportunities.mjs`, and open a PR.
 
-## Option C: manual
-Open the weekly issue, paste its instructions into any AI assistant that has web search (or do the research yourself), save the result as `data/opportunities/sources/web-research.json`, run `node scripts/build-opportunities.mjs`, and open a pull request.
-
-## Reviewing the weekly pull request
-The PR description lists **new**, **updated** and **removed** listings, with links to the evidence pages. Before merging:
-- [ ] Open each evidence link and confirm the dates.
+## Reviewing the weekly PR
+- [ ] Check the **coverage table**. Anything under 95% is flagged ⚠️, with the unchecked listings named.
+- [ ] Open the evidence links for new and changed dates.
 - [ ] Reject pay-to-play programs and pay-to-publish journals.
-- [ ] Check grades, ages and costs.
+- [ ] Add useful **suggested targets** to `data/opportunities/targets/<SCOPE>.json` (in a separate PR is fine).
 
-CI must pass. It re-validates everything and checks that the generated file is current.
-
-## How the data merges
-| File | Who edits | Role |
+## Data files
+| File | Edited by | Purpose |
 |---|---|---|
-| `data/opportunities/curated.json` | Humans | The trusted base list |
-| `data/opportunities/sources/web-research.json` | Weekly AI research | `updates` (new dates for existing ids) + `additions` (new programs) |
-| `data/opportunities/sources/<adapter>.json` | Source adapters | Full entries from official feeds |
+| `data/opportunities/curated.json` | Humans | Trusted base list |
+| `data/opportunities/sources/research-verify-<SCOPE>.json` | Verify job | `updates` (dates, status, evidence) + `skipped` |
+| `data/opportunities/sources/research-discover-<SCOPE>.json` | Discover job | `additions` (new programs) + `targetSuggestions` |
+| `data/opportunities/sources/<adapter>.json` | Source adapters | Entries from official feeds |
+| `data/opportunities/targets/<SCOPE>.json` | Humans | Official orgs/pages to check first (required for every live scope; validated in CI) |
 | `assets/data/opportunities.js` | `build-opportunities.mjs` | Generated, never edited by hand |
 
-Updates can only change time-sensitive fields: deadline, opening date, cycle, status, URL, cost, evidence link and similar. They can never overwrite a newer verification with an older one.
+Updates may only change time-sensitive fields, and never overwrite a newer verification with an older one.
+
+## Adding a state to the rotation
+When a state module becomes `available: true` (see [ADDING_A_STATE.md](ADDING_A_STATE.md)), create `data/opportunities/targets/<CODE>.json` with a target for every university in the state. CI enforces this. The state then joins the weekly matrix automatically.
+
+## Weekly link check
+**Check links** (`.github/workflows/link-check.yml`) runs every Wednesday. It checks every URL in the site data and keeps **one** issue labelled `broken-links` up to date, closing it when everything passes. Sites that block automated checks (401/403/429) are listed separately for a quick manual look.
