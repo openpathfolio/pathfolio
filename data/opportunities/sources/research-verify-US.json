@@ -67,6 +67,36 @@
       "lastVerified": "2026-11-16",
       "evidenceUrl": "https://www.eaa.org/eaa/youth/free-ye-flights",
       "deadlineNote": "Year-round; flights are scheduled by local EAA chapters (ages 8-17), no national deadline"
+    },
+    {
+      "id": "national-ffa-scholarships",
+      "status": "unknown",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "Scholarship dates not shown on the official page this run; check the FFA scholarship portal",
+      "evidenceUrl": "https://www.ffa.org/participate/grants-scholarships/"
+    },
+    {
+      "id": "skillsusa-championships",
+      "cycle": "2026-27",
+      "status": "upcoming",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2027 National Leadership & Skills Conference: June 21-25, 2027 (Atlanta). Qualify through state competitions; no national registration deadline published.",
+      "evidenceUrl": "https://www.skillsusa.org/competitions/skillsusa-championships/"
+    },
+    {
+      "id": "youngarts-national-arts-competition",
+      "cycle": "2027",
+      "status": "closed",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "2027 application closed Oct 6; the 2028 application opens Summer 2027",
+      "evidenceUrl": "https://youngarts.org/apply/"
+    },
+    {
+      "id": "usfs-youth-conservation-corps",
+      "status": "unknown",
+      "lastVerified": "2026-11-16",
+      "deadlineNote": "Program still offered (1-3 months in summer); no 2027 dates published. Apply through partner conservation corps or local Forest offices.",
+      "evidenceUrl": "https://www.fs.usda.gov/working-with-us/opportunities-for-young-people/youth-conservation-corps-opportunities"
     }
   ],
   "additions": [],

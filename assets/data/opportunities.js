@@ -116,7 +116,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Full scholarship covers tuition, room, meals and transportation",
   "deadline": "2026-11-30",
-  "cycle": "Summer 2027",
+  "cycle": "2027",
   "status": "open",
   "areas": [
    "aviation"
@@ -129,7 +129,8 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": "2026-11-16",
   "source": "web-research",
-  "evidenceUrl": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship"
+  "evidenceUrl": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship",
+  "deadlineNote": "Application and essay/audio/video must be received by Nov 30, 2026; camp July 20-28, 2027"
  },
  {
   "id": "eaa-young-eagles",
@@ -377,7 +378,7 @@ const OPPORTUNITIES = [
   "costNote": "No application fee reported; FFA membership is required.",
   "deadline": null,
   "cycle": "2026-27",
-  "deadlineNote": "Applications are typically open from early November to mid-January; confirm the exact date on ffa.org.",
+  "deadlineNote": "Scholarship dates not shown on the official page this run; check the FFA scholarship portal",
   "areas": [
    "ag",
    "env",
@@ -389,6 +390,72 @@ const OPPORTUNITIES = [
   "lastVerified": "2026-11-16",
   "evidenceUrl": "https://www.ffa.org/participate/grants-scholarships/",
   "status": "unknown",
+  "source": "web-research"
+ },
+ {
+  "id": "national-flight-academy",
+  "title": "National Flight Academy Deployment Program",
+  "org": "National Flight Academy",
+  "type": "summer-program",
+  "states": [
+   "US"
+  ],
+  "location": "Pensacola, FL (Naval Air Station)",
+  "grades": [
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "cost": "varies",
+  "costNote": "Fee-based nonprofit program; check the official site for current cost and funding or scholarship options.",
+  "deadline": null,
+  "deadlineNote": "Session dates and registration are listed on the official registration page; 2027 dates not confirmed.",
+  "areas": [
+   "aviation",
+   "eng"
+  ],
+  "url": "https://www.nationalflightacademy.com/",
+  "description": "Immersive 6-day, 5-night program on a simulated aircraft carrier at NAS Pensacola for grades 6-12, with STEM and aviation teamwork missions.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://www.nationalflightacademy.com/",
+  "source": "web-research"
+ },
+ {
+  "id": "nps-youth-conservation-corps",
+  "title": "National Park Service Youth Conservation Corps (YCC)",
+  "org": "National Park Service",
+  "type": "internship",
+  "states": [
+   "US"
+  ],
+  "location": "Participating national parks (varies)",
+  "grades": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "minAge": 15,
+  "cost": "stipend",
+  "costNote": "Paid summer work; pay and housing vary by park (some parks provide housing, many are day programs).",
+  "deadline": null,
+  "cycle": "2027",
+  "deadlineNote": "The 2027 park list is expected in late January or early February; each park sets its own deadline (e.g. Yellowstone expects mid-February to March 1).",
+  "areas": [
+   "env",
+   "trades"
+  ],
+  "url": "https://www.nps.gov/subjects/youthprograms/ycc.htm",
+  "description": "Summer work program for ages 15-18 doing conservation and maintenance projects in national parks. Applicants must be U.S. citizens or permanent residents; apply directly to each park using the DI-4014 form.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://www.nps.gov/subjects/youthprograms/ycc.htm",
+  "status": "upcoming",
   "source": "web-research"
  },
  {
@@ -545,7 +612,7 @@ const OPPORTUNITIES = [
   "costNote": "Entry is through a local SkillsUSA chapter in a career and technical education program; chapter and conference fees vary by school and state.",
   "deadline": null,
   "cycle": "2026-27",
-  "deadlineNote": "Registration deadlines are set by each state association; state conferences are usually in spring.",
+  "deadlineNote": "2027 National Leadership & Skills Conference: June 21-25, 2027 (Atlanta). Qualify through state competitions; no national registration deadline published.",
   "areas": [
    "trades",
    "eng",
@@ -592,7 +659,8 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": "2026-11-16",
   "source": "web-research",
-  "evidenceUrl": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp"
+  "evidenceUrl": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp",
+  "deadlineNote": "Camp June 6-11, 2027; registration opens Feb. 27 (year not stated on page); registration deadline May 1"
  },
  {
   "id": "texas-aerospace-scholars-junior",
@@ -605,8 +673,8 @@ const OPPORTUNITIES = [
   ],
   "cost": "free",
   "costNote": "No cost for selected students",
-  "cycle": "2027",
-  "deadlineNote": "2026-27 application window (Jul 1-Sep 16, 2026) has closed; next window not yet published",
+  "cycle": "2026-27",
+  "deadlineNote": "2026 application window July 1 - Sept 16, 2026 has closed; next window not yet announced",
   "status": "closed",
   "areas": [
    "aviation",
@@ -621,7 +689,9 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": "2026-11-16",
   "source": "web-research",
-  "evidenceUrl": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience"
+  "evidenceUrl": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience",
+  "deadline": "2026-09-16",
+  "opens": "2026-07-01"
  },
  {
   "id": "txsef",
@@ -691,7 +761,8 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": "2026-11-16",
   "source": "web-research",
-  "evidenceUrl": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html"
+  "evidenceUrl": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html",
+  "deadlineNote": "Entries must be postmarked by Feb 27, 2027; 2027 theme Texas in Flight"
  },
  {
   "id": "usaco",
@@ -802,8 +873,8 @@ const OPPORTUNITIES = [
   "cost": "fee",
   "costNote": "An application fee applies; a fee waiver may be available. Confirm current fee and waiver process on youngarts.org.",
   "deadline": null,
-  "cycle": "2028",
-  "deadlineNote": "The 2027 cycle closed Oct 6, 2026. The 2028 application opens in Summer 2027; deadline not yet published (recent cycles closed in early October).",
+  "cycle": "2027",
+  "deadlineNote": "2027 application closed Oct 6; the 2028 application opens Summer 2027",
   "areas": [
    "arts",
    "design",
@@ -814,7 +885,7 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": "2026-11-16",
   "evidenceUrl": "https://youngarts.org/apply/",
-  "status": "upcoming",
+  "status": "closed",
   "source": "web-research"
  },
  {
@@ -836,7 +907,7 @@ const OPPORTUNITIES = [
   "costNote": "Paid at the higher of federal or state minimum wage.",
   "deadline": null,
   "cycle": "Summer 2027",
-  "deadlineNote": "No national deadline; check partner conservation corps and local Forest Service offices, which often hire in winter and spring.",
+  "deadlineNote": "Program still offered (1-3 months in summer); no 2027 dates published. Apply through partner conservation corps or local Forest offices.",
   "areas": [
    "env",
    "ag",
