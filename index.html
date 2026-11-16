@@ -52,8 +52,11 @@
         <a class="card step" href="#plan"><b>4</b><span>Build your plan</span><small>Save ideas, track progress, print</small></a>
       </div>
 
+      <div id="backupNag"></div>
+      <div id="homeDeadlines"></div>
+
       <div class="card" id="home-profile">
-        <h2>👤 Student profile <span class="muted small">(optional, saved only in this browser)</span></h2>
+        <h2>👤 Student profile <span class="muted small">(optional, saved in this browser; back it up from <a href="#plan">My Plan</a>)</span></h2>
         <form id="profileForm" class="grid g3 form">
           <div><label for="pState">State</label><select id="pState"></select></div>
           <div><label for="pGrade">Current grade</label>
@@ -135,8 +138,10 @@
         <div><label for="oArea">Area</label><select id="oArea"></select></div>
         <div><label for="oGrade">Grade</label><select id="oGrade"><option value="all">Any grade</option><option value="8">8th</option><option value="9">9th</option><option value="10">10th</option><option value="11">11th</option><option value="12">12th</option></select></div>
         <div><label for="oCost">Cost</label><select id="oCost"><option value="all">Any</option><option value="free">Free or paid to student</option><option value="stipend">Paid / stipend only</option></select></div>
+        <div><label for="oStatus">Deadline</label><select id="oStatus"><option value="all">Any</option><option value="published">Published deadline (upcoming)</option><option value="soon30">Closing within 30 days</option><option value="nodate">Dates not yet published</option></select></div>
         <div><label for="oSearch">Search</label><input id="oSearch" type="search" placeholder="e.g. NASA, cyber, essay"></div>
       </div>
+      <div class="card highlight-bar" id="oppHighlights" aria-live="polite"></div>
       <p class="muted" id="oppCount"></p>
       <div id="oppList" class="grid g3"></div>
       <div class="card callout"><h3>➕ Know a great program?</h3><p>Pathfolio is community-maintained. <a href="https://github.com/openpathfolio/pathfolio/issues/new/choose" target="_blank" rel="noopener">Suggest an opportunity</a>. Free and paid-to-student programs are listed first, and we never list pay-to-play programs.</p></div>
@@ -181,7 +186,25 @@
     <!-- ================= MY PLAN ================= -->
     <section id="plan" class="view" hidden>
       <h1>My Plan</h1>
-      <p class="lead">Your saved courses, certifications, projects, internships, research ideas and milestones. Saved in this browser only, so print or copy it to share.</p>
+      <p class="lead">Your saved courses, certifications, projects, internships, research ideas and milestones.</p>
+      <div class="card backup" id="backupCard">
+        <h2>💾 Keep your data safe</h2>
+        <p class="small">Pathfolio has no accounts, so nothing is stored on a server. Your profile and plan live <strong>in this browser only</strong>, and clearing browser data or switching devices erases them. Keep a backup:</p>
+        <div class="row no-print">
+          <button class="btn primary" id="downloadBackup" type="button">⬇️ Download backup file</button>
+          <label class="btn" for="restoreFile">⬆️ Restore from file</label>
+          <input id="restoreFile" type="file" accept=".json,application/json" hidden>
+          <button class="btn" id="copyRestoreLink" type="button">🔗 Copy restore link</button>
+        </div>
+        <p class="small muted" id="backupStatus" aria-live="polite"></p>
+        <details class="small"><summary>Which option should I use?</summary>
+          <ul>
+            <li><strong>Backup file (recommended):</strong> save it to Google Drive, iCloud, OneDrive or email it to yourself. Restore it on any device, any time.</li>
+            <li><strong>Restore link:</strong> a private link that contains your data. Bookmark it or email it to yourself; opening it restores everything. Treat it like a password, because anyone with the link can see your plan.</li>
+            <li><strong>Print / PDF:</strong> good for sharing with a counselor, but it can't be restored.</li>
+          </ul>
+        </details>
+      </div>
       <div class="card">
         <div class="progress"><div id="planBar"></div></div>
         <p id="planStats" class="muted"></p>

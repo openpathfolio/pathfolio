@@ -25,7 +25,7 @@ To make a change:
 4. Open a pull request that describes what changed and links your source.
 
 Adding a whole state? See [docs/ADDING_A_STATE.md](docs/ADDING_A_STATE.md).
-Adding an automated source? See [scripts/sources/README.md](scripts/sources/README.md).
+Adding an automated source? See [scripts/sources/README.md](scripts/sources/README.md). Weekly AI research is described in [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
 ## Content guidelines
 - Prefer **official sources** (university, TEA, THECB, BLS).
