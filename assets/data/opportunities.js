@@ -102,6 +102,36 @@ const OPPORTUNITIES = [
   "source": "curated"
  },
  {
+  "id": "eaa-chapter-35-air-academy-scholarship",
+  "title": "EAA Chapter 35 Air Academy Scholarship",
+  "org": "EAA Chapter 35 (San Antonio)",
+  "type": "scholarship",
+  "location": "Oshkosh, WI (San Antonio-area applicants)",
+  "grades": [
+   10,
+   11,
+   12
+  ],
+  "minAge": 16,
+  "cost": "free",
+  "costNote": "Full scholarship covers tuition, room, meals and transportation",
+  "deadline": "2026-11-30",
+  "cycle": "Summer 2027",
+  "status": "open",
+  "areas": [
+   "aviation"
+  ],
+  "url": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship",
+  "description": "Full scholarship to EAA Air Academy's Explore Session for a San Antonio-area youth aged 16-17. Submit an application plus an essay (up to 800 words) or an audio/video file (up to 8 minutes) on your interest in aviation.",
+  "states": [
+   "TX"
+  ],
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "source": "web-research",
+  "evidenceUrl": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship"
+ },
+ {
   "id": "eaa-young-eagles",
   "title": "EAA Young Eagles First Flight",
   "org": "Experimental Aircraft Association",
@@ -123,15 +153,18 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Free introductory flight (ages 8–17)",
   "deadline": null,
-  "deadlineNote": "Year-round events",
+  "deadlineNote": "Year-round; flights are scheduled by local EAA chapters (ages 8-17), no national deadline",
   "areas": [
    "aviation"
   ],
-  "url": "https://www.youngeagles.org",
+  "url": "https://www.eaa.org/eaa/youth/free-ye-flights",
   "description": "Free first airplane ride with a volunteer pilot, plus free online ground-school access.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-16",
+  "source": "curated",
+  "status": "open",
+  "cycle": "2026-27",
+  "evidenceUrl": "https://www.eaa.org/eaa/youth/free-ye-flights"
  },
  {
   "id": "gencyber",
@@ -329,6 +362,36 @@ const OPPORTUNITIES = [
   "evidenceUrl": "https://www.nasa.gov/learning-resources/internship-programs/"
  },
  {
+  "id": "national-ffa-scholarships",
+  "title": "National FFA Scholarship Program",
+  "org": "National FFA Organization",
+  "type": "scholarship",
+  "states": [
+   "US"
+  ],
+  "location": "Online",
+  "grades": [
+   12
+  ],
+  "cost": "free",
+  "costNote": "No application fee reported; FFA membership is required.",
+  "deadline": null,
+  "cycle": "2026-27",
+  "deadlineNote": "Applications are typically open from early November to mid-January; confirm the exact date on ffa.org.",
+  "areas": [
+   "ag",
+   "env",
+   "trades"
+  ],
+  "url": "https://www.ffa.org/participate/grants-scholarships/",
+  "description": "Scholarships for FFA members pursuing agriculture and related careers, funded by many sponsors through one application. Open to current FFA members who are graduating seniors or already in college; award amounts vary by scholarship.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://www.ffa.org/participate/grants-scholarships/",
+  "status": "unknown",
+  "source": "web-research"
+ },
+ {
   "id": "picoctf",
   "title": "picoCTF",
   "org": "Carnegie Mellon University",
@@ -464,6 +527,103 @@ const OPPORTUNITIES = [
   "evidenceUrl": "https://www.artandwriting.org"
  },
  {
+  "id": "skillsusa-championships",
+  "title": "SkillsUSA Championships",
+  "org": "SkillsUSA",
+  "type": "competition",
+  "states": [
+   "US"
+  ],
+  "location": "Atlanta, GA",
+  "grades": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "cost": "varies",
+  "costNote": "Entry is through a local SkillsUSA chapter in a career and technical education program; chapter and conference fees vary by school and state.",
+  "deadline": null,
+  "cycle": "2026-27",
+  "deadlineNote": "Registration deadlines are set by each state association; state conferences are usually in spring.",
+  "areas": [
+   "trades",
+   "eng",
+   "design",
+   "arch",
+   "aviation"
+  ],
+  "url": "https://www.skillsusa.org/competitions/skillsusa-championships/",
+  "description": "National hands-on skill competition in trades, technology, design and service occupations. Students advance from chapter to district and state contests; state gold medalists compete June 21-25, 2027 in Atlanta.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://www.skillsusa.org/competitions/skillsusa-championships/",
+  "status": "upcoming",
+  "source": "web-research"
+ },
+ {
+  "id": "tamu-viz-summer-camp",
+  "title": "Texas A&M VIZ Summer Camp",
+  "org": "Texas A&M University, Department of Visualization",
+  "type": "summer-program",
+  "location": "College Station, TX",
+  "grades": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "minAge": 15,
+  "cost": "fee",
+  "costNote": "$1,400 per session including housing and meals; scholarships being explored, details not final",
+  "deadline": "2027-05-01",
+  "opens": "2027-02-27",
+  "cycle": "Summer 2027",
+  "status": "upcoming",
+  "areas": [
+   "design",
+   "media"
+  ],
+  "url": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp",
+  "description": "Residential one-week camp for high school students ages 15-18 on animation and web/mobile app design, held June 6-11, 2027. Registration opens Feb 27 and closes May 1.",
+  "states": [
+   "TX"
+  ],
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "source": "web-research",
+  "evidenceUrl": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp"
+ },
+ {
+  "id": "texas-aerospace-scholars-junior",
+  "title": "Texas Aerospace Scholars (Junior Experience)",
+  "org": "NASA Johnson Space Center",
+  "type": "summer-program",
+  "location": "Online and Houston, TX",
+  "grades": [
+   11
+  ],
+  "cost": "free",
+  "costNote": "No cost for selected students",
+  "cycle": "2027",
+  "deadlineNote": "2026-27 application window (Jul 1-Sep 16, 2026) has closed; next window not yet published",
+  "status": "closed",
+  "areas": [
+   "aviation",
+   "eng",
+   "sci"
+  ],
+  "url": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience",
+  "description": "Free STEM program for Texas high school juniors (U.S. citizens, Texas residents): an online course and design challenges, a virtual Moonshot week, and for top teams a residential experience at Johnson Space Center.",
+  "states": [
+   "TX"
+  ],
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "source": "web-research",
+  "evidenceUrl": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience"
+ },
+ {
   "id": "txsef",
   "title": "Texas Science & Engineering Fair (TXSEF)",
   "org": "Texas Science & Engineering Fair",
@@ -501,6 +661,37 @@ const OPPORTUNITIES = [
   "cycle": "2026-27",
   "status": "unknown",
   "evidenceUrl": "https://txsef.tamu.edu/"
+ },
+ {
+  "id": "txdot-aviation-art-contest",
+  "title": "TxDOT Aviation Art Contest",
+  "org": "Texas Department of Transportation, Aviation Division",
+  "type": "competition",
+  "location": "Austin, TX (mail-in)",
+  "grades": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "cost": "free",
+  "costNote": "No entry fee listed; gift-card prizes of $100/$75/$50 per age group",
+  "deadline": "2027-02-27",
+  "cycle": "2027",
+  "status": "open",
+  "areas": [
+   "aviation",
+   "design"
+  ],
+  "url": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html",
+  "description": "Texas art contest on the theme \"Texas in Flight.\" Age groups 6-9, 10-13 and 14-17 (high schoolers compete in 14-17). Entries must be postmarked by Feb 27, 2027 and mailed to the TxDOT Aviation Division.",
+  "states": [
+   "TX"
+  ],
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "source": "web-research",
+  "evidenceUrl": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html"
  },
  {
   "id": "usaco",
@@ -592,5 +783,71 @@ const OPPORTUNITIES = [
   "recurring": true,
   "lastVerified": null,
   "source": "curated"
+ },
+ {
+  "id": "youngarts-national-arts-competition",
+  "title": "YoungArts National Arts Competition",
+  "org": "National YoungArts Foundation",
+  "type": "competition",
+  "states": [
+   "US"
+  ],
+  "location": "Online application; National YoungArts Week in Miami, FL",
+  "grades": [
+   10,
+   11,
+   12
+  ],
+  "minAge": 15,
+  "cost": "fee",
+  "costNote": "An application fee applies; a fee waiver may be available. Confirm current fee and waiver process on youngarts.org.",
+  "deadline": null,
+  "cycle": "2028",
+  "deadlineNote": "The 2027 cycle closed Oct 6, 2026. The 2028 application opens in Summer 2027; deadline not yet published (recent cycles closed in early October).",
+  "areas": [
+   "arts",
+   "design",
+   "media"
+  ],
+  "url": "https://youngarts.org/apply/",
+  "description": "Competition for artists ages 15-18 or in grades 10-12 in visual, literary, design, dance, music, theater and film disciplines. Winners are invited to National YoungArts Week. Applicants must be U.S. citizens, permanent residents or otherwise able to receive taxable income.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://youngarts.org/apply/",
+  "status": "upcoming",
+  "source": "web-research"
+ },
+ {
+  "id": "usfs-youth-conservation-corps",
+  "title": "Youth Conservation Corps (U.S. Forest Service)",
+  "org": "U.S. Forest Service",
+  "type": "internship",
+  "states": [
+   "US"
+  ],
+  "location": "National forests and public lands nationwide",
+  "grades": [
+   10,
+   11,
+   12
+  ],
+  "minAge": 15,
+  "cost": "stipend",
+  "costNote": "Paid at the higher of federal or state minimum wage.",
+  "deadline": null,
+  "cycle": "Summer 2027",
+  "deadlineNote": "No national deadline; check partner conservation corps and local Forest Service offices, which often hire in winter and spring.",
+  "areas": [
+   "env",
+   "ag",
+   "sci"
+  ],
+  "url": "https://www.fs.usda.gov/working-with-us/opportunities-for-young-people/youth-conservation-corps-opportunities",
+  "description": "Paid 1-3 month summer conservation work on national forests and public lands. Youth must be 15 to 18, U.S. citizens or permanent residents with a Social Security number, and able to get a state work permit.",
+  "recurring": true,
+  "lastVerified": "2026-11-16",
+  "evidenceUrl": "https://www.fs.usda.gov/working-with-us/opportunities-for-young-people/youth-conservation-corps-opportunities",
+  "status": "unknown",
+  "source": "web-research"
  }
 ];

@@ -2,7 +2,7 @@
   "generatedAt": "2026-11-16",
   "scope": "TX",
   "job": "discover",
-  "topic": "migrated",
+  "topic": "creative-hands",
   "updates": [],
   "additions": [
     {
@@ -34,7 +34,149 @@
       "evidenceUrl": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
       "status": "open",
       "source": "web-research"
+    },
+    {
+      "id": "txdot-aviation-art-contest",
+      "title": "TxDOT Aviation Art Contest",
+      "org": "Texas Department of Transportation, Aviation Division",
+      "type": "competition",
+      "location": "Austin, TX (mail-in)",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "cost": "free",
+      "costNote": "No entry fee listed; gift-card prizes of $100/$75/$50 per age group",
+      "deadline": "2027-02-27",
+      "cycle": "2027",
+      "status": "open",
+      "areas": [
+        "aviation",
+        "design"
+      ],
+      "url": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html",
+      "description": "Texas art contest on the theme \"Texas in Flight.\" Age groups 6-9, 10-13 and 14-17 (high schoolers compete in 14-17). Entries must be postmarked by Feb 27, 2027 and mailed to the TxDOT Aviation Division.",
+      "states": [
+        "TX"
+      ],
+      "recurring": true,
+      "lastVerified": "2026-11-16",
+      "source": "web-research",
+      "evidenceUrl": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html"
+    },
+    {
+      "id": "eaa-chapter-35-air-academy-scholarship",
+      "title": "EAA Chapter 35 Air Academy Scholarship",
+      "org": "EAA Chapter 35 (San Antonio)",
+      "type": "scholarship",
+      "location": "Oshkosh, WI (San Antonio-area applicants)",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "minAge": 16,
+      "cost": "free",
+      "costNote": "Full scholarship covers tuition, room, meals and transportation",
+      "deadline": "2026-11-30",
+      "cycle": "Summer 2027",
+      "status": "open",
+      "areas": [
+        "aviation"
+      ],
+      "url": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship",
+      "description": "Full scholarship to EAA Air Academy's Explore Session for a San Antonio-area youth aged 16-17. Submit an application plus an essay (up to 800 words) or an audio/video file (up to 8 minutes) on your interest in aviation.",
+      "states": [
+        "TX"
+      ],
+      "recurring": true,
+      "lastVerified": "2026-11-16",
+      "source": "web-research",
+      "evidenceUrl": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship"
+    },
+    {
+      "id": "texas-aerospace-scholars-junior",
+      "title": "Texas Aerospace Scholars (Junior Experience)",
+      "org": "NASA Johnson Space Center",
+      "type": "summer-program",
+      "location": "Online and Houston, TX",
+      "grades": [
+        11
+      ],
+      "cost": "free",
+      "costNote": "No cost for selected students",
+      "cycle": "2027",
+      "deadlineNote": "2026-27 application window (Jul 1-Sep 16, 2026) has closed; next window not yet published",
+      "status": "closed",
+      "areas": [
+        "aviation",
+        "eng",
+        "sci"
+      ],
+      "url": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience",
+      "description": "Free STEM program for Texas high school juniors (U.S. citizens, Texas residents): an online course and design challenges, a virtual Moonshot week, and for top teams a residential experience at Johnson Space Center.",
+      "states": [
+        "TX"
+      ],
+      "recurring": true,
+      "lastVerified": "2026-11-16",
+      "source": "web-research",
+      "evidenceUrl": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience"
+    },
+    {
+      "id": "tamu-viz-summer-camp",
+      "title": "Texas A&M VIZ Summer Camp",
+      "org": "Texas A&M University, Department of Visualization",
+      "type": "summer-program",
+      "location": "College Station, TX",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "minAge": 15,
+      "cost": "fee",
+      "costNote": "$1,400 per session including housing and meals; scholarships being explored, details not final",
+      "deadline": "2027-05-01",
+      "opens": "2027-02-27",
+      "cycle": "Summer 2027",
+      "status": "upcoming",
+      "areas": [
+        "design",
+        "media"
+      ],
+      "url": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp",
+      "description": "Residential one-week camp for high school students ages 15-18 on animation and web/mobile app design, held June 6-11, 2027. Registration opens Feb 27 and closes May 1.",
+      "states": [
+        "TX"
+      ],
+      "recurring": true,
+      "lastVerified": "2026-11-16",
+      "source": "web-research",
+      "evidenceUrl": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp"
     }
   ],
-  "targetSuggestions": []
+  "targetSuggestions": [
+    {
+      "org": "EAA Chapter 35",
+      "url": "https://chapters.eaa.org/EAA35/Air-Academy-Scholarship",
+      "kind": "scholarship",
+      "note": "Annual Air Academy scholarship for San Antonio-area teens"
+    },
+    {
+      "org": "TxDOT Aviation Division",
+      "url": "https://www.txdot.gov/about/campaigns-outreach/aviation-art-contest.html",
+      "kind": "competition",
+      "note": "Annual aviation art contest"
+    },
+    {
+      "org": "TxDOT Connecting Career Pathways",
+      "url": "https://www.txdot.gov/about/programs/civil-rights/transportation-industry-workforce-development/connecting-career-pathways/summer-transportation-camps.html",
+      "kind": "summer-program",
+      "note": "Statewide summer transportation camps; dates not published, contact ccp@txdot.gov"
+    }
+  ]
 }

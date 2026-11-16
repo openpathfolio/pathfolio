@@ -58,8 +58,50 @@
       "lastVerified": "2026-11-16",
       "deadlineNote": "2027 deadlines not on the home page; see the 2027 participation terms",
       "evidenceUrl": "https://www.artandwriting.org"
+    },
+    {
+      "id": "eaa-young-eagles",
+      "url": "https://www.eaa.org/eaa/youth/free-ye-flights",
+      "status": "open",
+      "cycle": "2026-27",
+      "lastVerified": "2026-11-16",
+      "evidenceUrl": "https://www.eaa.org/eaa/youth/free-ye-flights",
+      "deadlineNote": "Year-round; flights are scheduled by local EAA chapters (ages 8-17), no national deadline"
     }
   ],
   "additions": [],
-  "skipped": []
+  "skipped": [
+    {
+      "id": "clark-scholars",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "cyberpatriot",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "gencyber",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "hosa",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "john-locke-essay",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "jei",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "usaco",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    },
+    {
+      "id": "wharton-investment",
+      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+    }
+  ]
 }
