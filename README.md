@@ -4,6 +4,8 @@
 
 Pathfolio is an open-source planner for **students and parents**, especially families who are still exploring career paths. It starts with **Texas**, and the project is built so volunteers can add more states.
 
+### 👉 Use it now: **[openpathfolio.github.io/pathfolio](https://openpathfolio.github.io/pathfolio/)**
+
 > No sign-up. No ads. No tracking. Everything a student enters stays in their own browser.
 
 ## Features
@@ -43,8 +45,17 @@ Open `index.html` in a browser. After editing opportunity data, run:
 node scripts/build-opportunities.mjs
 ```
 
-## Deploy
-Go to **Settings → Pages → Deploy from a branch → `main` / `(root)`**. For the weekly refresh, also enable **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"**.
+## Live site & deployment
+Pathfolio is live at **https://openpathfolio.github.io/pathfolio/**.
+
+It is served by GitHub Pages from the `main` branch. Every merge to `main` redeploys automatically within a minute or two; there is no build step.
+
+| Automation | What it does |
+|---|---|
+| **CI** (`.github/workflows/ci.yml`) | Runs on every pull request and push to `main`. Checks JavaScript syntax and validates opportunity data. |
+| **Refresh opportunities** (`.github/workflows/refresh-opportunities.yml`) | Runs every Monday, or manually from the Actions tab. Fetches from source adapters and opens a pull request for human review. |
+
+**Running your own copy (fork):** enable **Settings → Pages → Deploy from a branch → `main` / `(root)`** and **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"**.
 
 ## Contributing
 Data corrections, new opportunities and new states are all welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/ADDING_A_STATE.md](docs/ADDING_A_STATE.md).
