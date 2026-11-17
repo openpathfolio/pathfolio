@@ -190,3 +190,43 @@ const RESOURCES = {
     { title: "NYT Learning Network contests", url: "https://www.nytimes.com/section/learning" }
   ]
 };
+
+/* ============================================================
+   Application builder (spec 002)
+   Limits follow the Common Application's activities & honors sections.
+   Update here if the Common App changes them (single source of truth).
+   ============================================================ */
+const APP_LIMITS = { activities: 10, honors: 5, position: 50, org: 100, description: 150, honorTitle: 100, hoursWarn: 40, weeksMax: 52 };
+
+const ACTIVITY_TYPES = [
+  "Academic", "Art", "Athletics: Club", "Athletics: JV/Varsity", "Career Oriented", "Community Service (Volunteer)",
+  "Computer/Technology", "Cultural", "Dance", "Debate/Speech", "Environmental", "Family Responsibilities",
+  "Foreign Exchange", "Foreign Language", "Internship", "Journalism/Publication", "Junior R.O.T.C.", "LGBT",
+  "Music: Instrumental", "Music: Vocal", "Religious", "Research", "Robotics", "School Spirit", "Science/Math",
+  "Social Justice", "Student Govt./Politics", "Theater/Drama", "Work (Paid)", "Other Club/Activity"
+];
+
+const RECOGNITION_LEVELS = ["School", "State/Regional", "National", "International"];
+
+const TIMING = { school: "During school year", break: "During school break", year: "All year" };
+
+/* Default activity type for each plan category (students can change it) */
+const CAT_TO_TYPE = {
+  course: "Academic", cert: "Career Oriented", project: "Other Club/Activity", intern: "Internship", compete: "Academic",
+  summer: "Academic", research: "Research", publish: "Journalism/Publication", milestone: "Other Club/Activity", custom: "Other Club/Activity"
+};
+
+const STRONG_VERBS = ["Led", "Founded", "Built", "Designed", "Organized", "Tutored", "Mentored", "Raised", "Launched", "Coordinated",
+  "Researched", "Published", "Taught", "Coached", "Created", "Managed", "Improved", "Volunteered", "Translated", "Cared for"];
+
+/* Openers that waste characters; matched case-insensitively at the start of a description */
+const WEAK_OPENERS = ["I was", "I am", "I have", "I helped", "Member of", "Was a", "Was part of", "Participated in", "Responsible for", "Worked on", "Helped with", "Helped"];
+
+const APP_TIPS = [
+  { t: "Order by importance", d: "Put your most meaningful activities first. Readers spend the most time on the top of the list." },
+  { t: "Start with a strong verb", d: "Led, Built, Tutored, Organized… Skip \"I was\" and \"Member of\". The position field already says your role." },
+  { t: "Show impact with numbers", d: "\"Raised $2,400 for…\", \"Tutored 12 freshmen weekly\", \"Cut build time 30%\". Numbers are fast to read and believable." },
+  { t: "Family and work count", d: "Caring for siblings, a part-time job or translating for family are real activities. List them honestly with hours." },
+  { t: "Abbreviate wisely", d: "Use \"&\", \"hrs\" and common abbreviations to fit the 150-character limit, but keep it readable." },
+  { t: "Be accurate", d: "Hours and weeks should be honest estimates. Your counselor and recommenders may see your list." }
+];

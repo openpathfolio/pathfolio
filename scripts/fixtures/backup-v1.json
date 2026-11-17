@@ -1,0 +1,13 @@
+{
+  "app": "pathfolio",
+  "version": 1,
+  "exportedAt": "2026-11-16T05:00:00.000Z",
+  "profile": { "state": "TX", "grade": 11, "gradYear": 2028, "rank": 8, "gpa": "", "region": "Central Texas", "budget": "any", "areas": ["eng", "cs"] },
+  "plan": [
+    { "id": "i1abc", "text": "FIRST Robotics (FRC/FTC)", "cat": "compete", "path": "robotics", "done": false },
+    { "id": "i2def", "text": "AP Calculus BC", "cat": "course", "path": "robotics", "done": true },
+    { "id": "i3ghi", "text": "SOLIDWORKS CSWA", "cat": "cert", "path": "robotics", "done": true },
+    { "id": "i4jkl", "text": "Volunteer tutoring at the library", "cat": "custom", "path": null, "done": false }
+  ],
+  "quiz": { "ratings": [2, 1, 2, 2, 2, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1], "pickSubjects": ["physics", "engr"], "pickValues": ["tech"], "date": "2026-11-16T04:00:00.000Z" }
+}

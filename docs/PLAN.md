@@ -36,7 +36,7 @@ A **free, public, open-source** web app for high-school students and parents (st
 | FR14 | **Automation**: weekly GitHub Action runs source adapters + AI web research (Claude action, or Copilot via weekly issue) → validates → opens PR with change summary for human review | ✅ |
 | FR16 | **Deadline highlighting**: published current-cycle deadlines are badged (closing soon / open / opening soon), sorted soonest first, filterable, with evidence links; upcoming deadlines on home page | ✅ |
 | FR17 | **Data safety**: backup file download/restore (merge or replace), compressed restore link in URL fragment, persistent-storage request, backup reminder | ✅ |
-| FR15 | **Application export**: Common App-style activities list (150 chars), honors, resume | ⏳ next |
+| FR15 | **Application builder**: plan-item details, activities (10) and honors (5) lists with limits, brag sheet, one-page resume, backup v2 (spec 002) | ✅ |
 
 ## 4. Non-functional requirements
 - Static HTML/CSS/JS only: no backend, no accounts, no cookies, no analytics. **Personal data never leaves the browser** (localStorage).

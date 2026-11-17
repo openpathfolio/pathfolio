@@ -18,6 +18,8 @@ jobs:
           node-version: 20
       - name: Check JavaScript syntax
         run: for f in assets/*.js assets/data/*.js assets/data/*/*.js scripts/*.mjs scripts/sources/*.mjs; do node --check "$f"; done
+      - name: Application builder unit tests
+        run: node scripts/test-application.mjs
       - name: Validate states, career paths and research targets
         run: node scripts/validate-data.mjs
       - name: Validate opportunity data

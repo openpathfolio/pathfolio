@@ -18,6 +18,7 @@ Pathfolio is an open-source planner for **students and parents**, especially fam
 | 🏫 **Universities** | Texas has 25 schools (public, private, HBCU, liberal arts), labeled Reach, Target or Likely with automatic-admission badges, plus lower-cost pathways |
 | 🗓️ **Roadmap** | Generated from the graduation year, with state-specific milestones |
 | ✅ **My Plan** | Save anything with one click, add your own goals, track progress, and print or copy the plan |
+| 📝 **Application builder** | Add role, hours and impact to plan items, then produce a Common App-style **activities list** (10, with character counters), **honors** (5), a **brag sheet** for recommenders, and a **one-page resume**. Copy or print each. |
 | 💾 **Backup & restore** | Download a backup file or copy a private restore link, so data survives cleared browsers and moves between devices |
 | 👨‍👩‍👧 **Parents & resources** | Conversation guides, money tips, red flags, curated videos and official links |
 
