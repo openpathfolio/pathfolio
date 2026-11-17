@@ -32,7 +32,7 @@
   $("#pState").innerHTML = STATE_LIST.map(s => `<option value="${s.code}" ${s.available ? "" : "disabled"}>${esc(s.name)}${s.available ? "" : " (coming soon)"}</option>`).join("");
   function fillRegions() {
     $("#pRegion").innerHTML = `<option value="any">Anywhere in ${esc(ST().name)}</option>` + ST().regions.map(r => `<option>${esc(r)}</option>`).join("");
-    $("#fRegion").innerHTML = `<option value="all">All regions</option>` + ST().regions.map(r => `<option>${esc(r)}</option>`).join("");
+    fillUniRegions();
     $$(".state-name").forEach(el => (el.textContent = ST().name));
   }
   fillRegions();
@@ -78,15 +78,46 @@
     $("#resOfficial").innerHTML = [...ST().officialLinks, ...RESOURCES.official].map(r => `<a href="${r.url}" target="_blank" rel="noopener">${esc(r.title)} ↗</a>`).join("");
   }
 
+  /* ---------------- Residency-aware costs & rules (spec 003) ---------------- */
+  const NAT = typeof NATIONAL !== "undefined" ? NATIONAL : { regions: [], universities: [] };
+  const isResident = u => u.state === profile.state;
+  /** Tuition/cost as it applies to this family: in-state for their own state, otherwise out-of-state. */
+  function costOf(u) {
+    if (isResident(u)) {
+      const tuition = u.tuitionIn ?? u.tuition;
+      const coa = u.coa ?? (u.coaOut != null ? u.coaOut - ((u.tuitionOut ?? 0) - (u.tuitionIn ?? 0)) : null);
+      return { tuition, coa, label: "in-state" };
+    }
+    if (u.tuitionOut != null) return { tuition: u.tuitionOut, coa: u.coaOut, label: "out-of-state" };
+    return { tuition: u.tuition, coa: u.coa, label: "resident rate; out-of-state not listed" };
+  }
+  function scopedUniversities(scope) {
+    if (scope === "national") return NAT.universities;
+    if (scope === "all") return [...ST().universities, ...NAT.universities];
+    return ST().universities;
+  }
+  function fillUniRegions() {
+    /* Runs at startup via fillRegions(), before NAT is initialized below, so read the global directly */
+    const natRegions = typeof NATIONAL !== "undefined" ? NATIONAL.regions : [];
+    const scope = $("#fScope") ? $("#fScope").value : "home";
+    const regions = scope === "national" ? natRegions : scope === "all" ? [...ST().regions, ...natRegions] : ST().regions;
+    const cur = $("#fRegion").value;
+    $("#fRegion").innerHTML = `<option value="all">All regions</option>` + regions.map(r => `<option>${esc(r)}</option>`).join("");
+    if (regions.includes(cur)) $("#fRegion").value = cur;
+  }
+
   /* ---------------- University fit ---------------- */
   const SEL_LABEL = { highly: "Highly selective", selective: "Selective", moderate: "Moderately selective", accessible: "Accessible" };
   function fitFor(u, rank) {
     if (rank == null) return null;
-    const auto = u.autoPct && rank <= u.autoPct;
+    const auto = !!(u.autoPct && isResident(u) && rank <= u.autoPct);   /* state rules apply only to residents (FR-004) */
+    /* Public universities admit non-residents at lower rates, so treat them one selectivity level harder (spec 003) */
+    const STEP = { accessible: "moderate", moderate: "selective", selective: "highly", highly: "highly" };
+    const sel = u.type === "Public" && !isResident(u) ? STEP[u.sel] : u.sel;
     let tier;
-    if (u.sel === "highly") tier = auto ? "target" : "reach";
-    else if (u.sel === "selective") tier = auto || rank <= 25 ? "target" : "reach";
-    else if (u.sel === "moderate") tier = auto || rank <= 25 ? "likely" : "target";
+    if (sel === "highly") tier = auto ? "target" : "reach";
+    else if (sel === "selective") tier = auto || rank <= 25 ? "target" : "reach";
+    else if (sel === "moderate") tier = auto || rank <= 25 ? "likely" : "target";
     else tier = auto || rank <= 50 ? "likely" : "target";
     return { tier, auto };
   }
@@ -98,34 +129,45 @@
   }
 
   function uniCard(u) {
-    const links = Object.entries(u.links).map(([k, v]) => `<a href="${v}" target="_blank" rel="noopener">${esc(k[0].toUpperCase() + k.slice(1))} ↗</a>`).join("");
-    const over = profile.budget !== "any" && u.tuition > +profile.budget;
-    return `<article class="card uni">
-      <div class="uni-head"><div><h3>${esc(u.name)}</h3><p class="muted small">${esc(u.city)} · ${esc(u.region)} · ${u.type}</p></div></div>
+    const LINK_LABEL = { cost: "Net price", aid: "Aid" };
+    const links = Object.entries(u.links).map(([k, v]) => `<a href="${v}" target="_blank" rel="noopener">${esc(LINK_LABEL[k] || k[0].toUpperCase() + k.slice(1))} ↗</a>`).join("");
+    const c = costOf(u), resident = isResident(u), national = u.tuitionOut != null;
+    const over = profile.budget !== "any" && c.tuition > +profile.budget;
+    const autoLine = u.autoPct
+      ? (resident ? `Top ${u.autoPct}% of ${esc(ST().name)} class${u.autoPct === 5 ? " (major not guaranteed)" : ""}` : "Not available to out-of-state applicants (holistic review)")
+      : u.type === "Private" ? "None (private, holistic)" : (resident ? "None (holistic review)" : "Not applicable: out-of-state applicants are reviewed holistically, often with higher standards");
+    return `<article class="card uni${national && !resident ? " uni-out" : ""}">
+      <div class="uni-head"><div><h3>${esc(u.name)}</h3><p class="muted small">${esc(u.city)}${national ? `, ${esc(u.state)}` : ""} · ${esc(u.region)} · ${u.type}${!resident ? ` · <span class="oos">Out-of-state</span>` : ""}</p></div></div>
       <div class="badges">${fitBadge(u)}${over ? `<span class="badge warnb">Above budget: check aid</span>` : ""}</div>
       <p class="small rank-line">🏅 ${esc(u.rankLabel)}</p>
       <div class="kv">
-        <div><span>Tuition / yr</span><strong>${money(u.tuition)}</strong></div>
-        <div><span>Total cost / yr</span><strong>${money(u.coa)}</strong></div>
+        <div><span>Tuition / yr (${c.label})</span><strong>${national ? "≈ " : ""}${money(c.tuition)}</strong></div>
+        <div><span>Total cost / yr</span><strong>${c.coa != null ? (national ? "≈ " : "") + money(c.coa) : "—"}</strong></div>
         <div><span>Acceptance</span><strong>${esc(u.acceptance)}</strong></div>
       </div>
-      <p class="small"><strong>Automatic admission:</strong> ${u.autoPct ? `Top ${u.autoPct}% of ${esc(ST().name)} class${u.autoPct === 5 ? " (major not guaranteed)" : ""}` : "None (private, holistic)"}</p>
+      ${u.costNote ? `<p class="small cost-note">💲 ${esc(u.costNote)}</p>` : ""}
+      <p class="small"><strong>Automatic admission:</strong> ${autoLine}</p>
       <p class="small"><strong>Known for:</strong> ${esc(u.notable)}</p>
       <p class="small"><strong>Aid:</strong> ${esc(u.aid)}</p>
       <div class="tags">${u.areas.map(a => `<span class="tag">${esc(AREAS[a])}</span>`).join("")}</div>
       <div class="links">${links}</div>
+      ${national ? `<p class="muted small asof">Figures ≈ ${esc(NAT.asOf)} published costs. Use the net price calculator for your family's real cost.</p>` : ""}
     </article>`;
   }
 
   $("#fArea").innerHTML = `<option value="all">All areas</option>` + Object.entries(AREAS).filter(([k]) => k !== "trades").map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join("");
   function renderUnis() {
-    const area = $("#fArea").value, type = $("#fType").value, region = $("#fRegion").value, cost = +$("#fCost").value, sort = $("#fSort").value;
-    const list = ST().universities.filter(u => (area === "all" || u.areas.includes(area)) && (type === "all" || u.type === type) &&
-      (region === "all" || u.region === region) && u.tuition <= cost)
-      .sort((a, b) => sort === "name" ? a.name.localeCompare(b.name) : a[sort] - b[sort]);
+    const scope = $("#fScope").value, area = $("#fArea").value, type = $("#fType").value, region = $("#fRegion").value, cost = +$("#fCost").value, sort = $("#fSort").value;
+    const pool = scopedUniversities(scope);
+    const list = pool.filter(u => (area === "all" || u.areas.includes(area)) && (type === "all" || u.type === type) &&
+      (region === "all" || u.region === region) && costOf(u).tuition <= cost)
+      .sort((a, b) => sort === "name" ? a.name.localeCompare(b.name) : sort === "tuition" ? costOf(a).tuition - costOf(b).tuition : a.rankSort - b.rankSort);
     $("#uniList").innerHTML = list.map(uniCard).join("") || "<p>No universities match these filters. Try widening them.</p>";
-    $("#uniCount").textContent = `Showing ${list.length} of ${ST().universities.length} universities in ${esc(ST().name)}` + (profile.rank ? ` · fit based on top ${profile.rank}% class rank` : " · add class rank in your profile to see Reach / Target / Likely");
+    const where = scope === "national" ? "out-of-state & national universities" : scope === "all" ? `universities (${ST().name} + national)` : `universities in ${ST().name}`;
+    $("#uniCount").textContent = `Showing ${list.length} of ${pool.length} ${where}` + (profile.rank ? ` · fit based on top ${profile.rank}% class rank` : " · add class rank in your profile to see Reach / Target / Likely");
+    $("#pathwayBlock").hidden = scope === "national";
   }
+  $("#fScope").addEventListener("change", () => { fillUniRegions(); renderUnis(); });
   ["#fArea", "#fType", "#fRegion", "#fCost", "#fSort"].forEach(s => $(s).addEventListener("change", renderUnis));
   renderUnis();
 
@@ -581,6 +623,14 @@
           return `<div class="card tier ${t}"><h3>${TIER[t]}</h3>${items.length ? `<ul class="uni-mini">${items.map(u => uniMini(u)).join("")}</ul>` : "<p class='muted small'>None</p>"}</div>`;
         }).join("")}</div>`
       : `<p class="muted small">Add a class-rank percentile in your <a href="#home-profile">profile</a> to sort these into Reach / Target / Likely.</p><div class="card"><ul class="uni-mini cols">${unis.map(u => uniMini(u)).join("")}</ul></div>`;
+    /* Rank by how central the path's field is to the school (areas are listed strongest-first), then by overall rank */
+    /* Path areas are listed primary-first too, so a match on the path's main area outranks a secondary one */
+    const strength = u => Math.min(99, ...p.areas.map((pa, pi) => { const ui = u.areas.indexOf(pa); return ui < 0 ? 99 : pi * 10 + ui; }));
+    const natPicks = NAT.universities.filter(u => !isResident(u) && strength(u) < 99)
+      .sort((a, b) => strength(a) - strength(b) || a.rankSort - b.rankSort).slice(0, 6);
+    const natBlock = natPicks.length ? `<h3 class="section-title">🌎 Out-of-state & national options</h3>
+      <div class="card"><ul class="uni-mini cols">${natPicks.map(u => uniMini(u)).join("")}</ul>
+      <p class="small muted">Out-of-state costs shown (≈ ${esc(NAT.asOf)}). <a href="#universities" data-scope-link="national" data-area="${esc(p.areas[0])}">Compare all out-of-state options →</a></p></div>` : "";
     const pathways = p.areas.includes("trades") || p.id === "aviation"
       ? `<p class="small">💡 Also see <a href="#universities">community colleges, TSTC and apprenticeships</a> for this path.</p>` : "";
 
@@ -609,7 +659,7 @@
         return rel.length ? `<h2 class="section-title">📌 Related opportunities</h2><div class="grid g3">${rel.map(oppCard).join("")}</div><p class="small"><a href="#opportunities">See all opportunities →</a></p>` : ""; })()}
 
       <h2 class="section-title">🏫 ${esc(ST().name)} universities for this path</h2>
-      ${pathways}${uniBlock}
+      ${pathways}${uniBlock}${natBlock}
 
       <h2 class="section-title">🎬 Watch & learn</h2>
       <div class="grid g3">
@@ -619,8 +669,9 @@
       </div>`;
   }
   function uniMini(u) {
+    const c = costOf(u), f = fitFor(u, profile.rank);
     return `<li><a href="${u.links.admissions || u.links.home}" target="_blank" rel="noopener"><strong>${esc(u.name)}</strong></a>
-      ${u.region === profile.region ? "📍" : ""}<span class="muted small"> · ${money(u.tuition)}/yr${fitFor(u, profile.rank) && fitFor(u, profile.rank).auto ? " · auto-admit ✓" : ""}</span></li>`;
+      ${isResident(u) && u.region === profile.region ? "📍" : ""}<span class="muted small"> · ${c.label === "out-of-state" ? "≈ " : ""}${money(c.tuition)}/yr${c.label === "out-of-state" ? " out-of-state" : ""}${f ? ` · ${TIER[f.tier]}` : ""}${f && f.auto ? " · auto-admit ✓" : ""}</span></li>`;
   }
 
   /* ---------------- Opportunities ---------------- */
@@ -872,6 +923,13 @@
     $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false");
   }
   window.addEventListener("hashchange", route);
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-scope-link]"); if (!a) return;
+    /* Deliver what the link promises: that scope, the path's main area, and no leftover filters */
+    $("#fScope").value = a.dataset.scopeLink; fillUniRegions();
+    $("#fRegion").value = "all"; $("#fType").value = "all"; $("#fCost").value = "999999";
+    $("#fArea").value = a.dataset.area && $(`#fArea option[value="${a.dataset.area}"]`) ? a.dataset.area : "all";
+  });
   $("#menuBtn").addEventListener("click", () => {
     const open = $("#nav").classList.toggle("open");
     $("#menuBtn").setAttribute("aria-expanded", String(open));

@@ -28,6 +28,7 @@ assets/data/common/registry.js    registerState(), STATE_LIST, AREAS (study-area
 assets/data/common/paths.js       26 career paths + kits; employers keyed by state
 assets/data/common/content.js     Quiz, roadmap template, pillars, parent tips, national resources
 assets/data/states/<code>.js      One module per state (rules, essentials, regions, universities, pathways, links)
+assets/data/national.js           NATIONAL: out-of-state/national universities (≈ costs, in/out-of-state tuition, net-price links)
 assets/data/opportunities.js      GENERATED, never hand-edit
 data/opportunities/               curated.json (humans), schema.json, sources/*.json (automation)
 data/opportunities/targets/       Official orgs/pages per scope (US, TX…), checked first by the discover job
@@ -60,6 +61,7 @@ Manual UI check: open `index.html` in a browser at desktop width and at 390px ph
 - Data facts carry a source. Use `≈` for approximate figures. Never invent dates.
 - Opportunity ids are stable lowercase-hyphen slugs. Updates from automation may only touch time-sensitive fields (see `UPDATABLE` in the build script).
 - State-specific text belongs in the state module, never in `common/` or `app.js`.
+- **Residency:** every university has a `state` (state modules get it automatically from `registerState`). Use `costOf(u)` for any displayed cost (in-state for the family's own state, else out-of-state) and never apply `autoPct`/rank rules to non-residents. National entries never set `autoPct`; CI enforces it.
 - Every live scope needs `data/opportunities/targets/<SCOPE>.json` with a target for each university in that state (CI enforces this).
 - Research files `sources/research-<verify|discover>-<SCOPE>.json` are merge-safe: agents start from the existing file. Adapter names must not start with `research-`.
 - Commit messages: imperative subject, with a body explaining why. No model names in commits or PRs.

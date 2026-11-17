@@ -6,7 +6,10 @@
    ============================================================ */
 
 const STATES = {};
-function registerState(code, data) { STATES[code] = Object.assign({ code }, data); }
+function registerState(code, data) {
+  (data.universities || []).forEach(u => { if (!u.state) u.state = code; });   /* residency-aware costs & rules (spec 003) */
+  STATES[code] = Object.assign({ code }, data);
+}
 
 /* States shown in the picker. available:false = "coming soon" */
 const STATE_LIST = [

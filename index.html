@@ -114,19 +114,22 @@
 
     <!-- ================= UNIVERSITIES ================= -->
     <section id="universities" class="view" hidden>
-      <h1><span class="state-name">Texas</span> Universities</h1>
-      <p class="lead">Public and private universities across every region, including HBCUs and liberal-arts colleges. Fit labels use your profile's class rank. All figures are approximate (researched <span class="updated"></span>). Always verify on official pages.</p>
+      <h1>Universities</h1>
+      <p class="lead"><span class="state-name">Texas</span> public and private universities across every region, plus <strong>out-of-state and national options</strong>: top research universities, flagship publics, nearby states and HBCUs. Costs show in-state or out-of-state rates as they apply to you. Fit labels use your profile's class rank. All figures are approximate (researched <span class="updated"></span>). Always verify on official pages.</p>
       <div class="filters card">
+        <div><label for="fScope">Show</label><select id="fScope"><option value="home">In my state</option><option value="national">Out-of-state &amp; national</option><option value="all">All</option></select></div>
         <div><label for="fArea">Study area</label><select id="fArea"></select></div>
         <div><label for="fType">Type</label><select id="fType"><option value="all">All</option><option>Public</option><option>Private</option></select></div>
         <div><label for="fRegion">Region</label><select id="fRegion"></select></div>
-        <div><label for="fCost">Max tuition / yr</label><select id="fCost"><option value="999999">Any</option><option value="12500">≤ $12.5k</option><option value="16000">≤ $16k</option><option value="61000">≤ $61k</option></select></div>
+        <div><label for="fCost">Max tuition / yr</label><select id="fCost"><option value="999999">Any</option><option value="12500">≤ $12.5k</option><option value="16000">≤ $16k</option><option value="36000">≤ $36k</option><option value="61000">≤ $61k</option></select></div>
         <div><label for="fSort">Sort by</label><select id="fSort"><option value="rankSort">Rank</option><option value="tuition">Tuition (low → high)</option><option value="name">Name</option></select></div>
       </div>
       <p class="muted" id="uniCount"></p>
       <div id="uniList" class="grid g2"></div>
-      <h2 class="section-title">💡 Lower-cost & alternative pathways</h2>
-      <div id="pathwayList" class="grid g3"></div>
+      <div id="pathwayBlock">
+        <h2 class="section-title">💡 Lower-cost & alternative pathways</h2>
+        <div id="pathwayList" class="grid g3"></div>
+      </div>
       <p class="muted small">Total cost includes housing, food, books and personal costs before aid. Net cost after aid is often much lower, so use each school's Net Price Calculator. "≈" means approximate.</p>
     </section>
 
@@ -313,6 +316,7 @@
   <script src="assets/data/common/paths.js"></script>
   <script src="assets/data/common/content.js"></script>
   <script src="assets/data/states/tx.js"></script>
+  <script src="assets/data/national.js"></script>
   <script src="assets/data/opportunities.js"></script>
   <script src="assets/application.js"></script>
   <script src="assets/app.js"></script>
