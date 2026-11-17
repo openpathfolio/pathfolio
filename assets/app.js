@@ -137,7 +137,7 @@
       ? (resident ? `Top ${u.autoPct}% of ${esc(ST().name)} class${u.autoPct === 5 ? " (major not guaranteed)" : ""}` : "Not available to out-of-state applicants (holistic review)")
       : u.type === "Private" ? "None (private, holistic)" : (resident ? "None (holistic review)" : "Not applicable: out-of-state applicants are reviewed holistically, often with higher standards");
     return `<article class="card uni${national && !resident ? " uni-out" : ""}">
-      <div class="uni-head"><div><h3>${esc(u.name)}</h3><p class="muted small">${esc(u.city)}${national ? `, ${esc(u.state)}` : ""} · ${esc(u.region)} · ${u.type}${!resident ? ` · <span class="oos">Out-of-state</span>` : ""}</p></div></div>
+      <div class="uni-head"><div><h3>${esc(u.name)}</h3><p class="muted small">${esc(u.city)}${national ? `, ${esc(u.state)}` : ""} · ${esc(u.region)} · ${u.type}${u.ivy ? ` · <span class="tag">Ivy League</span>` : ""}${!resident ? ` · <span class="oos">Out-of-state</span>` : ""}</p></div></div>
       <div class="badges">${fitBadge(u)}${over ? `<span class="badge warnb">Above budget: check aid</span>` : ""}</div>
       <p class="small rank-line">🏅 ${esc(u.rankLabel)}</p>
       <div class="kv">
@@ -159,7 +159,7 @@
   function renderUnis() {
     const scope = $("#fScope").value, area = $("#fArea").value, type = $("#fType").value, region = $("#fRegion").value, cost = +$("#fCost").value, sort = $("#fSort").value;
     const pool = scopedUniversities(scope);
-    const list = pool.filter(u => (area === "all" || u.areas.includes(area)) && (type === "all" || u.type === type) &&
+    const list = pool.filter(u => (area === "all" || u.areas.includes(area)) && (type === "all" || u.type === type || (type === "ivy" && u.ivy)) &&
       (region === "all" || u.region === region) && costOf(u).tuition <= cost)
       .sort((a, b) => sort === "name" ? a.name.localeCompare(b.name) : sort === "tuition" ? costOf(a).tuition - costOf(b).tuition : a.rankSort - b.rankSort);
     $("#uniList").innerHTML = list.map(uniCard).join("") || "<p>No universities match these filters. Try widening them.</p>";

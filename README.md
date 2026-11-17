@@ -15,7 +15,7 @@ Pathfolio is an open-source planner for **students and parents**, especially fam
 | 🗂️ **26 career paths** | Engineering and tech, health, business, law and public service, arts and media, science and agriculture, and aviation and skilled trades |
 | 🧰 **Profile-building kit** | For each path: courses, industry certifications, projects, internships, competitions, summer programs, research topics, and reputable places to publish |
 | 📌 **Opportunities** | Internships, summer programs, research, competitions and publications. **Published deadlines are highlighted** (closing soon, open, opening soon) and link to the official page as evidence. Refreshed weekly by **AI web research**, with human review before anything goes live. |
-| 🌎 **Out-of-state & national** | 28 universities beyond Texas (top research universities, flagship publics, nearby states, HBCUs) with out-of-state costs, aid notes and net-price links. Texas rules are never applied to them. |
+| 🌎 **Out-of-state & national** | 35 universities beyond Texas (the Ivy League and other top research universities, flagship publics, nearby states, HBCUs) with out-of-state costs, aid notes and net-price links. Texas rules are never applied to them. |
 | 🏫 **Universities** | Texas has 25 schools (public, private, HBCU, liberal arts), labeled Reach, Target or Likely with automatic-admission badges, plus lower-cost pathways |
 | 🗓️ **Roadmap** | Generated from the graduation year, with state-specific milestones |
 | ✅ **My Plan** | Save anything with one click, add your own goals, track progress, and print or copy the plan |

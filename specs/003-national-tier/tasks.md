@@ -22,7 +22,8 @@
 ## Phase 5: Polish
 - [X] T009 [P] Docs: `CLAUDE.md` (national data + residency convention), `README.md`, `docs/ROADMAP.md`, `docs/ADDING_A_STATE.md` (how national data relates to states)
 - [X] T010 Regression: syntax, unit tests, `validate-data`, `build --check`, Playwright (scope switching, no TX badges on national, budget flags, path block, 390 px, no console errors)
-- [ ] T011 PR: `Closes #16`, refs #13 #12
+- [X] T011 PR: `Closes #16`, refs #13 #12 (#30)
+- [X] T012 Add the 7 remaining Ivy League schools (Harvard was already listed) and an "Ivy League" type filter; raise the national cap to 40
 
 ## Dependencies
 T002 → T003/T004 → T005 → T006/T007 → T008 → polish.

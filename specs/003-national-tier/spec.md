@@ -14,14 +14,14 @@
 
 ### User Story 1: Browse out-of-state and national universities (Priority: P1)
 
-A Texas parent opens Universities and switches the scope from "Texas" to "Out-of-state & national". They see about 28 well-known universities: flagship publics popular with Texans, top private research universities, nearby-state options and HBCUs. Each shows out-of-state tuition, total cost, selectivity, what it's known for, aid notes, and links to admissions and the official net-price calculator.
+A Texas parent opens Universities and switches the scope from "Texas" to "Out-of-state & national". They see about 35 well-known universities (including the Ivy League): flagship publics popular with Texans, top private research universities, nearby-state options and HBCUs. Each shows out-of-state tuition, total cost, selectivity, what it's known for, aid notes, and links to admissions and the official net-price calculator.
 
 **Why this priority**: Families of strong STEM students routinely consider out-of-state options, and today the app can't show any.
 
 **Independent Test**: Switch scope to national and filter by study area "Engineering". Cards show "out-of-state" costs and net-price links, with no Texas automatic-admission badges.
 
 **Acceptance Scenarios**:
-1. **Given** scope "Out-of-state & national", **Then** 20–30 universities are listed, each with a state, an out-of-state tuition figure marked approximate, and a net-price/cost link.
+1. **Given** scope "Out-of-state & national", **Then** 20–40 universities are listed, each with a state, an out-of-state tuition figure marked approximate, and a net-price/cost link.
 2. **Given** a Texas resident with a top-5% class rank, **When** viewing a national university, **Then** no automatic-admission badge appears (Texas rules apply only to Texas public universities).
 3. **Given** scope "All", **Then** Texas and national universities appear together, each labelled with in-state or out-of-state cost as it applies to the family.
 4. **Given** the region filter in national scope, **Then** regions are national groupings (Neighbor states, West, Midwest, Northeast, Southeast).
@@ -51,7 +51,7 @@ On a career path page (e.g., Robotics), after the Texas universities, the family
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
-- **FR-001**: The app MUST include a national dataset of 20–30 universities, each with: state, city, national region, type, selectivity, rank label, acceptance (≈), in-state tuition, out-of-state tuition (≈), total out-of-state cost (≈), an optional cost note (range or variation), study areas, notable programs, an aid note, and https links to home, admissions and an official cost or net-price page.
+- **FR-001**: The app MUST include a national dataset of 20–40 universities (35 at release, including all 8 Ivy League schools, which are filterable as a group), each with: state, city, national region, type, selectivity, rank label, acceptance (≈), in-state tuition, out-of-state tuition (≈), total out-of-state cost (≈), an optional cost note (range or variation), study areas, notable programs, an aid note, and https links to home, admissions and an official cost or net-price page.
 - **FR-002**: Universities MUST offer a scope selector: home state (default), out-of-state & national, all.
 - **FR-003**: The cost shown for any university MUST be in-state when the university is in the family's state, otherwise out-of-state, and MUST be labelled as such. Budget and cost filters MUST use that figure.
 - **FR-004**: State-specific admission rules (automatic admission, rank rules) MUST apply only to universities in the family's own state.

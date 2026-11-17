@@ -114,7 +114,7 @@ else {
   if (!isStr(NATIONAL.asOf)) err(w, "asOf is required (e.g. \"2025–26\")");
   if (!regions.size) err(w, "regions must be a non-empty array");
   const list = NATIONAL.universities || [];
-  if (list.length < 20 || list.length > 30) err(w, `expected 20–30 universities, found ${list.length}`);
+  if (list.length < 20 || list.length > 40) err(w, `expected 20–40 universities, found ${list.length}`);
   const nids = new Set();
   list.forEach((u, i) => {
     const uw = `${w} universities[${u.id || i}]`;
@@ -130,6 +130,7 @@ else {
     if (u.tuitionIn > u.tuitionOut) err(uw, "tuitionIn is greater than tuitionOut");
     if (u.tuitionOut > u.coaOut) err(uw, "tuitionOut is greater than coaOut");
     if (u.costNote !== undefined && !isStr(u.costNote)) err(uw, "costNote must be text");
+    if ("ivy" in u && u.ivy !== true) err(uw, "ivy must be true when present");
     if ("autoPct" in u) err(uw, "national universities must not set autoPct (state rules apply only via state modules)");
     if (!Array.isArray(u.areas) || !u.areas.length) err(uw, "areas must be a non-empty array");
     (u.areas || []).forEach(a => { if (!AREA_KEYS.has(a)) err(uw, `unknown area "${a}"`); });
