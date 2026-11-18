@@ -1,0 +1,83 @@
+{
+  "columbia": {
+    "city": "New York",
+    "name": "Columbia University in the City of New York",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Columbia University",
+    "quality": "manual",
+    "state": "NY",
+    "unitid": 190150
+  },
+  "harvard": {
+    "city": "Cambridge",
+    "name": "Harvard University",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Harvard University",
+    "quality": "manual",
+    "state": "MA",
+    "unitid": 166027
+  },
+  "mit": {
+    "city": "Cambridge",
+    "name": "Massachusetts Institute of Technology",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Massachusetts Institute of Technology (MIT)",
+    "quality": "manual",
+    "state": "MA",
+    "unitid": 166683
+  },
+  "northeastern": {
+    "city": "Boston",
+    "name": "Northeastern University",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Northeastern University",
+    "quality": "manual",
+    "state": "MA",
+    "unitid": 167358
+  },
+  "princeton": {
+    "city": "Princeton",
+    "name": "Princeton University",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Princeton University",
+    "quality": "manual",
+    "state": "NJ",
+    "unitid": 186131
+  },
+  "rice": {
+    "city": "Houston",
+    "name": "Rice University",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Rice University",
+    "quality": "manual",
+    "state": "TX",
+    "unitid": 227757
+  },
+  "stanford": {
+    "city": "Stanford",
+    "name": "Stanford University",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Stanford University",
+    "quality": "manual",
+    "state": "CA",
+    "unitid": 243744
+  },
+  "utaustin": {
+    "city": "Austin",
+    "name": "The University of Texas at Austin",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "University of Texas at Austin",
+    "quality": "manual",
+    "state": "TX",
+    "unitid": 228778
+  },
+  "yale": {
+    "city": "New Haven",
+    "name": "Yale University",
+    "note": "Pinned from a live College Scorecard API response (2026-11-17)",
+    "ours": "Yale University",
+    "quality": "manual",
+    "state": "CT",
+    "unitid": 130794
+  }
+}

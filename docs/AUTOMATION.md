@@ -68,3 +68,31 @@ When a state module becomes `available: true` (see [ADDING_A_STATE.md](ADDING_A_
 
 ## Weekly link check
 **Check links** (`.github/workflows/link-check.yml`) runs every Wednesday. It checks every URL in the site data and keeps **one** issue labelled `broken-links` up to date, closing it when everything passes. Sites that refuse or time out on automated checks (401/403/429, timeouts; often bot protection) are listed separately for a quick manual look. Only definite failures (404/410, server errors, unknown domains, bad certificates) count as broken.
+
+---
+
+# Monthly university data refresh (College Scorecard)
+
+Spec: [`specs/004-university-data-pipeline/`](../specs/004-university-data-pipeline/) · Issue #14
+
+**Why the College Scorecard?** It's the U.S. Department of Education's official, public-domain dataset for every US college, with a free API. **US News and College Board are not scraped**: their data is proprietary, and their terms restrict automated collection. Pathfolio keeps short, hand-entered rank labels that credit US News.
+
+**What runs:** the **Refresh university data** workflow (`.github/workflows/refresh-universities.yml`), on the 4th of each month or manually from the Actions tab.
+1. `scripts/fetch-scorecard.mjs` resolves each listed university (state modules + `national.js`) to its federal **UNITID**. It searches by city and state and matches names, recording a match quality in `data/universities/scorecard-ids.json`:
+   - `strong`: confident automatic match
+   - `weak`: plausible match, flagged in the PR for a person to confirm (e.g., "Virginia Tech" ↔ "Virginia Polytechnic Institute and State University")
+   - `unresolved`: no match; a person adds the `unitid`
+   - `manual`: pinned by a person; never overwritten
+2. It fetches, in batches: published in-state and out-of-state tuition, cost of attendance, admission rate, size, **average net price after aid**, **net price by family income** (5 bands), **graduation rate** and **median earnings 10 years after entry** → `data/universities/scorecard.json`.
+3. **Discovery:** it suggests notable universities that aren't listed yet (highly selective nationwide, and large ones per live state) → `data/universities/candidates.json` and a table in the PR. **Suggestions only:** people decide what to add and write the descriptions.
+4. `scripts/build-universities.mjs` generates `assets/data/official.js` and the PR summary (changed figures, matches to confirm, discovery tables).
+
+**What families see:**
+- Official tuition replaces "≈" estimates on the national list.
+- Texas universities keep their curated, newer tuition for residents (e.g., Rice's 2026–27 figure). Every university with a match also shows a 📊 official-data panel: net price after aid, net price by family income, graduation rate and earnings, with the retrieval date. Federal data is usually 1–2 years behind.
+
+**Setup:** the repository secret `SCORECARD_API_KEY` (free from https://api.data.gov/signup/). The key is sent as an `X-Api-Key` header and never logged.
+
+**Fixing a match:** in `data/universities/scorecard-ids.json`, set `"quality": "manual"` and the correct `"unitid"` (find it in the school's College Scorecard URL), then re-run the workflow.
+
+**Run locally:** `SCORECARD_API_KEY=… node scripts/fetch-scorecard.mjs`, then `node scripts/build-universities.mjs`. Behind an HTTPS proxy, add `NODE_USE_ENV_PROXY=1`. For a quick test, use the public `DEMO_KEY` with `--only rice,utaustin --no-discover`; it has a low hourly limit.

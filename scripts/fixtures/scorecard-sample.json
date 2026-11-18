@@ -1,0 +1,47 @@
+{
+  "_note": "detail.* records are real College Scorecard API responses captured 2026-11-17 (fields abbreviated to those requested). cityCandidates are hand-built lists of real institution names used to test name matching; sizes are illustrative.",
+  "detail": {
+    "rice": {
+      "latest.admissions.admission_rate.overall": 0.08, "latest.student.size": 4776,
+      "latest.cost.tuition.in_state": 67857, "latest.cost.tuition.out_of_state": 67857, "latest.cost.attendance.academic_year": 87824,
+      "latest.cost.avg_net_price.public": null, "latest.cost.avg_net_price.private": 11164,
+      "latest.completion.completion_rate_4yr_150nt": 0.9531, "latest.earnings.10_yrs_after_entry.median": 90773,
+      "school.name": "Rice University", "school.city": "Houston", "school.state": "TX", "school.school_url": "https://www.rice.edu/",
+      "school.price_calculator_url": "https://financialaid.rice.edu/cost-attendance/estimate-your-cost", "school.ownership": 2, "id": 227757
+    },
+    "utaustin": {
+      "latest.cost.net_price.public.by_income_level.0-30000": 8979, "latest.cost.net_price.public.by_income_level.30001-48000": 9324,
+      "latest.cost.net_price.public.by_income_level.48001-75000": 12412, "latest.cost.net_price.public.by_income_level.75001-110000": 21357,
+      "latest.cost.net_price.public.by_income_level.110001-plus": 30480,
+      "school.name": "The University of Texas at Austin", "school.ownership": 1, "id": 228778
+    }
+  },
+  "cityCandidates": {
+    "Houston": [
+      { "id": 227757, "school.name": "Rice University", "latest.student.size": 4776 },
+      { "id": 225511, "school.name": "University of Houston", "latest.student.size": 39000 },
+      { "id": 225432, "school.name": "University of Houston-Downtown", "latest.student.size": 12000 },
+      { "id": 229063, "school.name": "Texas Southern University", "latest.student.size": 7000 },
+      { "id": 225371, "school.name": "Houston Christian University", "latest.student.size": 2500 }
+    ],
+    "San Antonio": [
+      { "id": 229027, "school.name": "The University of Texas at San Antonio", "latest.student.size": 29000 },
+      { "id": 228644, "school.name": "The University of Texas Health Science Center at San Antonio", "latest.student.size": 900 },
+      { "id": 229179, "school.name": "Trinity University", "latest.student.size": 2600 },
+      { "id": 228325, "school.name": "St. Mary's University", "latest.student.size": 2000 }
+    ],
+    "Blacksburg": [ { "id": 233921, "school.name": "Virginia Polytechnic Institute and State University", "latest.student.size": 30000 } ],
+    "Atlanta": [
+      { "id": 139755, "school.name": "Georgia Institute of Technology-Main Campus", "latest.student.size": 18000 },
+      { "id": 141060, "school.name": "Spelman College", "latest.student.size": 2400 },
+      { "id": 140553, "school.name": "Morehouse College", "latest.student.size": 2200 },
+      { "id": 139940, "school.name": "Georgia State University", "latest.student.size": 30000 }
+    ],
+    "Los Angeles": [
+      { "id": 110662, "school.name": "University of California-Los Angeles", "latest.student.size": 32000 },
+      { "id": 123961, "school.name": "University of Southern California", "latest.student.size": 21000 },
+      { "id": 110592, "school.name": "California State University-Los Angeles", "latest.student.size": 22000 }
+    ],
+    "College Station": [ { "id": 228723, "school.name": "Texas A & M University-College Station", "latest.student.size": 57000 } ]
+  }
+}
