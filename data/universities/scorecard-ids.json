@@ -1,4 +1,58 @@
 {
+  "asu": {
+    "city": "Tempe",
+    "name": "Arizona State University Campus Immersion",
+    "ours": "Arizona State University",
+    "quality": "strong",
+    "score": 1.07,
+    "state": "AZ",
+    "unitid": 104151
+  },
+  "baylor": {
+    "city": "Waco",
+    "name": "Baylor University",
+    "ours": "Baylor University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 223232
+  },
+  "berkeley": {
+    "city": "Berkeley",
+    "name": "University of California-Berkeley",
+    "ours": "University of California, Berkeley",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "CA",
+    "unitid": 110635
+  },
+  "brown": {
+    "city": "Providence",
+    "name": "Brown University",
+    "ours": "Brown University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "RI",
+    "unitid": 217156
+  },
+  "caltech": {
+    "city": "Pasadena",
+    "name": "California Institute of Technology",
+    "ours": "California Institute of Technology (Caltech)",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "CA",
+    "unitid": 110404
+  },
+  "cmu": {
+    "city": "Pittsburgh",
+    "name": "Carnegie Mellon University",
+    "ours": "Carnegie Mellon University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "PA",
+    "unitid": 211440
+  },
   "columbia": {
     "city": "New York",
     "name": "Columbia University in the City of New York",
@@ -8,6 +62,51 @@
     "state": "NY",
     "unitid": 190150
   },
+  "cornell": {
+    "city": "Ithaca",
+    "name": "Cornell University",
+    "ours": "Cornell University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "NY",
+    "unitid": 190415
+  },
+  "cuboulder": {
+    "city": "Boulder",
+    "name": "University of Colorado Boulder",
+    "ours": "University of Colorado Boulder",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "CO",
+    "unitid": 126614
+  },
+  "dartmouth": {
+    "city": "Hanover",
+    "name": "Dartmouth College",
+    "ours": "Dartmouth College",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "NH",
+    "unitid": 182670
+  },
+  "duke": {
+    "city": "Durham",
+    "name": "Duke University",
+    "ours": "Duke University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "NC",
+    "unitid": 198419
+  },
+  "gatech": {
+    "city": "Atlanta",
+    "name": "Georgia Institute of Technology-Main Campus",
+    "ours": "Georgia Institute of Technology",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "GA",
+    "unitid": 139755
+  },
   "harvard": {
     "city": "Cambridge",
     "name": "Harvard University",
@@ -16,6 +115,42 @@
     "quality": "manual",
     "state": "MA",
     "unitid": 166027
+  },
+  "howard": {
+    "city": "Washington",
+    "name": "Howard University",
+    "ours": "Howard University (HBCU)",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "DC",
+    "unitid": 131520
+  },
+  "jhu": {
+    "city": "Baltimore",
+    "name": "Johns Hopkins University",
+    "ours": "Johns Hopkins University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "MD",
+    "unitid": 162928
+  },
+  "lamar": {
+    "city": "Beaumont",
+    "name": "Lamar University",
+    "ours": "Lamar University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 226091
+  },
+  "mines": {
+    "city": "Golden",
+    "name": "Colorado School of Mines",
+    "ours": "Colorado School of Mines",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "CO",
+    "unitid": 126775
   },
   "mit": {
     "city": "Cambridge",
@@ -35,6 +170,33 @@
     "state": "MA",
     "unitid": 167358
   },
+  "northwestern": {
+    "city": "Evanston",
+    "name": "Northwestern University",
+    "ours": "Northwestern University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "IL",
+    "unitid": 147767
+  },
+  "osu": {
+    "city": "Columbus",
+    "name": "Ohio State University-Main Campus",
+    "ours": "The Ohio State University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "OH",
+    "unitid": 204796
+  },
+  "ou": {
+    "city": "Norman",
+    "name": "University of Oklahoma-Norman Campus",
+    "ours": "University of Oklahoma",
+    "quality": "strong",
+    "score": 1.05,
+    "state": "OK",
+    "unitid": 207500
+  },
   "princeton": {
     "city": "Princeton",
     "name": "Princeton University",
@@ -43,6 +205,24 @@
     "quality": "manual",
     "state": "NJ",
     "unitid": 186131
+  },
+  "purdue": {
+    "city": "West Lafayette",
+    "name": "Purdue University-Main Campus",
+    "ours": "Purdue University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "IN",
+    "unitid": 243780
+  },
+  "pvamu": {
+    "city": "Prairie View",
+    "name": "Prairie View A & M University",
+    "ours": "Prairie View A&M University (HBCU)",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 227526
   },
   "rice": {
     "city": "Houston",
@@ -53,6 +233,51 @@
     "state": "TX",
     "unitid": 227757
   },
+  "sfa": {
+    "city": "Nacogdoches",
+    "name": "Stephen F Austin State University",
+    "ours": "Stephen F. Austin State University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228431
+  },
+  "shsu": {
+    "city": "Huntsville",
+    "name": "Sam Houston State University",
+    "ours": "Sam Houston State University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 227881
+  },
+  "smu": {
+    "city": "Dallas",
+    "name": "Southern Methodist University",
+    "ours": "Southern Methodist University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228246
+  },
+  "southwestern": {
+    "city": "Georgetown",
+    "name": "Southwestern University",
+    "ours": "Southwestern University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228343
+  },
+  "spelman": {
+    "city": "Atlanta",
+    "name": "Spelman College",
+    "ours": "Spelman College (HBCU, women's college)",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "GA",
+    "unitid": 141060
+  },
   "stanford": {
     "city": "Stanford",
     "name": "Stanford University",
@@ -62,6 +287,166 @@
     "state": "CA",
     "unitid": 243744
   },
+  "stedwards": {
+    "city": "Austin",
+    "ours": "St. Edward's University",
+    "quality": "unresolved",
+    "reason": "best candidate \"Saint Edward's University\" scored 0.55",
+    "state": "TX"
+  },
+  "tamu": {
+    "city": "College Station",
+    "name": "Texas A&M University-College Station",
+    "ours": "Texas A&M University",
+    "quality": "strong",
+    "score": 1.08,
+    "state": "TX",
+    "unitid": 228723
+  },
+  "tarleton": {
+    "city": "Stephenville",
+    "name": "Tarleton State University",
+    "ours": "Tarleton State University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228529
+  },
+  "tcu": {
+    "city": "Fort Worth",
+    "name": "Texas Christian University",
+    "ours": "Texas Christian University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228875
+  },
+  "trinity": {
+    "city": "San Antonio",
+    "name": "Trinity University",
+    "ours": "Trinity University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 229267
+  },
+  "tsu": {
+    "city": "Houston",
+    "name": "Texas Southern University",
+    "ours": "Texas Southern University (HBCU)",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 229063
+  },
+  "ttu": {
+    "city": "Lubbock",
+    "name": "Texas Tech University",
+    "ours": "Texas Tech University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 229115
+  },
+  "twu": {
+    "city": "Denton",
+    "name": "Texas Woman's University",
+    "ours": "Texas Woman's University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 229179
+  },
+  "txstate": {
+    "city": "San Marcos",
+    "name": "Texas State University",
+    "ours": "Texas State University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228459
+  },
+  "uark": {
+    "city": "Fayetteville",
+    "name": "University of Arkansas",
+    "ours": "University of Arkansas",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "AR",
+    "unitid": 106397
+  },
+  "ucla": {
+    "city": "Los Angeles",
+    "name": "University of California-Los Angeles",
+    "ours": "University of California, Los Angeles (UCLA)",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "CA",
+    "unitid": 110662
+  },
+  "ufl": {
+    "city": "Gainesville",
+    "name": "University of Florida",
+    "ours": "University of Florida",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "FL",
+    "unitid": 134130
+  },
+  "uh": {
+    "city": "Houston",
+    "name": "University of Houston",
+    "ours": "University of Houston",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 225511
+  },
+  "uiuc": {
+    "city": "Champaign",
+    "name": "University of Illinois Urbana-Champaign",
+    "ours": "University of Illinois Urbana-Champaign",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "IL",
+    "unitid": 145637
+  },
+  "umich": {
+    "city": "Ann Arbor",
+    "name": "University of Michigan-Ann Arbor",
+    "ours": "University of Michigan",
+    "quality": "strong",
+    "score": 1.03,
+    "state": "MI",
+    "unitid": 170976
+  },
+  "unt": {
+    "city": "Denton",
+    "name": "University of North Texas",
+    "ours": "University of North Texas",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 227216
+  },
+  "upenn": {
+    "city": "Philadelphia",
+    "name": "University of Pennsylvania",
+    "ours": "University of Pennsylvania",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "PA",
+    "unitid": 215062
+  },
+  "uta": {
+    "city": "Arlington",
+    "name": "The University of Texas at Arlington",
+    "ours": "University of Texas at Arlington",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228769
+  },
   "utaustin": {
     "city": "Austin",
     "name": "The University of Texas at Austin",
@@ -70,6 +455,78 @@
     "quality": "manual",
     "state": "TX",
     "unitid": 228778
+  },
+  "utd": {
+    "city": "Richardson",
+    "name": "The University of Texas at Dallas",
+    "ours": "University of Texas at Dallas",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228787
+  },
+  "utep": {
+    "city": "El Paso",
+    "name": "The University of Texas at El Paso",
+    "ours": "University of Texas at El Paso",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 228796
+  },
+  "utrgv": {
+    "city": "Edinburg",
+    "name": "The University of Texas Rio Grande Valley",
+    "ours": "University of Texas Rio Grande Valley",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 227368
+  },
+  "utsa": {
+    "city": "San Antonio",
+    "name": "The University of Texas at San Antonio",
+    "ours": "University of Texas at San Antonio",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TX",
+    "unitid": 229027
+  },
+  "uw": {
+    "city": "Seattle",
+    "name": "University of Washington-Seattle Campus",
+    "ours": "University of Washington",
+    "quality": "strong",
+    "score": 1.05,
+    "state": "WA",
+    "unitid": 236948
+  },
+  "uwmadison": {
+    "city": "Madison",
+    "name": "University of Wisconsin-Madison",
+    "ours": "University of Wisconsin–Madison",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "WI",
+    "unitid": 240444
+  },
+  "vanderbilt": {
+    "city": "Nashville",
+    "name": "Vanderbilt University",
+    "ours": "Vanderbilt University",
+    "quality": "strong",
+    "score": 1.1,
+    "state": "TN",
+    "unitid": 221999
+  },
+  "vt": {
+    "city": "Blacksburg",
+    "name": "Virginia Polytechnic Institute and State University",
+    "ours": "Virginia Tech",
+    "quality": "weak",
+    "score": 0.53,
+    "state": "VA",
+    "unitid": 233921
   },
   "yale": {
     "city": "New Haven",
