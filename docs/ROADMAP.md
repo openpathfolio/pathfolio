@@ -55,7 +55,7 @@ The goal is "track everything → easily create the application".
 - **Opportunities are already state-aware** (`states: ["US"]` or a state code); no change needed.
 
 ### 2.2 Automated baseline from official data · M
-- Build a **College Scorecard adapter**. Scorecard is the US Department of Education's official API (free key from api.data.gov). For every college in a state it provides in-state and out-of-state tuition, acceptance rate, size, graduation rate and earnings.
+- ✅ **Done in spec `specs/004-university-data-pipeline/` (#14):** monthly official-data refresh plus discovery, with reviewed PRs. Original plan: build a **College Scorecard adapter**. Scorecard is the US Department of Education's official API (free key from api.data.gov). For every college in a state it provides in-state and out-of-state tuition, acceptance rate, size, graduation rate and earnings.
 - The adapter generates a **draft** university list per state. Humans and AI add what Scorecard lacks: notable programs, automatic-admission rules, aid promises, regions.
 - Scorecard data lags about one year, so label it with its year.
 

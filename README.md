@@ -57,6 +57,7 @@ It is served by GitHub Pages from the `main` branch. Every merge to `main` redep
 |---|---|
 | **CI** (`.github/workflows/ci.yml`) | Runs on every pull request and push to `main`. Checks JavaScript syntax and validates state data, career paths, research targets and opportunities. |
 | **Refresh opportunities** (`.github/workflows/refresh-opportunities.yml`) | Runs every Monday, or manually. For each scope (national + each live state), a **verify** job re-checks every listing and a **discover** job finds new programs (weekly topic rotation). Results arrive as one pull request with a **coverage report**, for human review. Setup: [docs/AUTOMATION.md](docs/AUTOMATION.md). |
+| **Refresh university data** (`.github/workflows/refresh-universities.yml`) | Monthly. Fetches **official College Scorecard** figures (tuition, net price by family income, graduation rate, earnings) for every listed university, suggests universities we don't list yet, and opens a PR for review. |
 | **Check links** (`.github/workflows/link-check.yml`) | Runs every Wednesday. Checks every external link and keeps one `broken-links` issue current. |
 
 **Running your own copy (fork):** enable **Settings → Pages → Deploy from a branch → `main` / `(root)`** and **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"**.

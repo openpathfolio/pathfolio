@@ -82,14 +82,43 @@
   const NAT = typeof NATIONAL !== "undefined" ? NATIONAL : { regions: [], universities: [] };
   const isResident = u => u.state === profile.state;
   /** Tuition/cost as it applies to this family: in-state for their own state, otherwise out-of-state. */
+  /* Official federal figures (College Scorecard, spec 004), refreshed monthly by a reviewed PR */
+  const OFF = (typeof OFFICIAL !== "undefined" && OFFICIAL.schools) || {};
+  const officialOf = u => (OFF[u.id] && OFF[u.id].match !== "unresolved" ? OFF[u.id] : null);
+  /* Scorecard's cost of attendance uses in-state tuition at public universities; derive the out-of-state total */
+  const officialCoaOut = o => o.coa == null ? null : (o.ownership === "public" && o.tuitionIn != null && o.tuitionOut != null ? o.coa + (o.tuitionOut - o.tuitionIn) : o.coa);
   function costOf(u) {
+    const o = officialOf(u), estimated = u.tuitionOut != null;   /* national-list costs are estimates; prefer official */
     if (isResident(u)) {
+      if (estimated && o && o.tuitionIn != null) return { tuition: o.tuitionIn, coa: o.coa, label: "in-state", official: true };
       const tuition = u.tuitionIn ?? u.tuition;
       const coa = u.coa ?? (u.coaOut != null ? u.coaOut - ((u.tuitionOut ?? 0) - (u.tuitionIn ?? 0)) : null);
-      return { tuition, coa, label: "in-state" };
+      return { tuition, coa, label: "in-state", approx: estimated };
     }
-    if (u.tuitionOut != null) return { tuition: u.tuitionOut, coa: u.coaOut, label: "out-of-state" };
+    if (estimated) {
+      if (o && o.tuitionOut != null) return { tuition: o.tuitionOut, coa: officialCoaOut(o) ?? u.coaOut, label: "out-of-state", official: true, coaDerived: o.ownership === "public" };
+      return { tuition: u.tuitionOut, coa: u.coaOut, label: "out-of-state", approx: true };
+    }
     return { tuition: u.tuition, coa: u.coa, label: "resident rate; out-of-state not listed" };
+  }
+  const pctTxt = v => (v == null ? "—" : `${Math.round(v * 1000) / 10}%`);
+  function officialBlock(u) {
+    const o = officialOf(u); if (!o) return "";
+    const nb = o.netPriceByIncome;
+    const BANDS = [["0-30000", "$0–30k"], ["30001-48000", "$30–48k"], ["48001-75000", "$48–75k"], ["75001-110000", "$75–110k"], ["110001-plus", "$110k+"]];
+    return `<div class="official">
+      <p class="official-title small">📊 Official federal data <span class="muted">(College Scorecard)</span></p>
+      <div class="kv">
+        <div><span>Avg net price after aid</span><strong>${o.avgNetPrice != null ? money(o.avgNetPrice) : "—"}</strong></div>
+        <div><span>Graduation rate</span><strong>${pctTxt(o.gradRate)}</strong></div>
+        <div><span>Median earnings, 10 yrs</span><strong>${o.medianEarnings10yr != null ? money(o.medianEarnings10yr) : "—"}</strong></div>
+      </div>
+      ${nb ? `<details class="small"><summary>Net price by family income</summary>
+        <table class="np"><thead><tr><th scope="col">Family income</th><th scope="col">Avg net price / yr</th></tr></thead>
+        <tbody>${BANDS.map(([k, l]) => `<tr><td>${l}</td><td>${nb[k] != null ? money(nb[k]) : "—"}</td></tr>`).join("")}</tbody></table>
+        <p class="muted">What first-year students receiving federal aid actually paid after grants and scholarships${o.ownership === "public" ? " (in-state students at this public university)" : ""}. Use the net price calculator for your family.</p></details>` : ""}
+      <p class="muted small">Most recent federal data (often 1–2 years behind), retrieved ${esc(OFFICIAL.retrieved || "—")}. <a href="${esc(OFFICIAL.sourceUrl || "https://collegescorecard.ed.gov/")}" target="_blank" rel="noopener">Source ↗</a></p>
+    </div>`;
   }
   function scopedUniversities(scope) {
     if (scope === "national") return NAT.universities;
@@ -130,8 +159,12 @@
 
   function uniCard(u) {
     const LINK_LABEL = { cost: "Net price", aid: "Aid" };
-    const links = Object.entries(u.links).map(([k, v]) => `<a href="${v}" target="_blank" rel="noopener">${esc(LINK_LABEL[k] || k[0].toUpperCase() + k.slice(1))} ↗</a>`).join("");
+    const o = officialOf(u);
+    const allLinks = { ...u.links };
+    if (!allLinks.cost && o && o.priceCalculatorUrl) allLinks.cost = o.priceCalculatorUrl;
+    const links = Object.entries(allLinks).map(([k, v]) => `<a href="${esc(v)}" target="_blank" rel="noopener">${esc(LINK_LABEL[k] || k[0].toUpperCase() + k.slice(1))} ↗</a>`).join("");
     const c = costOf(u), resident = isResident(u), national = u.tuitionOut != null;
+    const acceptance = o && o.admissionRate != null ? `${pctTxt(o.admissionRate)} <small class="fed">(federal data)</small>` : esc(u.acceptance);
     const over = profile.budget !== "any" && c.tuition > +profile.budget;
     const autoLine = u.autoPct
       ? (resident ? `Top ${u.autoPct}% of ${esc(ST().name)} class${u.autoPct === 5 ? " (major not guaranteed)" : ""}` : "Not available to out-of-state applicants (holistic review)")
@@ -141,17 +174,18 @@
       <div class="badges">${fitBadge(u)}${over ? `<span class="badge warnb">Above budget: check aid</span>` : ""}</div>
       <p class="small rank-line">🏅 ${esc(u.rankLabel)}</p>
       <div class="kv">
-        <div><span>Tuition / yr (${c.label})</span><strong>${national ? "≈ " : ""}${money(c.tuition)}</strong></div>
-        <div><span>Total cost / yr</span><strong>${c.coa != null ? (national ? "≈ " : "") + money(c.coa) : "—"}</strong></div>
-        <div><span>Acceptance</span><strong>${esc(u.acceptance)}</strong></div>
+        <div><span>Tuition / yr (${c.label}${c.official ? ", official" : ""})</span><strong>${c.approx ? "≈ " : ""}${money(c.tuition)}</strong></div>
+        <div><span>Total cost / yr</span><strong>${c.coa != null ? (c.approx || c.coaDerived ? "≈ " : "") + money(c.coa) : "—"}</strong></div>
+        <div><span>Acceptance</span><strong>${acceptance}</strong></div>
       </div>
-      ${u.costNote ? `<p class="small cost-note">💲 ${esc(u.costNote)}</p>` : ""}
+      ${u.costNote && !c.official ? `<p class="small cost-note">💲 ${esc(u.costNote)}</p>` : ""}
       <p class="small"><strong>Automatic admission:</strong> ${autoLine}</p>
       <p class="small"><strong>Known for:</strong> ${esc(u.notable)}</p>
       <p class="small"><strong>Aid:</strong> ${esc(u.aid)}</p>
       <div class="tags">${u.areas.map(a => `<span class="tag">${esc(AREAS[a])}</span>`).join("")}</div>
+      ${officialBlock(u)}
       <div class="links">${links}</div>
-      ${national ? `<p class="muted small asof">Figures ≈ ${esc(NAT.asOf)} published costs. Use the net price calculator for your family's real cost.</p>` : ""}
+      ${national && !c.official ? `<p class="muted small asof">Figures ≈ ${esc(NAT.asOf)} published costs. Use the net price calculator for your family's real cost.</p>` : ""}
     </article>`;
   }
 
@@ -671,7 +705,7 @@
   function uniMini(u) {
     const c = costOf(u), f = fitFor(u, profile.rank);
     return `<li><a href="${u.links.admissions || u.links.home}" target="_blank" rel="noopener"><strong>${esc(u.name)}</strong></a>
-      ${isResident(u) && u.region === profile.region ? "📍" : ""}<span class="muted small"> · ${c.label === "out-of-state" ? "≈ " : ""}${money(c.tuition)}/yr${c.label === "out-of-state" ? " out-of-state" : ""}${f ? ` · ${TIER[f.tier]}` : ""}${f && f.auto ? " · auto-admit ✓" : ""}</span></li>`;
+      ${isResident(u) && u.region === profile.region ? "📍" : ""}<span class="muted small"> · ${c.approx ? "≈ " : ""}${money(c.tuition)}/yr${c.label === "out-of-state" ? " out-of-state" : ""}${f ? ` · ${TIER[f.tier]}` : ""}${f && f.auto ? " · auto-admit ✓" : ""}</span></li>`;
   }
 
   /* ---------------- Opportunities ---------------- */

@@ -339,3 +339,13 @@ textarea { font: inherit; padding: 9px 10px; border: 1px solid var(--border); bo
 .uni-out { border-top: 3px solid var(--accent); }
 .cost-note { color: var(--muted); }
 .asof { margin: 8px 0 0; }
+
+/* Official federal data (spec 004) */
+.official { border-top: 1px dashed var(--border); margin-top: 10px; padding-top: 8px; }
+.official-title { margin: 0; font-weight: 700; }
+.official .kv { margin: 8px 0; }
+.np { border-collapse: collapse; margin: 8px 0; width: 100%; max-width: 360px; font-size: .9rem; }
+.np th, .np td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--border); }
+.np td:last-child, .np th:last-child { text-align: right; }
+details summary { cursor: pointer; font-weight: 600; }
+.kv .fed { font-weight: 500; color: var(--muted); font-size: .78rem; }
