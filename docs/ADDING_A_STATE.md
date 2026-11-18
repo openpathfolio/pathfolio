@@ -38,6 +38,10 @@ Add a script tag in `index.html` next to the Texas one:
 ## 3. Turn it on in the picker
 In `assets/data/common/registry.js`, set `available: true` for the state in `STATE_LIST`.
 
+## 3b. Residency and the national list
+- Each university in your module automatically gets `state: "<CODE>"`. Costs and automatic-admission rules then apply only to residents of that state (`costOf()` / `fitFor()` in `app.js`).
+- Some universities in your state may already be in `assets/data/national.js` (e.g., UC Berkeley when adding California), where families from other states see them with out-of-state costs. **Leave them there for now**, and don't reuse their `id` in your module (CI rejects duplicate ids). How state modules and the national list combine, so each family sees each school once with the right cost, is tracked in the data-model issue #13.
+
 ## 4. Optional: local employers
 In `assets/data/common/paths.js`, add the state to each path's `employers`, e.g. `employers: { TX: "...", CA: "..." }`. If a state is missing, the first listed state's employers are shown.
 

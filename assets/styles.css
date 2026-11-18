@@ -333,3 +333,9 @@ textarea { font: inherit; padding: 9px 10px; border: 1px solid var(--border); bo
   body[data-print="resume"] .resume .muted { color: #444; }
   @page { margin: 0.5in; }
 }
+
+/* National tier (spec 003) */
+.oos { color: var(--accent); font-weight: 700; }
+.uni-out { border-top: 3px solid var(--accent); }
+.cost-note { color: var(--muted); }
+.asof { margin: 8px 0 0; }

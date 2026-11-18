@@ -51,7 +51,7 @@ The goal is "track everything → easily create the application".
   - Midwest Student Exchange
   - SREB Academic Common Market (Southern states)
 - **Rules apply only to residents.** Texas's top-10% rule should not show for a California student browsing Texas schools.
-- **A national tier** of highly selective private and flagship universities that families in every state consider (MIT, Stanford, Georgia Tech, Purdue, UIUC, Michigan…).
+- **A national tier** of highly selective private and flagship universities that families in every state consider (MIT, Stanford, Georgia Tech, Purdue, UIUC, Michigan…). ✅ Done in spec `specs/003-national-tier/` (#16), with residency-aware costs; the full home vs. explore-state profile remains in #13.
 - **Opportunities are already state-aware** (`states: ["US"]` or a state code); no change needed.
 
 ### 2.2 Automated baseline from official data · M

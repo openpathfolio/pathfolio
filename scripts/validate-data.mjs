@@ -25,7 +25,7 @@ const load = rel => {
 };
 const stateFiles = readdirSync(join(ROOT, "assets/data/states")).filter(f => f.endsWith(".js")).sort();
 ["assets/data/common/registry.js", "assets/data/common/paths.js", "assets/data/common/content.js",
-  ...stateFiles.map(f => `assets/data/states/${f}`)].forEach(load);
+  ...stateFiles.map(f => `assets/data/states/${f}`), "assets/data/national.js"].forEach(load);
 /* `const` bindings in scripts are not properties of the context, so read them by name */
 const get = name => { try { return vm.runInContext(`typeof ${name} === "undefined" ? undefined : ${name}`, ctx); } catch { return undefined; } };
 const STATES = get("STATES"), STATE_LIST = get("STATE_LIST"), AREAS = get("AREAS"), PATHS = get("PATHS"),
@@ -105,6 +105,39 @@ for (const [code, st] of Object.entries(STATES)) {
     }));
 }
 
+/* ---------- National tier (spec 003) ---------- */
+const NATIONAL = get("NATIONAL");
+if (!NATIONAL) err("national.js", "NATIONAL is not defined");
+else {
+  const w = "national.js";
+  const regions = new Set(NATIONAL.regions || []);
+  if (!isStr(NATIONAL.asOf)) err(w, "asOf is required (e.g. \"2025–26\")");
+  if (!regions.size) err(w, "regions must be a non-empty array");
+  const list = NATIONAL.universities || [];
+  if (list.length < 20 || list.length > 40) err(w, `expected 20–40 universities, found ${list.length}`);
+  const nids = new Set();
+  list.forEach((u, i) => {
+    const uw = `${w} universities[${u.id || i}]`;
+    if (!/^[a-z0-9-]+$/.test(u.id || "")) err(uw, "id must be a lowercase slug");
+    if (nids.has(u.id)) err(uw, "duplicate id"); nids.add(u.id);
+    for (const st of Object.values(STATES)) if (st.universities.some(x => x.id === u.id)) err(uw, `id also used by states/${st.code.toLowerCase()}.js`);
+    if (!/^[A-Z]{2}$/.test(u.state || "")) err(uw, "state must be a 2-letter code");
+    ["name", "city", "rankLabel", "acceptance", "notable", "aid"].forEach(k => { if (!isStr(u[k])) err(uw, `"${k}" is required text`); });
+    if (!regions.has(u.region)) err(uw, `region "${u.region}" is not in NATIONAL.regions`);
+    if (!TYPES.has(u.type)) err(uw, "type must be Public or Private");
+    if (!SEL.has(u.sel)) err(uw, `sel must be one of ${[...SEL].join(", ")}`);
+    ["rankSort", "tuitionIn", "tuitionOut", "coaOut"].forEach(k => { if (!isNum(u[k])) err(uw, `"${k}" must be a non-negative number`); });
+    if (u.tuitionIn > u.tuitionOut) err(uw, "tuitionIn is greater than tuitionOut");
+    if (u.tuitionOut > u.coaOut) err(uw, "tuitionOut is greater than coaOut");
+    if (u.costNote !== undefined && !isStr(u.costNote)) err(uw, "costNote must be text");
+    if ("ivy" in u && u.ivy !== true) err(uw, "ivy must be true when present");
+    if ("autoPct" in u) err(uw, "national universities must not set autoPct (state rules apply only via state modules)");
+    if (!Array.isArray(u.areas) || !u.areas.length) err(uw, "areas must be a non-empty array");
+    (u.areas || []).forEach(a => { if (!AREA_KEYS.has(a)) err(uw, `unknown area "${a}"`); });
+    ["home", "admissions", "cost"].forEach(k => { if (!isHttps((u.links || {})[k])) err(uw, `links.${k} must be an https URL`); });
+  });
+}
+
 /* ---------- Career paths ---------- */
 const pathIds = new Set();
 PATHS.forEach((p, i) => {
@@ -157,5 +190,5 @@ for (const scope of scopes) {
 finish();
 function finish() {
   if (errors.length) { console.error(`✖ ${errors.length} data problem(s):\n  ` + errors.join("\n  ")); process.exit(1); }
-  console.log(`✓ Data valid: ${Object.keys(STATES || {}).length} state(s), ${(PATHS || []).length} career paths, targets for ${scopes.join(", ")}`);
+  console.log(`✓ Data valid: ${Object.keys(STATES || {}).length} state(s), ${(get("NATIONAL") || { universities: [] }).universities.length} national universities, ${(PATHS || []).length} career paths, targets for ${scopes.join(", ")}`);
 }
