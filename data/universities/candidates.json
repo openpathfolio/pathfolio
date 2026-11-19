@@ -1,4 +1,278 @@
 {
-  "national": [],
-  "states": {}
+  "national": [
+    {
+      "admissionRate": 0.0448,
+      "city": "Chicago",
+      "name": "University of Chicago",
+      "size": 7569,
+      "state": "IL",
+      "tuitionOut": 73962,
+      "unitid": 144050,
+      "url": "www.uchicago.edu/"
+    },
+    {
+      "admissionRate": 0.0709,
+      "city": "Waterville",
+      "name": "Colby College",
+      "size": 2407,
+      "state": "ME",
+      "tuitionOut": 72910,
+      "unitid": 161086,
+      "url": "www.colby.edu/"
+    },
+    {
+      "admissionRate": 0.0709,
+      "city": "Claremont",
+      "name": "Pomona College",
+      "size": 1666,
+      "state": "CA",
+      "tuitionOut": 68670,
+      "unitid": 121345,
+      "url": "www.pomona.edu/"
+    },
+    {
+      "admissionRate": 0.0713,
+      "city": "Brunswick",
+      "name": "Bowdoin College",
+      "size": 1873,
+      "state": "ME",
+      "tuitionOut": 71740,
+      "unitid": 161004,
+      "url": "https://www.bowdoin.edu/"
+    },
+    {
+      "admissionRate": 0.0746,
+      "city": "Swarthmore",
+      "name": "Swarthmore College",
+      "size": 1613,
+      "state": "PA",
+      "tuitionOut": 69226,
+      "unitid": 216287,
+      "url": "www.swarthmore.edu/"
+    },
+    {
+      "admissionRate": 0.0825,
+      "city": "Williamstown",
+      "name": "Williams College",
+      "size": 2076,
+      "state": "MA",
+      "tuitionOut": 72510,
+      "unitid": 168342,
+      "url": "https://www.williams.edu/"
+    },
+    {
+      "admissionRate": 0.0884,
+      "city": "New York",
+      "name": "Barnard College",
+      "size": 3264,
+      "state": "NY",
+      "tuitionOut": 73033,
+      "unitid": 189097,
+      "url": "www.barnard.edu/"
+    },
+    {
+      "admissionRate": 0.0901,
+      "city": "Amherst",
+      "name": "Amherst College",
+      "size": 1911,
+      "state": "MA",
+      "tuitionOut": 73830,
+      "unitid": 164465,
+      "url": "www.amherst.edu/"
+    },
+    {
+      "admissionRate": 0.0923,
+      "city": "New York",
+      "name": "New York University",
+      "size": 28663,
+      "state": "NY",
+      "tuitionOut": 65622,
+      "unitid": 193900,
+      "url": "https://www.nyu.edu/"
+    },
+    {
+      "admissionRate": 0.0927,
+      "city": "Annapolis",
+      "name": "United States Naval Academy",
+      "size": 4474,
+      "state": "MD",
+      "tuitionOut": 0,
+      "unitid": 164155,
+      "url": "www.usna.edu/"
+    },
+    {
+      "admissionRate": 0.0981,
+      "city": "Los Angeles",
+      "name": "University of Southern California",
+      "size": 20443,
+      "state": "CA",
+      "tuitionOut": 75162,
+      "unitid": 123961,
+      "url": "www.usc.edu/"
+    },
+    {
+      "admissionRate": 0.1,
+      "city": "Irvine",
+      "name": "Stanbridge University",
+      "size": 2643,
+      "state": "CA",
+      "tuitionOut": null,
+      "unitid": 446561,
+      "url": "www.stanbridge.edu/"
+    },
+    {
+      "admissionRate": 0.1065,
+      "city": "Atlanta",
+      "name": "Emory University",
+      "size": 7298,
+      "state": "GA",
+      "tuitionOut": 68056,
+      "unitid": 139658,
+      "url": "www.emory.edu/"
+    },
+    {
+      "admissionRate": 0.1075,
+      "city": "Middlebury",
+      "name": "Middlebury College",
+      "size": 2738,
+      "state": "VT",
+      "tuitionOut": 70640,
+      "unitid": 230959,
+      "url": "https://www.middlebury.edu/college/"
+    },
+    {
+      "admissionRate": 0.1111,
+      "city": "Boston",
+      "name": "Boston University",
+      "size": 18248,
+      "state": "MA",
+      "tuitionOut": 71372,
+      "unitid": 164988,
+      "url": "www.bu.edu/"
+    }
+  ],
+  "states": {
+    "TX": [
+      {
+        "admissionRate": 0.8996,
+        "city": "Houston",
+        "name": "University of Houston-Downtown",
+        "size": 12555,
+        "state": "TX",
+        "tuitionOut": 17428,
+        "unitid": 225432,
+        "url": "www.uhd.edu/"
+      },
+      {
+        "admissionRate": 0.9224,
+        "city": "Commerce",
+        "name": "East Texas A&M University",
+        "size": 9912,
+        "state": "TX",
+        "tuitionOut": 22176,
+        "unitid": 224554,
+        "url": "www.etamu.edu/"
+      },
+      {
+        "admissionRate": 0.8858,
+        "city": "Corpus Christi",
+        "name": "Texas A & M University-Corpus Christi",
+        "size": 8034,
+        "state": "TX",
+        "tuitionOut": 20673,
+        "unitid": 224147,
+        "url": "https://www.tamucc.edu/"
+      },
+      {
+        "admissionRate": 0.9402,
+        "city": "Tyler",
+        "name": "The University of Texas at Tyler",
+        "size": 7440,
+        "state": "TX",
+        "tuitionOut": 25184,
+        "unitid": 228802,
+        "url": "https://www.uttyler.edu/"
+      },
+      {
+        "admissionRate": 0.9868,
+        "city": "Canyon",
+        "name": "West Texas A & M University",
+        "size": 6917,
+        "state": "TX",
+        "tuitionOut": 24829,
+        "unitid": 229814,
+        "url": "https://www.wtamu.edu/"
+      },
+      {
+        "admissionRate": 0.4437,
+        "city": "Laredo",
+        "name": "Texas A & M International University",
+        "size": 6667,
+        "state": "TX",
+        "tuitionOut": 19334,
+        "unitid": 226152,
+        "url": "www.tamiu.edu/"
+      },
+      {
+        "admissionRate": 0.928,
+        "city": "San Antonio",
+        "name": "Texas A&M University-San Antonio",
+        "size": 6599,
+        "state": "TX",
+        "tuitionOut": 23376,
+        "unitid": 459949,
+        "url": "www.tamusa.edu/"
+      },
+      {
+        "admissionRate": 0.9052,
+        "city": "Houston",
+        "name": "University of Houston-Clear Lake",
+        "size": 6078,
+        "state": "TX",
+        "tuitionOut": 21114,
+        "unitid": 225414,
+        "url": "www.uhcl.edu/"
+      },
+      {
+        "admissionRate": 0.8301,
+        "city": "San Angelo",
+        "name": "Angelo State University",
+        "size": 5643,
+        "state": "TX",
+        "tuitionOut": 18180,
+        "unitid": 222831,
+        "url": "www.angelo.edu/"
+      },
+      {
+        "admissionRate": 0.9092,
+        "city": "Kingsville",
+        "name": "Texas A&M University-Kingsville",
+        "size": 4748,
+        "state": "TX",
+        "tuitionOut": 25806,
+        "unitid": 228705,
+        "url": "https://www.tamuk.edu/"
+      },
+      {
+        "admissionRate": 0.9814,
+        "city": "San Antonio",
+        "name": "University of the Incarnate Word",
+        "size": 4440,
+        "state": "TX",
+        "tuitionOut": 38650,
+        "unitid": 225627,
+        "url": "https://www.uiw.edu/"
+      },
+      {
+        "admissionRate": 0.9352,
+        "city": "Wichita Falls",
+        "name": "Midwestern State University",
+        "size": 4087,
+        "state": "TX",
+        "tuitionOut": 22730,
+        "unitid": 226833,
+        "url": "www.msutexas.edu/"
+      }
+    ]
+  }
 }
