@@ -18,7 +18,7 @@ const OPPORTUNITIES = [
   "cost": "stipend",
   "costNote": "Free, with stipend, room and board",
   "deadline": null,
-  "deadlineNote": "Usually mid-February",
+  "deadlineNote": "2027 program runs June 20 to August 5, 2027; application deadline not shown on the main page (usually mid-February)",
   "areas": [
    "sci",
    "eng",
@@ -30,8 +30,11 @@ const OPPORTUNITIES = [
   "url": "https://www.depts.ttu.edu/clarkscholars/",
   "description": "Highly selective 7-week summer research program for rising high school seniors (and recent graduates), pairing students with Texas Tech faculty in many fields.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-23",
+  "source": "curated",
+  "cycle": "Summer 2027",
+  "status": "unknown",
+  "evidenceUrl": "https://www.depts.ttu.edu/clarkscholars/"
  },
  {
   "id": "congressional-app-challenge",
@@ -91,15 +94,50 @@ const OPPORTUNITIES = [
   "cost": "fee",
   "costNote": "Team registration fee (waivers available)",
   "deadline": null,
-  "deadlineNote": "Team registration usually closes in early fall",
+  "deadlineNote": "CyberPatriot 19: Round 1 Oct 22-25, 2026; Round 2 Nov 12-15; State Round Dec 10-13; Semifinals Jan 21-23, 2027; National Finals Mar 12-16, 2027. Registration deadline not published on schedule page; dates may change",
   "areas": [
    "cs"
   ],
   "url": "https://www.uscyberpatriot.org",
   "description": "National youth cyber-defense competition for school teams.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-23",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "unknown",
+  "evidenceUrl": "https://www.uscyberpatriot.org/competition-schedule/"
+ },
+ {
+  "id": "davidson-fellows-scholarship",
+  "title": "Davidson Fellows Scholarship",
+  "org": "Davidson Institute",
+  "type": "scholarship",
+  "states": [
+   "US"
+  ],
+  "location": "Online application; awards in Washington, DC",
+  "grades": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "cost": "free",
+  "deadline": null,
+  "cycle": "2027",
+  "deadlineNote": "2027 application is open; deadline not stated on the main page. See How to Apply or email DavidsonFellows@DavidsonGifted.org. Applicants must be 18 or younger at the deadline.",
+  "areas": [
+   "eng",
+   "cs",
+   "health"
+  ],
+  "url": "https://www.davidsongifted.org/fellows-scholarship/",
+  "description": "Scholarships of $100,000, $50,000 and $25,000 for young people 18 or younger who completed a significant piece of work in Science, Technology, Engineering, Mathematics, Literature, Music, Philosophy or Outside the Box.",
+  "status": "open",
+  "recurring": true,
+  "lastVerified": "2026-11-23",
+  "source": "web-research",
+  "evidenceUrl": "https://www.davidsongifted.org/fellows-scholarship/"
  },
  {
   "id": "eaa-chapter-35-air-academy-scholarship",
@@ -200,6 +238,40 @@ const OPPORTUNITIES = [
   "source": "curated"
  },
  {
+  "id": "ut-austin-high-school-research-academy",
+  "title": "High School Research Academy (HSRA)",
+  "org": "College of Natural Sciences, UT Austin",
+  "type": "research",
+  "states": [
+   "TX"
+  ],
+  "location": "Austin, TX",
+  "grades": [
+   10,
+   11,
+   12
+  ],
+  "minAge": 15,
+  "cost": "fee",
+  "costNote": "$4,500 tuition; limited need-based scholarships include free tuition and a stipend",
+  "deadline": null,
+  "opens": null,
+  "cycle": "Summer 2027",
+  "deadlineNote": "Applications open mid-January 2027; deadline in March 2027 (exact date not published)",
+  "areas": [
+   "sci",
+   "eng",
+   "cs"
+  ],
+  "url": "https://fri.cns.utexas.edu/community-outreach/high-school-research-academy",
+  "description": "Five-week, in-person research placement in a UT Austin lab, June 7 to July 14, 2027. Must be 15+ by June 1, 2027. Texas residents prioritized; rising juniors and seniors preferred. Housing and transportation not provided.",
+  "recurring": true,
+  "lastVerified": "2026-11-23",
+  "evidenceUrl": "https://fri.cns.utexas.edu/community-outreach/high-school-research-academy",
+  "status": "upcoming",
+  "source": "web-research"
+ },
+ {
   "id": "hosa",
   "title": "HOSA: Future Health Professionals",
   "org": "HOSA",
@@ -282,7 +354,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "No publication fee",
   "deadline": null,
-  "deadlineNote": "Rolling submissions",
+  "deadlineNote": "Submission deadlines not shown on the home page; see the submission guidelines",
   "areas": [
    "sci",
    "health",
@@ -294,8 +366,11 @@ const OPPORTUNITIES = [
   "url": "https://emerginginvestigators.org",
   "description": "Peer-reviewed science journal for middle- and high-school research, mentored by graduate students.",
   "recurring": true,
-  "lastVerified": null,
-  "source": "curated"
+  "lastVerified": "2026-11-23",
+  "source": "curated",
+  "cycle": "2026-27",
+  "status": "unknown",
+  "evidenceUrl": "https://emerginginvestigators.org"
  },
  {
   "id": "mit-bwsi",
@@ -327,6 +402,35 @@ const OPPORTUNITIES = [
   "cycle": "Summer 2027",
   "status": "unknown",
   "evidenceUrl": "https://beaverworks.ll.mit.edu/CMS/bw/bwsi"
+ },
+ {
+  "id": "ut-austin-mite-engineering-camp",
+  "title": "My Introduction to Engineering (MITE)",
+  "org": "Cockrell School of Engineering, UT Austin",
+  "type": "summer-program",
+  "states": [
+   "US"
+  ],
+  "location": "Austin, TX",
+  "grades": [
+   11
+  ],
+  "cost": "fee",
+  "costNote": "$500 after acceptance; full or partial scholarships available through the application",
+  "deadline": null,
+  "opens": "2026-12-01",
+  "cycle": "Summer 2027",
+  "deadlineNote": "Deadline not published yet; applications open Dec 1",
+  "areas": [
+   "eng"
+  ],
+  "url": "https://cockrell.utexas.edu/connect/k-12-outreach/mite/application",
+  "description": "Five-day summer engineering camp at UT Austin for current high school juniors. Requires Algebra II (or equivalent) with a C or better; precalculus is not required. Scholarships cover full or partial cost.",
+  "recurring": true,
+  "lastVerified": "2026-11-23",
+  "evidenceUrl": "https://cockrell.utexas.edu/connect/k-12-outreach/mite/application",
+  "status": "upcoming",
+  "source": "web-research"
  },
  {
   "id": "nasa-ostem-internships",
@@ -459,6 +563,36 @@ const OPPORTUNITIES = [
   "source": "web-research"
  },
  {
+  "id": "nih-summer-internship-program",
+  "title": "NIH Summer Internship Program (SIP)",
+  "org": "National Institutes of Health",
+  "type": "internship",
+  "states": [
+   "US"
+  ],
+  "location": "Bethesda, MD and other NIH campuses",
+  "grades": [
+   12
+  ],
+  "cost": "stipend",
+  "costNote": "Paid stipend (amount on NIH stipends page). NIH does not provide housing; proof of health insurance required.",
+  "deadline": "2027-01-26",
+  "cycle": "Summer 2027",
+  "deadlineNote": "Applications close Jan 26, 2027, 12 p.m. ET; reference letters due Feb 2, 2027. Seniors must be enrolled at least half-time, and 18 by Sept 30, 2027 (17-year-old seniors near an NIH campus may qualify). U.S. citizen or permanent resident.",
+  "areas": [
+   "health",
+   "cs",
+   "eng"
+  ],
+  "url": "https://www.training.nih.gov/programs/sip",
+  "description": "Full-time, in-person summer research internship in an NIH lab between May 10 and Aug 31, 2027. Open to graduating high-school seniors who meet the age and residency rules; interns must graduate before starting.",
+  "status": "upcoming",
+  "recurring": true,
+  "lastVerified": "2026-11-23",
+  "source": "web-research",
+  "evidenceUrl": "https://www.training.nih.gov/programs/sip"
+ },
+ {
   "id": "picoctf",
   "title": "picoCTF",
   "org": "Carnegie Mellon University",
@@ -492,6 +626,39 @@ const OPPORTUNITIES = [
   "cycle": "2026-27",
   "status": "unknown",
   "evidenceUrl": "https://picoctf.org"
+ },
+ {
+  "id": "regeneron-isef",
+  "title": "Regeneron International Science and Engineering Fair (ISEF)",
+  "org": "Society for Science",
+  "type": "competition",
+  "states": [
+   "US"
+  ],
+  "location": "Los Angeles, CA",
+  "grades": [
+   9,
+   10,
+   11,
+   12
+  ],
+  "cost": "varies",
+  "costNote": "Entry is by winning a Society-affiliated local, regional or state fair; fair fees vary. Check each fair for fee waivers.",
+  "deadline": null,
+  "cycle": "2027",
+  "deadlineNote": "Fair deadlines vary; find an affiliated fair at findafair.societyforscience.org. Finals are in Los Angeles in May 2027 (exact dates not listed on page).",
+  "areas": [
+   "eng",
+   "cs",
+   "health"
+  ],
+  "url": "https://www.societyforscience.org/isef/",
+  "description": "The world's largest pre-college science and engineering competition. Students qualify by winning an affiliated science fair, then present research at the finals for awards and scholarships.",
+  "status": "upcoming",
+  "recurring": true,
+  "lastVerified": "2026-11-23",
+  "source": "web-research",
+  "evidenceUrl": "https://www.societyforscience.org/isef/"
  },
  {
   "id": "regeneron-sts",
@@ -674,7 +841,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "No cost for selected students",
   "cycle": "2026-27",
-  "deadlineNote": "2026 application window July 1 - Sept 16, 2026 has closed; next window not yet announced",
+  "deadlineNote": "2026 window July 1 - Sept 16, 2026 has closed; next window not yet announced",
   "status": "closed",
   "areas": [
    "aviation",
@@ -687,7 +854,7 @@ const OPPORTUNITIES = [
    "TX"
   ],
   "recurring": true,
-  "lastVerified": "2026-11-16",
+  "lastVerified": "2026-11-23",
   "source": "web-research",
   "evidenceUrl": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience",
   "deadline": "2026-09-16",
@@ -714,7 +881,7 @@ const OPPORTUNITIES = [
   "cost": "free",
   "costNote": "Through school/regional fairs",
   "deadline": null,
-  "deadlineNote": "2027 fair is April 2-3, 2027; registration deadline not confirmed on the home page",
+  "deadlineNote": "2027 fair is April 2-3, 2027; students must qualify at a regional fair first. No registration deadline published on the page",
   "areas": [
    "sci",
    "eng",
@@ -726,7 +893,7 @@ const OPPORTUNITIES = [
   "url": "https://txsef.tamu.edu/",
   "description": "Texas' statewide science fair. Top high-school projects advance to Regeneron ISEF.",
   "recurring": true,
-  "lastVerified": "2026-11-16",
+  "lastVerified": "2026-11-23",
   "source": "curated",
   "cycle": "2026-27",
   "status": "unknown",
@@ -821,10 +988,11 @@ const OPPORTUNITIES = [
   "url": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
   "description": "Eight-week, non-residential biomedical research program in a UT Southwestern lab with a faculty host. For North Texas juniors, 16+ by June 1, with no prior research experience. Students present results at the end.",
   "recurring": true,
-  "lastVerified": "2026-11-16",
+  "lastVerified": "2026-11-23",
   "evidenceUrl": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
   "status": "open",
-  "source": "web-research"
+  "source": "web-research",
+  "deadlineNote": "Applications open Nov 16, 2026 and close Jan 22, 2027"
  },
  {
   "id": "wharton-investment",
