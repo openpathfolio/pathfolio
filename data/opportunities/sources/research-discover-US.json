@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16",
+  "generatedAt": "2026-11-23",
   "scope": "US",
   "job": "discover",
-  "topic": "creative-hands (Arts, design, media, agriculture, environment, aviation & skilled trades)",
+  "topic": "stem (Engineering, computing, math & physical sciences)",
   "updates": [],
   "additions": [
     {
@@ -201,6 +201,101 @@
       "lastVerified": "2026-11-16",
       "evidenceUrl": "https://www.nationalflightacademy.com/",
       "source": "web-research"
+    },
+    {
+      "id": "nih-summer-internship-program",
+      "title": "NIH Summer Internship Program (SIP)",
+      "org": "National Institutes of Health",
+      "type": "internship",
+      "states": [
+        "US"
+      ],
+      "location": "Bethesda, MD and other NIH campuses",
+      "grades": [
+        12
+      ],
+      "cost": "stipend",
+      "costNote": "Paid stipend (amount on NIH stipends page). NIH does not provide housing; proof of health insurance required.",
+      "deadline": "2027-01-26",
+      "cycle": "Summer 2027",
+      "deadlineNote": "Applications close Jan 26, 2027, 12 p.m. ET; reference letters due Feb 2, 2027. Seniors must be enrolled at least half-time, and 18 by Sept 30, 2027 (17-year-old seniors near an NIH campus may qualify). U.S. citizen or permanent resident.",
+      "areas": [
+        "health",
+        "cs",
+        "eng"
+      ],
+      "url": "https://www.training.nih.gov/programs/sip",
+      "description": "Full-time, in-person summer research internship in an NIH lab between May 10 and Aug 31, 2027. Open to graduating high-school seniors who meet the age and residency rules; interns must graduate before starting.",
+      "status": "upcoming",
+      "recurring": true,
+      "lastVerified": "2026-11-23",
+      "source": "web-research",
+      "evidenceUrl": "https://www.training.nih.gov/programs/sip"
+    },
+    {
+      "id": "regeneron-isef",
+      "title": "Regeneron International Science and Engineering Fair (ISEF)",
+      "org": "Society for Science",
+      "type": "competition",
+      "states": [
+        "US"
+      ],
+      "location": "Los Angeles, CA",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "cost": "varies",
+      "costNote": "Entry is by winning a Society-affiliated local, regional or state fair; fair fees vary. Check each fair for fee waivers.",
+      "deadline": null,
+      "cycle": "2027",
+      "deadlineNote": "Fair deadlines vary; find an affiliated fair at findafair.societyforscience.org. Finals are in Los Angeles in May 2027 (exact dates not listed on page).",
+      "areas": [
+        "eng",
+        "cs",
+        "health"
+      ],
+      "url": "https://www.societyforscience.org/isef/",
+      "description": "The world's largest pre-college science and engineering competition. Students qualify by winning an affiliated science fair, then present research at the finals for awards and scholarships.",
+      "status": "upcoming",
+      "recurring": true,
+      "lastVerified": "2026-11-23",
+      "source": "web-research",
+      "evidenceUrl": "https://www.societyforscience.org/isef/"
+    },
+    {
+      "id": "davidson-fellows-scholarship",
+      "title": "Davidson Fellows Scholarship",
+      "org": "Davidson Institute",
+      "type": "scholarship",
+      "states": [
+        "US"
+      ],
+      "location": "Online application; awards in Washington, DC",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "cost": "free",
+      "deadline": null,
+      "cycle": "2027",
+      "deadlineNote": "2027 application is open; deadline not stated on the main page. See How to Apply or email DavidsonFellows@DavidsonGifted.org. Applicants must be 18 or younger at the deadline.",
+      "areas": [
+        "eng",
+        "cs",
+        "health"
+      ],
+      "url": "https://www.davidsongifted.org/fellows-scholarship/",
+      "description": "Scholarships of $100,000, $50,000 and $25,000 for young people 18 or younger who completed a significant piece of work in Science, Technology, Engineering, Mathematics, Literature, Music, Philosophy or Outside the Box.",
+      "status": "open",
+      "recurring": true,
+      "lastVerified": "2026-11-23",
+      "source": "web-research",
+      "evidenceUrl": "https://www.davidsongifted.org/fellows-scholarship/"
     }
   ],
   "targetSuggestions": [
@@ -227,6 +322,18 @@
       "url": "https://www.nationalflightacademy.com/",
       "kind": "summer-program",
       "note": "Aviation immersion program for grades 6-12 with registration and funding info."
+    },
+    {
+      "org": "National Institutes of Health",
+      "url": "https://www.training.nih.gov/programs/sip",
+      "kind": "internship",
+      "note": "Summer Internship Program; applications close late January each year."
+    },
+    {
+      "org": "Davidson Institute",
+      "url": "https://www.davidsongifted.org/fellows-scholarship/",
+      "kind": "scholarship",
+      "note": "Davidson Fellows; STEM categories, ages 18 and under."
     }
   ]
 }

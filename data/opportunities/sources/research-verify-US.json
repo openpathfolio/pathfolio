@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16",
+  "generatedAt": "2026-11-23",
   "scope": "US",
   "job": "verify",
   "updates": [
@@ -97,41 +97,53 @@
       "lastVerified": "2026-11-16",
       "deadlineNote": "Program still offered (1-3 months in summer); no 2027 dates published. Apply through partner conservation corps or local Forest offices.",
       "evidenceUrl": "https://www.fs.usda.gov/working-with-us/opportunities-for-young-people/youth-conservation-corps-opportunities"
+    },
+    {
+      "id": "clark-scholars",
+      "cycle": "Summer 2027",
+      "status": "unknown",
+      "lastVerified": "2026-11-23",
+      "deadlineNote": "2027 program runs June 20 to August 5, 2027; application deadline not shown on the main page (usually mid-February)",
+      "evidenceUrl": "https://www.depts.ttu.edu/clarkscholars/"
+    },
+    {
+      "id": "cyberpatriot",
+      "cycle": "2026-27",
+      "status": "unknown",
+      "lastVerified": "2026-11-23",
+      "deadlineNote": "CyberPatriot 19: Round 1 Oct 22-25, 2026; Round 2 Nov 12-15; State Round Dec 10-13; Semifinals Jan 21-23, 2027; National Finals Mar 12-16, 2027. Registration deadline not published on schedule page; dates may change",
+      "evidenceUrl": "https://www.uscyberpatriot.org/competition-schedule/"
+    },
+    {
+      "id": "jei",
+      "cycle": "2026-27",
+      "status": "unknown",
+      "lastVerified": "2026-11-23",
+      "deadlineNote": "Submission deadlines not shown on the home page; see the submission guidelines",
+      "evidenceUrl": "https://emerginginvestigators.org"
     }
   ],
   "additions": [],
   "skipped": [
     {
-      "id": "clark-scholars",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
-    },
-    {
-      "id": "cyberpatriot",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
-    },
-    {
       "id": "gencyber",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+      "reason": "official page redirect returned no content"
     },
     {
       "id": "hosa",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+      "reason": "not reached this run (topic focus: stem; limited budget)"
     },
     {
       "id": "john-locke-essay",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
-    },
-    {
-      "id": "jei",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+      "reason": "not reached this run (topic focus: stem; limited budget)"
     },
     {
       "id": "usaco",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+      "reason": "site returned HTTP 403 to fetch"
     },
     {
       "id": "wharton-investment",
-      "reason": "not reached this run (topic focus: creative-hands; limited budget)"
+      "reason": "not reached this run (topic focus: stem; limited budget)"
     }
   ]
 }

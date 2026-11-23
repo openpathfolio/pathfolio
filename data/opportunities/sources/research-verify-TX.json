@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16",
+  "generatedAt": "2026-11-23",
   "scope": "TX",
   "job": "verify",
   "updates": [
@@ -8,9 +8,9 @@
       "url": "https://txsef.tamu.edu/",
       "cycle": "2026-27",
       "status": "unknown",
-      "lastVerified": "2026-11-16",
-      "deadlineNote": "2027 fair is April 2-3, 2027; registration deadline not confirmed on the home page",
-      "evidenceUrl": "https://txsef.tamu.edu/"
+      "deadlineNote": "2027 fair is April 2-3, 2027; students must qualify at a regional fair first. No registration deadline published on the page",
+      "evidenceUrl": "https://txsef.tamu.edu/",
+      "lastVerified": "2026-11-23"
     },
     {
       "id": "eaa-chapter-35-air-academy-scholarship",
@@ -45,16 +45,34 @@
       "opens": "2026-07-01",
       "cycle": "2026-27",
       "status": "closed",
-      "lastVerified": "2026-11-16",
       "evidenceUrl": "https://nasa.gov/learning-resources/texas-aerospace-scholars/tas-junior-experience",
-      "deadlineNote": "2026 application window July 1 - Sept 16, 2026 has closed; next window not yet announced"
+      "deadlineNote": "2026 window July 1 - Sept 16, 2026 has closed; next window not yet announced",
+      "lastVerified": "2026-11-23"
+    },
+    {
+      "id": "utsw-stars-summer-research",
+      "opens": "2026-11-16",
+      "deadline": "2027-01-22",
+      "cycle": "Summer 2027",
+      "status": "open",
+      "evidenceUrl": "https://www.utsouthwestern.edu/education/programs/stars/programs/summer-research-opportunities.html",
+      "deadlineNote": "Applications open Nov 16, 2026 and close Jan 22, 2027",
+      "lastVerified": "2026-11-23"
     }
   ],
   "additions": [],
   "skipped": [
     {
-      "id": "utsw-stars-summer-research",
-      "reason": "outside creative-hands topic; not re-checked this run"
+      "id": "eaa-chapter-35-air-academy-scholarship",
+      "reason": "outside stem topic; kept 2026-11-16 check"
+    },
+    {
+      "id": "tamu-viz-summer-camp",
+      "reason": "outside stem topic; kept 2026-11-16 check"
+    },
+    {
+      "id": "txdot-aviation-art-contest",
+      "reason": "outside stem topic; kept 2026-11-16 check"
     }
   ]
 }

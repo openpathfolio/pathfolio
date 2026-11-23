@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16",
+  "generatedAt": "2026-11-23",
   "scope": "TX",
   "job": "discover",
-  "topic": "creative-hands",
+  "topic": "stem (Engineering, computing, math & physical sciences)",
   "updates": [],
   "additions": [
     {
@@ -157,6 +157,69 @@
       "lastVerified": "2026-11-16",
       "source": "web-research",
       "evidenceUrl": "https://pvfa.tamu.edu/academics/visualization-program/viz-camp"
+    },
+    {
+      "id": "ut-austin-mite-engineering-camp",
+      "title": "My Introduction to Engineering (MITE)",
+      "org": "Cockrell School of Engineering, UT Austin",
+      "type": "summer-program",
+      "states": [
+        "US"
+      ],
+      "location": "Austin, TX",
+      "grades": [
+        11
+      ],
+      "cost": "fee",
+      "costNote": "$500 after acceptance; full or partial scholarships available through the application",
+      "deadline": null,
+      "opens": "2026-12-01",
+      "cycle": "Summer 2027",
+      "deadlineNote": "Deadline not published yet; applications open Dec 1",
+      "areas": [
+        "eng"
+      ],
+      "url": "https://cockrell.utexas.edu/connect/k-12-outreach/mite/application",
+      "description": "Five-day summer engineering camp at UT Austin for current high school juniors. Requires Algebra II (or equivalent) with a C or better; precalculus is not required. Scholarships cover full or partial cost.",
+      "recurring": true,
+      "lastVerified": "2026-11-23",
+      "evidenceUrl": "https://cockrell.utexas.edu/connect/k-12-outreach/mite/application",
+      "status": "upcoming",
+      "source": "web-research"
+    },
+    {
+      "id": "ut-austin-high-school-research-academy",
+      "title": "High School Research Academy (HSRA)",
+      "org": "College of Natural Sciences, UT Austin",
+      "type": "research",
+      "states": [
+        "TX"
+      ],
+      "location": "Austin, TX",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "minAge": 15,
+      "cost": "fee",
+      "costNote": "$4,500 tuition; limited need-based scholarships include free tuition and a stipend",
+      "deadline": null,
+      "opens": null,
+      "cycle": "Summer 2027",
+      "deadlineNote": "Applications open mid-January 2027; deadline in March 2027 (exact date not published)",
+      "areas": [
+        "sci",
+        "eng",
+        "cs"
+      ],
+      "url": "https://fri.cns.utexas.edu/community-outreach/high-school-research-academy",
+      "description": "Five-week, in-person research placement in a UT Austin lab, June 7 to July 14, 2027. Must be 15+ by June 1, 2027. Texas residents prioritized; rising juniors and seniors preferred. Housing and transportation not provided.",
+      "recurring": true,
+      "lastVerified": "2026-11-23",
+      "evidenceUrl": "https://fri.cns.utexas.edu/community-outreach/high-school-research-academy",
+      "status": "upcoming",
+      "source": "web-research"
     }
   ],
   "targetSuggestions": [
@@ -177,6 +240,12 @@
       "url": "https://www.txdot.gov/about/programs/civil-rights/transportation-industry-workforce-development/connecting-career-pathways/summer-transportation-camps.html",
       "kind": "summer-program",
       "note": "Statewide summer transportation camps; dates not published, contact ccp@txdot.gov"
+    },
+    {
+      "org": "UT Dallas NanoTech Institute",
+      "url": "https://nanotech.utdallas.edu/for-students/nanoexplorers",
+      "kind": "research",
+      "note": "NanoExplorers 8-week summer research ($5,000, limited need-based scholarships); 2027 dates not yet posted"
     }
   ]
 }
